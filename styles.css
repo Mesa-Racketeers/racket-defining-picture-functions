@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.question {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 24;
+}
+
+.header {
+    background-color: #0000;
+    color: black;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 10px;
+}
+
+h2 {
+    font-family: sans-serif;
+}
+
+h3 {
+    font-family: sans-serif;
+}
+
+.footer {
+    font-size: 8px;
+    background-color: lightgray;
+    color: black;
+    padding: 5px;
+
+  }
+
+.column {
+    float: left;
+    padding: 15px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.sidemenu {
+    width: 25%;
+}
+
+.content {
+    width: 75%;
+}
+
+.sidemenu ul {
+    font-family: monospace;
+    text-align: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    position: fixed;
+
+}
+
+.sidemenu li a {
+    margin-bottom: 0;
+    display: block;
+    padding: 8px 16px;
+    background-color: #f1f1f1;
+    text-decoration: none;
+    color: #666;
+}
+
+
+/* Change the link color on hover */
+.sidemenu li a:hover {
+    background-color: lightgray;
+    color: white;
+}
+
+.sidemenu li a.active {
+    background-color: #ebebeb;
+    color: white;
+}
+
+
+code {
+  background-color: lightgray;
+  white-space: pre-wrap;
+}
+
+p {
+  font-family: sans-serif;
+}
+
+.block{
+  margin: 10px 0px 10px 0px;
+  background-color: lightgray;
+  display: block;
+}
+
+.smallPrint {
+  font-size: 6pt;
+}
+
+.try-it {
+  text-decoration: none;
+  font-family: monospace;
+  background-color: #f1f1f1;
+  margin-right: 80%;
+  padding: 2px;
+}
+
+ul {
+    font-family: sans-serif;
+}
+/* add question class */
