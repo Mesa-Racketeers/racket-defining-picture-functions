@@ -14,12 +14,11 @@
   <div class="column sidemenu">
     <ul>
       <li><a href="#Introduction">Introduction</a></li>
-      <li><a href="#Purpose" >Purpose</a></li>
-      <li><a href="#Signature" >signature</a></li>
-      <li><a href="#Text" >Text</a></li>
-      <li><a href="#Color" >Color</a></li>
-      <li><a href="#Editing" >Editing</a></li>
-      <li><a href="#Placement" >Placement</a></li>
+      <li><a href="#The Design Recipe">The Design Recipe</a></li>
+      <ul>
+        <li><a href="#Purpose">Purpose</a></li> <!-- working on making a nested menu for sub-sections -->
+      </ul>
+      <li><a href="#Practice">Practice</a></li>
     </ul>
   </div>
 
@@ -38,873 +37,161 @@
 
     <h2 id="Introduction"> Introduction</h2>
     <p>
-      At this point, we've learned most of what there is to know about graphics
-      in Dr. Racket. In case you missed it, the chapter on graphics can be found
-       here (link). In this chapter, we are going to incorporate what we learned
-        about graphics in the writing of functions that accept images as their
-        inputs and/or return images as their outputs.
-      <br>
-      <br>
-      We will be writing our functions using the How to Design Functions recipe,
-       which we will from now on refer to simply as "the recipe." If you have
-       never heard of or used the How to Design Functions recipe, don't worry.
-       We will be going over each step of the recipe in detail in this chapter.
-       <br>
-       <br>
-       You may be wondering why we need a recipe when designing a function in
-       the first place. We've probably all experienced the satisfying sensation
-       of cobbling together a function from bits and pieces of code found on the
-        internet, and then seeing the function work. While this haphazard
-        approach to programming may occasionally on smaller, unsophisticated
-        functions, in the long run, any project with this programming
-        "philosophy" at its core is sure to fail.
-        <br>
-        <br>
-        In the world of software development, projects may and probably will
-        require the coordinated cooperation of many people. For this reason, it
-        is important to clarify exactly what a program will be expected to do,
-        and what inputs and outputs it will take. It is for this reason that a
-        systematic recipe for writing functions is incredibly valuable.
-        <br>
-        <br>
-        What exactly does a recipe provide?
-        <br>
-        - Helps break large problems into smaller ones (divide-and-conquer)
-        <br>
-        - Requires you to understand and express exactly what inputs the
-        function will take, what it will do, and what it will output
-        <br>
-        <br>
-        Purpose Statement
-        <br>
-        The first step of writing any function is to clarify and express exactly
-         what the function will be expected to do. That is the idea behind
-         writing the purpose statement. You will find that, by forcing yourself
-         to put the problem you're trying to solve into words, your
-         understanding of the problem will automatically deepen. A good purpose
-         statement will succinctly explain what the function will accept as
-         inputs, what it will do, and what it will output, if anything.
-         <br>
-         <br>
-         As a simple example, let's write a function that takes a number and
-         returns that number cubed (to the power of 3).
-         <br>
-         For the purpose statement of this function, we could write the
-         following:
-         <code class="block">
-          ; Purpose: Returns the number that was input raised to the third power
-         </code>
-         A purpose statement should be fairly short, meaning about 1-2 lines of
-         comments. If you find yourself needing more than that, it may be a sign
-          that the function you're trying to write could be broken up into
-          smaller functions.
-          <br>
-          <br>
-          Signature
-          <br>
-          With the purpose clarified, its time to write the signature of our
-          function. The signature is simply a commented line that shows the name
-           of the function, followed by a list of the inputs to the function and
-            an arrow pointing to the o
-          <br>
-          <br>
-          Tests/Examples
-          <br>
-          The next step of the recipe is to create tests for the function that
-          we want to write. Often, testing is almost an afterthought to the
-          function-writing process. Testing is a tedious process, and because
-          the goal of testing is to identify errors, it doesn’t seem
-          particularly rewarding. For this reason, it is important to get into
-          the habit of writing tests for your function, before you write a
-          single line of code of the function itself. That way, testing will
-          never get pushed aside.
-          <br>
-          <br>
-          Another important reason to write test scenarios this early in the
-          process, is to define expectations early, and to avoid falling into
-          the trap of thinking that our function is “good enough” if it returns
-          a result that is mostly right. By creating test scenarios that specify
-           exactly what a function should output, it becomes clear whether a
-           function is correct or not.
-           <br>
-           <br>
-           To create tests in Dr. Racket, we normally use the check-expect
-           function. The check-expect function takes the function that you
-           expect to write with some test arguments included, as well as the
-           expected result that the function should output, given the inputs
-           provided. Remember, the number of inputs and the data types of the
-           inputs and output should match your signature. Let’s see how this
-           applies to our cubed function.
-           <code class="block">
-             ; Tests/Examples
-             (check-expect (cubed 3) 27)
-           </code>
-           As you can see, we’ve called the check-expect function in the usual
-           manner. The first argument is the cubed function that we expect to
-           test as well as the test input 3. The last argument is the expected
-           output given the input, in this case 27.
-           <br>
-           <br>
-           It’s a good idea to include a variety of tests that cover a
-           wide-range of scenarios. This ensures that our function is robust.
-           <code class="block">
-             (check-expect (cubed 1) 1)
-             (check-expect (cubed 0) 0)
-             (check-expect (cubed -4) -64)
-           </code>
-           Side note: the check-expect function is not the only test function
-           available for use. It is sufficient for the needs of this chapter,
-           and for most functions outputting images. But if you’d like to learn
-           more about other test functions, be sure to check out Dr. Racket’s
-           documentation regarding check-within, check-random, and
-           check-satisfied.
-           <br>
-           <br>
-           Stub
-           <br>
-           With our test functions written and our desired outputs specified,
-           it’s time for the stub. The stub is like a first draft of our
-           function whose chief purpose to get our test functions to execute. If
-            we can get the test functions to run, even if they fail, we’re still
-             closer to our goal than if the test functions failed to run at all.
-             <br>
-             <br>
-             To write a stub, you first begin with the define keyword that is
-             used to define functions in Dr. Racket. Enter the name of the
-             function you’re working on as well as any parameters representing
-             the inputs that the function will take. These should match the
-             inputs noted in the signature up above.
-          <br>
-          <br>
-          After the function header is formed, a function needs a body
-          containing the code that will execute when the function is called. In
-          the case of the stub, we’re only interested in making sure the header
-          is called by the test functions without fail. For this reason, we will
-           simply include some bogus value, preferably of the same data type as
-           the function’s expected output. We want to enter a bogus value to
-           eliminate the chance that our tests will pass, even though no code
-           has been written.
-           <br>
-           <br>
-           Let’s see what a stub would look like for our example:
-           <code class="block">
-             ; Stub
-             (define (cubed num) 3241)
-           </code>
-           Even though the number 3241 may be the correct answer for some number
-            cubed, it’s highly unlikely that we’ve chosen a cube root of 3241 as
-             one of our test expressions.
-             <br>
-             <br>
-             Let’s click Run to see what happens.
-    </p>
+      So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
+      We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter-->
+      In this chapter, we are going to define functions that accept images as an inputs or return images as their outputs.
 
+    </p>
 
 <!-- SECTION 1 -->
 
-    <h2 id="Purpose">Purpose</h2>
+<h2 id="The Design Recipe">The Design Recipe</h2>
 
-     <p>
-       As the best way to learn is by doing, for the remainder of the chapter,
-       we will go through each of the steps of the recipe again. This time however,
-       we'll walk through a series of examples to see the recipe in action in various
-       functions.
-       <br>
-       <br>
-       As you already know, the first step when defining a new function is to state
-       the purpose of the function that you are about to write. It's not unusual
-       for novice programs to jump right in to writing code without fully understanding
-       what the function is supposed to do. The simple step of stating the purpose
-       forces us to confront our understanding of the task at hand. If you cannot
-       clearly and succinctly come up with a purpose statement that fits on at most
-       two line, then one of two things is true. Either your understanding of the
-       function is lacking, or the function you are trying to write can be broken
-       down until a few less complicated functions. Let's try to write some good purpose
-       statements for the examples that we will be building together.
-       <br>
-       <br>
-       Example 1
-       <br>
-       <code class="block">
-         Problem Statement:
-         As you may know, stop signs are fairly similar in every country, with the
-         red octogon being the international standard. And even though many countries
-         use the English word "STOP" on their stop signs, some countries have chosen to use
-         their local language instead.
-         <br>
-         Write a function that takes a text input, and outputs the image of a stop
-          sign with the text displayed in white letters.
-       </code>
-       For the purpose, we want to briefly explain what our function will return,
-       and which inputs it will require. How about the following?
-        <code class="block">
-        ; Purpose: Return an image of a "stop" sign, given the text input by the user
-       </code>
+<p>
+  Designing functions can be complicated, but he process is simplified using a 'design recipe'
+  A design recipe is a step-by-step process that precisely dictates how to build or define functions.
+  We will be going over each step of the recipe in detail in this chapter.
+  <br>
+  <br>
+  It is possible to cobble together a function from bits and pieces of code, approaching the problem arbitrarily and forcing the function to work via brute force.
+  Although this haphazard approach to programming may succeed on smaller, less sophisticated functions, functions with this programming "philosophy" at their core are ultimately more difficult to execute.
+  <br>
+  <br>
+  In the world of software development, projects often require the coordinated cooperation of many people.
+  For this reason, it is important to clarify exactly what a program will be expected to do, and what the inputs are, and what the expected output will be.
+  Therefore a systematic recipe for writing functions is incredibly valuable.
+  <br>
+  <br>
+  The design recipe also allows for a divide-and-conquer approach, breaking large problems into smaller ones.
+  It also requires you to more completely understand and express different aspects of your function.
+</p>
 
+<!-- SECTION 1.1 -->
 
+<h3 id="Purpose">Purpose</h3>
 
+<p>
+  The first step of writing any function is to clarify and express exactly what you intend to the function to do.
+  That is the concept behind the purpose statement.
+  At first, you will probably want to jump in and begin coding right away.
+  What you may find later on, however, is that you don't fully understand the specifics of what your function is supposed to do, or what components ou may need to complete it.
+  The simple step of stating the purpose forces us to confront our understanding of the task at hand.
+  You may also find that putting the problem you're trying to solve into words automatically deepens your understanding of the problem.
+  A good purpose statement succinctly explains what the function will accept as inputs, what it will do, and what it will output, if anything.
+  <br>
+  <br>
+  Let's try writing some good purpose statements.
+  For simplicity, in these first examples we are going to use numbers.
+  Later, we will explore how the same process can apply to graphics.
+  <br>
+  Here is our challenge:
+  <code class="block">
+    Create a function that cubes any number.
+  </code>
+  A good way to begin writing purpose statements is to follow this basic format:
+  <code class="block">
+    ; Purpose : Given ..., returns ...
+  </code>
+  What you are <i>given</i> is your input.
+  What you <i>return</i> is your expected output.
+  <br>
+  This may seem overly simplified, but knowing these two components of your function from the very beginning can really help you a great deal later on.
+  <br>
+  For the purpose statement of this function, we could write the following:
+  <code class="block">
+    ; Purpose : Given any number, returns that number raised to the third power.
+  </code>
+  Keep in mind that a purpose statement should be fairly short, around 1-2 lines of comments.
+  If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
+  If you cannot clearly and succinctly come up with a purpose statement that fits on at most two line, then it is likely one of two things is true.
+  Either your understanding of the function is lacking, or the function you are trying to write can be broken down into a few functions of lesser complexity.
+</p>
+<!-- SECTION 1.2 -->
 
+<h3 id="Signature">Signature</h3>
 
-<!-- SECTION 2 -->
+<p>
+  Signature
+  <br>
+  After you have clarified the the purpose of your function, you need to specify the signature.
+  A signature is our toolbox.
+  It clearly states what datatypes our program will be utilizing.
+</p>
 
-    <h2 id="Signature">Signature</h2>
+<!-- SECTION 1.3 -->
 
-      <p>
-        Polygons are shapes with straight sides and angles.
-        Creating them in Dr. Racket involves a process that is similar to how we made our previous rounded shapes.
-        Let's look at some of them in more detail.
-      </p>
+<h3 id="Examples">Examples</h3>
 
-<!-- section 2.1 -->
+<p>
+  The next step of the recipe is to create tests for the function that we want to write.
+  Often, testing is almost an afterthought to the function-writing process.
+  Testing is a tedious process, and because the goal of testing is to identify errors, it doesn’t seem particularly rewarding.
+  For this reason, it is important to get into the habit of writing tests for your function, before you write a single line of code of the function itself.
+  That way, testing will never get pushed aside.
+  <br>
+  <br>
+  Another important reason to write test scenarios this early in the process, is to define expectations early, and to avoid falling into the trap of thinking that our function is “good enough” if it returns a result that is mostly right.
+  By creating test scenarios that specify exactly what a function should output, it becomes clear whether a function is correct or not.
+  <br>
+  <br>
+  To create tests in Dr. Racket, we normally use the check-expect function.
+  The check-expect function takes the function that you expect to write with some test arguments included, as well as the expected result that the function should output, given the inputs provided.
+  Remember, the number of inputs and the data types of the inputs and output should match your signature.
+  Let’s see how this applies to our cubed function.
+   <code class="block">
+     ; Tests/Examples
+     (check-expect (cubed 3) 27)
+   </code>
+   As you can see, we’ve called the check-expect function in the usual manner.
+   The first argument is the cubed function that we expect to test as well as the test input 3.
+   The last argument is the expected output given the input, in this case 27.
+   <br>
+   <br>
+   It’s a good idea to include a variety of tests that cover a wide-range of scenarios.
+   This ensures that our function is robust.
+   <code class="block">
+     (check-expect (cubed 1) 1)
+     (check-expect (cubed 0) 0)
+     (check-expect (cubed -4) -64)
+   </code>
+   Side note: the check-expect function is not the only test function available for use.
+   It is sufficient for the needs of this chapter, and for most functions outputting images.
+   But if you’d like to learn more about other test functions, be sure to check out Dr. Racket’s documentation regarding check-within, check-random, and check-satisfied.
+</p>
 
-      <i><h3 id="Squares">Squares</h3></i>
+<!-- SECTION 1.4 -->
 
-        <p>
-          Like a circle, the square function requires a size.
-          In this case, the given numerical value specifies the length of a side.
-          This is followed by the mode and color, as before.
-          <code class="block">
-            (square side-length mode color) -> image
-          </code>
-          Here's an example:
-          <code class="block">
-            (square 150 "solid" "blue")
-          </code>
-          <a class="try-it" href="src/square.rkt" download>try it</a>
-          And here's what is created:
-          <br>
-          <br>
-          <img src="images/blue-square.png" />
-          <br>
-          <br>
-          What about a square with a different mode?
-          <code class="block">
-            (square 150 "outline" "blue")
-          </code>
-          <a class="try-it" href="src/square-outline.rkt" download>try it</a>
-          <img src="images/blue-square-outline.png" />
-          <br>
-          <br>
-        </p>
-        <a class="fa fa-question-circle" style="font-size:24px"></a>
-        <a class="question">
-          How does a square with a side length of 150 compare to a circle with a radius of 80?
-        </a>
-        <br>
-        <a class="fa fa-question-circle" style="font-size:24px"></a>
-        <a class="question">
-          Which would you expect to be larger? Why?
-        </a>
+<h3 id="Stub">Stub</h3>
 
-
-<!-- section 2.2 -->
-
-      <i><h3 id="Rectangles">Rectangles</h3></i>
-
-        <p>
-          By now the general outline for the functions used to define shapes should be becoming familiar.
-          Can you guess what parameters might be needed to create a rectangle?
-          <code class="block">
-            (rectangle width height mode color) -> image
-          </code>
-          <code class="block">
-            (rectangle 225 125 "solid" "green")
-          </code>
-          <a class="try-it" href="src/rectangle.rkt" download>try it</a>
-          <img src="images/green-rectangle.png"/>
-          <br>
-          <br>
-        </p>
-        <a class="fa fa-question-circle" style="font-size:24px"></a>
-        <a class="question">
-          How could you use the rectangle function to design a square identical to the blue square we produced above?
-        </a>
-
-<!-- section 2.3 -->
-
-      <i><h3 id="Triangles">Triangles</h3></i>
-
-        <p>
-          There are several varieties of triangles you can create with Dr. Racket.
-          We are going to cover two: equilateral triangles and right triangles.
-          <br>
-          Equilateral triangles have three sides of equal length, and whose three angles, by extension, are also equal.
-          Consequently, to draw an equilateral triangle, you simply specify the desired side length, followed by the usual mode and color parameters.
-          <code class="block">
-            (triangle side-length mode color)
-          </code>
-          <i>Examples:</i>
-          <code class="block">
-            (triangle 150 "solid" "yellow")
-          </code>
-          <a class="try-it" href="src/triangle.rkt" download>try it</a>
-          <img src="images/yellow-triangle.png"/>
-          <br>
-          <br>
-          A right triangle contains a 90 degree angle.
-          To construct a right triangle, you need to provide the two side-lengths of the sides adjacent to the right angle.
-          <code class="block">
-            (right-triangle side-length1 side-length2 mode color)
-          </code>
-          <code class="block">
-            (right-triangle 200 100 "solid" "orange")
-          </code>
-          <a class="try-it" href="src/right-triangle.rkt" download>try it</a>
-          <img src="images/orange-right-triangle.png"/>
-          <br>
-        </p>
-
-<!-- section 2.4 -->
-
-      <i><h3 id ="Stars">Stars</h3></i>
-        <p>
-          There are several functions that produce star designs.
-          A traditional five-pointed star can be created with the star function.
-          <code class="block">
-            (star side-length mode color)
-          </code>
-          Here is an example:
-          <code class="block">
-            (star 100 "solid" "purple")
-          </code>
-          <img src="images/violet-star.png"/>
-          <br>
-          <br>
-          The radial-star function is a bit more complicated, but produces a design of greater intricacy.
-          <code class="block">
-            (radial-star point-count inner-radius outer-radius mode color)
-          </code>
-          The point-count is a numerical value that determines how many points you'd like your star to have.
-          The inner-radius creates the radius of the body of the star, where the wide end of the points connect.
-          The outer-radius produces the distance that each outer point of the star reaches.
-          The mode and color arguments are the same as for all the shapes above.
-          <code class="block">
-            (radial-star 15 50 25 "solid" "violet")
-          </code>
-          <img src="images/radial-star.png"/>
-          <br>
-          There is one more type of star we can construct, and that is the star-polygon.
-          The star-polygon is almost exactly the same as a regular polygon, except that it takes one more argument, the step-count.
-          Instead of each vertex connecting to the one next to it, it instead connects to the vertex that is step-count vertices away, creating a star-like design.
-          <code class="block">
-            (star-polygon side-length side-count step-count mode color)
-          </code>
-          Here's an example:
-          <code class="block">
-            (star-polygon 50 10 3 "outline" "indigo")
-          </code>
-          <img src="images/star-polygon.png"/>
-        </p>
-
-<!-- section 2.5 -->
-
-      <i><h3 id = "Other Polygons">Other Polygons</h3></i>
-        <p>
-          If you want to construct shapes with more than three or four sides, you can use the regular-polygon function.
-          With this function, you can construct regular polygons with any number of sides, and of any side length.
-          This is how we construct pentagons, hexagons, octagons or any other many-sided shape.
-          <code class="block">
-            (regular-polygon side-length side-count mode color)
-          </code>
-          <code class="block">
-            (regular-polygon 20 8 "solid" "palegreen")
-          </code>
-          <img src="images/green-polygon.png"/>
-        </p>
-
-<!-- SECTION 3 -->
-
-  <h2 id="Text">Text</h2>
-    <p>
-      If you want to add words to your images, text can be created with the <i><b>text</b></i> function, which requires a string, a font size, and a color.
-      <code class="block">
-        (text string font-size color)
-      </code>
-      <code class="block">
-        (text "Earth" 50 "lightskyblue")
-      </code>
-      <img src="images/earth-text.png"/>
-      <br>
-      More detailed and stylized text formatting can be accomplished by using the <i><b>text/font</i></b> function.
-      It takes a variety of parameters that allow you to control individual aspects of how your text looks.
-      <code class="block">
-        (text/font string font-size color face family style weight underline?)
-      </code>
-      <code class="block">
-        (text/font "Mars" 50 "hotpink" #f 'system 'normal 'bold #t)
-      </code>
-      <img src="images/mars-text.png"/>
-      <code class="block">
-        (text/font "Venus" 50 "gold" #f 'modern 'italic 'normal #f)
-      </code>
-      <img src="images/venus-text.png"/>
-    </p>
-
-<!-- SECTION 4 -->
-
-  <h2 id="Color">Color</h2>
-    <p>
-      So far, the colors we have been using are in the form of strings such as "blue", "red", or "turquoise."
-      The Dr. Racket color database displays a list of predefined colors you can use when creating graphics.
-      <br>
-      But what if you want to use a color that hasn't been predefined?
-      The 2htdp/image library has a function that allows us to create almost any color imaginable.
-      <br>
-      <br>
-      On your screen, all colors are comprised of varying levels of red, green, and blue.
-      Dr. Racket, like most computer graphics systems, uses colors created from these three channels.
-      The value of each color is a whole number that ranges from 0 to 255.
-      To produce black, you would set each channel (red, green, and blue) to 0.
-      To produce white, you would set all channels to 255.
-      Every other possible color is a mix of the three primary colors.
-      Using the function <i>make-color</i>, we can create a color by specifying these RGB channels.
-      <code class="block">
-        (make-color red green blue)
-      </code>
-      Let's see an example:
-      <code class="block">
-        (circle 75 "solid" (make-color 64 224 208))
-      </code>
-      Does your result look like this?
-      <br>
-      <img src="images/turquoise-circle.png"/>
-      <br>
-      Is the color you expected? Why or why not?
-      <br>
-      <br>
-      There is a fourth possible input parameter for the function <i>make-color</i>: alpha.
-      The alpha determines the opacity (or transparency) of the color.
-      An alpha value of 255 gives you a fully opaque (non-transparent) color.
-      The closer you get to 0, the more transparent your color becomes.
-      <code class="block">
-        (make-color red green blue alpha)
-      </code>
-      If we take our previous circle and add an alpha of 50, what do we get?
-      <code class="block">
-        (circle 75 "solid" (make-color 64 224 208 50))
-      </code>
-      <img src="images/turquoise-circle-50.png"/>
-      <br>
-      Experiment with different values for red, green, blue, and alpha in the example above to get an idea for how you make different colors.
-      <br>
-      If you want to make changes to one of Dr. Racket's predetermined colors, the picturing-programs library provides a function that can help.
-      The <i>name->color</i> function accepts the name of a color, like those found in the color database, and returns the numerical values of the RGB and alpha channels.
-      <br>
-      <br>
-      Let's try it out with a color from the database.
-      What values of red, green, and blue make up the color "plum?"
-      <code class="block">
-        (name->color "plum")
-      </code>
-      What are the values of red, green, and blue that make up the color "aqua?" Let's find out:
-      <code class="block">
-          (name->color "aqua")
-          (make-color 0 255 255 255)
-      </code>
-      Did it surprise you that aqua is just as blue as it is green?
-      As you can see, the output of this function looks familiar.
-      It comes in the form of the make-color function.
-      <code class="block">
-        (make-color 221 160 221 255)
-      </code>
-    </p>
-    <a class="fa fa-question-circle" style="font-size:24px"></a>
-    <a class="question">
-      Why might you want your result to be in the form of another function?
-    </a>
-
-<!-- SECTION 5 -->
-  <h2 id="Editing">Editing</h2>
-
-  <p>
-    So far we have learned how to create various shapes and images, but we haven't attempted to alter them in any way.
-    The htdp/image and picturing-programs libraries provide a large selection of editing tools that we can use on existing images.
-    Let's start this section by bringing in an image from an external source.
-    In Dr. Racket, you can insert actual images directly into your code by copying and pasting, or you can use the Insert menu.
-    To bring an outside image into your program, open the Insert menu at the top of the screen.
-    From there, select <i>'Insert Image ...'</i>.
-    Pick the image file you would like to add from the directory prompt appears.
-    Upon opening the file, the image should appear where the cursor is located.
-    <br>
-    <br>
-    Once the image is inside your program, you can move your image to where you need it in your code by copying and pasting as normal.
-    You can also manipulate the image with one of the functions that allow you to alter or change an image.
-    Functions in this category include:
-  </p>
-  <ul>
-    <li><a>Rotate: spins an image a specified number of degrees</li></a> <!-- use colon or delete definition -->
-    <li><a>Flip: flips an image across an axis</li></a>
-    <li><a>Scale: enlarges or shrinks an image</li></a>
-    <li><a>Crop: removes part of an image</li></a>
-    <li><a>Frame: places a box/frame around an image</li></a>
-  </ul>
-  <p>
-    In order to try these out, we'll create an image constant called "moon".
-    This will make it easier to do different things wth the image without having to copy and paste it each time.
-    <code class="block">
-      (define moon <img src="images/moon.png" width="100px"> )
-    </code>
-    It's a good practice to define your images as constants, especially if you are using multiple images in a program.
-    They can then be combined to create elaborate scenes and pictures.
-    Let's do the same thing with a few other images we might want to use:
-    <code class="block">
-      (define earth
-      <img src="images/earth.png">
-      )
-    </code>
-    <code class="block">
-      (define saturn
-      <img src="images/saturn.png">
-      )
-    </code>
-    <code class="block">
-      (define neptune
-      <img src="images/neptune.png">
-      )
-    </code>
-    <code class="block">
-      (define jupiter
-      <img src="images/jupiter.png">
-      )
-    </code>
-    <code class="block">
-      (define mars
-      <img src="images/mars.png">
-      )
-    </code>
-    <code class="block">
-      (define venus
-      <img src="images/venus.png">
-      )
-    </code>
-    From now on in our code, we can refer to any of these images by the constants assigned.
-    <br>
-    <br>
-    But before we learn more about these editing functions, let's talk about how images can serve as arguments to functions.
-    <br>
-    In this case, we will use the constant we created up above with the image-height function.
-    Image-height returns the height of an image in pixels.
-    <code class="block">
-      (image-height moon)
-    </code>
-    Following the format used for image-height, use the image-width function to obtain the width of the circle in pixels.
-  </p>
-  <a class="fa fa-question-circle" style="font-size:24px"></a>
-  <a class="question">
-    How does the result compare to the height of the image?
-  </a>
-  <a class="fa fa-question-circle" style="font-size:24px"></a>
-  <a class="question">
-    Is this what you expected?
-  </a>
-  <a class="fa fa-question-circle" style="font-size:24px"></a>
-  <a class="question">
-    Why or why not?
-  </a>
-  <p>
-    <br>
-    <br>
-    If a function takes an argument of the image data type, than any code that returns an image will do.
-    <code class="block">
-      (image-height (circle 15 "red" "solid"))
-    </code>
-    This code above first creates the circle image, and then feeds it directly into the image-height function.
-    You never see the image, but you obtain the information relevant to the function used.
-    This will come in handy shortly when we want to edit and combine images.
-    <br>
-    <br>
-    The first editing tool we will explore is the rotate function.
-    Rotate has two parameters:
-    <code class="block">
-      (rotate angle image)
-    </code>
-    This function rotates an image in the counterclockwise direction by the number of degrees specified.
-    Let's try it on the moon:
-    <code class="block">
-      (rotate 90 saturn)
-    </code>
-    <img src="images/saturn-rot.png">
-    You can also rotate images in the clockwise direction using a variation of rotate, the rotate-cw function.
-    <code class="block">
-      (rotate-cw 60 saturn)
-    </code>
-    <img src="images/saturn-cw.png">
-    We also have the option to scale an image to make it larger or smaller.
-    The scale function has two parametes:
-    <code class="block">
-      (scale factor image)
-    </code>
-    The scale factor is the amount by which an image is either increased or decreased.
-    A number between 0 and 1 will result in an image smaller than the original, and a number larger than 1 will result in an image larger than the original.
-    <br>
-    <br>
-    Let's see this in action:
-    <code class="block">
-      (scale 0.5 neptune)
-    </code>
-    <img src="images/neptune-05.png">
-    <code class="block">
-      (scale 2 neptune)
-    </code>
-    <img src="images/neptune-2.png">
-    There are two versions of the flip function.
-    Flip-horizontal flips an image across the horizontal axis for a mirror image of your original image.
-    Flip-vertical flips the image across the vertical axis.
-    <br>
-    <br>
-    Each of these functions take only the image you want to manipulate.
-    <code class="block">
-      (flip-horizontal jupiter)
-    </code>
-    <img src="images/jupiter-horz.png">
-    <code class="block">
-      (flip-vertical jupiter)
-    </code>
-    <img src="images/jupiter-vert.png">
-    The last of the major editing functions is the cropping function.
-    There are a few variations of this function, which more precisely define how the image should be altered.
-    <br>
-    They include:
-  </p>
-    <ul>
-      <li><a>Directional (-bottom, -top, etc.)</li></a>
-      <li><a>/align</li></a>
-      <li><a>/xy</li></a>
-    </ul>
-  <p>
-    <code class="block">
-      (crop-top image number-of-pixels)
-      (crop-bottom image number-of-pixels)
-      (crop-left image number-of-pixels)
-      (crop-right image number-of-pixels)
-    </code>
-    These functions work by cropping the specified section of a given image by the given number of pixels.
-    For example:
-    <code class="block">
-      (crop-right moon 125)
-    </code>
-    <img src="images/moon-right.png">
-  </p>
-
-<!-- SECTION 6 -->
-
-  <h2 id="Placement">Placement</h2>
-  <p>
-    The placement functions control where, and in what order, images appear.
-    <br>
-    You can think of these functions as having few major types, then some variations on each type.
-    Major types include:
-  </p>
-  <ul>
-    <li><a>above</li></a>
-    <li><a>beside</li></a>
-    <li><a>overlay</li></a>
-    <li><a>underlay</li></a>
-    <li><a>place-image</li></a>
-  </ul>
-  <p>
-    Similar to the editing functions, there are variations for most of the functions in this category.
-    Like the editing functions, the placement functions have variations that allow greater specificity and level of control over where the image appears.
-    </p>
-    <ul>
-      <li><a>/align uses an xy to determine at what point the images are aligned.</li></a>
-      <li><a>/offset moves the image a certain amount on the x and y axis’.</li></a>
-      <li><a>/xy is similar but the images begin aligned at the top right (not the center).</li></a>
-    </ul>
-  <p>
-    In this section, we are going to utilize our knowledge from what we've done previously in combination with new placement functions to build an image.
-    <br>
-    We have a couple options to place multiple images in a scene.
-    <br>
-    The function above takes a series of images, and places the first above the other in sequence.
-    <code class="block">
-      (above image1 image2 ...)
-    </code>
-    <code class="block">
-      (above earth moon)
-    </code>
-    See how this function stacks everything vertically?
-    <br>
-    <br>
-    <img src="images/above-img.png">
-    <br>
-    To order our images horizontally, we can use the beside function.
-    <code class="block">
-      (beside image1 image2 ...)
-    </code>
-    This function returns your images ordered left to right.
-    <code class="block">
-      (beside mars neptune)
-    </code>
-    <img src="images/beside-img.png">
-    <br>
-    The above and beside functions have a variation we can call /align.
-    <code class="block">
-      (above/align x-place image1 image2 ...)
-    </code>
-    <code class="block">
-      (beside/align y-place image1 image2 ...)
-    </code>
-    Take a look at the first parameter for each of these functions.
-    above/align requires a string that specifies a place on the x-axis, such as "right" or "left", while beside/align requires a place on the y-axis like "top" or "bottom".
-    You might notice these are the same options available for the crop function.
-    <br>
-  </p>
-  <a class="fa fa-question-circle" style="font-size:24px"></a>
-  <a class="question">
-    Can you guess why they might need different axis'?
-  </a>
-  <p>
-    <br>
-    It might become more apparent when you see these functions in action.
-    <code class="block">
-      (above/align "right" venus saturn)
-    </code>
-    <img src="images/above-align.png">
-    <br>
-  </p>
-  <a class="fa fa-question-circle" style="font-size:24px"></a>
-  <a class="question">
-    Can you see how the x-place affected our result?
-  </a>
-  <p>
-    <br>
-    Experiment with the beside/align function and see how it differs.
-    <br>
-    What happens when you use images of very similar dimensions?
-    <br>
-    So far in this section, we have used images we brought in from an external source.
-    <br>
-    Let's try using the placement functions to build an image from shapes in the htdp/image library.
-    <br>
-    Specifically, a star.
-    <br>
-    First, we need to create some shapes.
-    You can create any shapes you want, in any size and color, but here's what we are going to be working with in our example.
-    You may want to stick close to the example this first time through and get more creative later.
-    <code class="block">
-      (radial-star 8 40 10 "solid" "mediumslateblue")
-      <br>
-      (rotate 18 (radial-star 15 50 30 60 "mediumslateblue"))
-      <br>
-      (circle 30 80 "mediumslateblue")
-      <br>
-      (circle 25 100 "mediumslateblue")
-    </code>
-    Can you picture what these shapes will look like based on the arguments that have been used?
-    <br>
-    What we want to do is place these images on top of each other.
-    The overlay function allows us to do exactly that.
-    <code class="block">
-      (overlay image1 image2 ...)
-    </code>
-    With overlay, objects appear directly on top of one another, with the first listed being the top-most visible one, through to the last on the bottom.
-    <br>
-    Let's try it out. Don't forget to name your image so that its easier to use later.
-    <code class="block">
-      (define purple-star
-        (overlay
-        (radial-star 8 40 10 "solid" "mediumslateblue")
-        (rotate 18 (radial-star 15 50 30 60 "mediumslateblue"))
-        (circle 30 80 "mediumslateblue")
-        (circle 25 100 "mediumslateblue")
-        )
-      )
-    </code>
-    What does the result look like?
-    <img src="images/purple-star.png">
-    <br>
-    Now, overlay is not the only way to stack shapes and images.
-    Underlay is another option.
-    <code class="block">
-      (underlay image1 image2 ...)
-    </code>
-    In addition to having a similar template, this function operates very similarly, but in reverse order, with the first image listed appearing underneath all others.
-    <br>
-    Let's try it out by making another flower.
-    <code class="block">
-      (define blue-star
-        (underlay
-          (rotate 18 (radial-star 30 45 25 100 "powderblue"))
-          (rotate 22.5 (regular-polygon 17 8 100 "violet"))
-          (circle 15 100 "lavender")
-          (circle 8 "solid" "skyblue")
-          (radial-star 10 10 5 "solid" "linen")
-          )
-      )
-    </code>
-    Here is what it looks like:
-    <img src="images/blue-star.png">
-    <br>
-    Do you see how the order of layers is reversed, as opposed to overlay?
-    <br>
-    Now we have two stars.
-    <br>
-    We want to create a scene with them and some of our previous images.
-    There are many options for placing our images in a scene.
-    But to do so, we are going to need to create a background on which to place them.
-    <br>
-    The empty-scene function creates an outlined rectangle, a 'scene' on which to place things.
-    <code class="block">
-      (empty-scene width height color)
-    </code>
-    If you don't include a color, the scene will default to white.
-    <br>
-    But we probably want to use something a bit more detailed.
-    <code class="block">
-      (define sky
-      <br>
-      <img src="images/sky.png" width="90%">
-      <br>
-      )
-    </code>
-    <br>
-    To do this, we can use overlay, underlay, or one of their many variations:
-    <code class="block">
-      (overlay/align x-place y-place image1 image2 ...)
-      (overlay/offset image1 x y image2)
-      (overlay/align/offset x-place y-place image1 x y image2)
-      (overlay/xy image1 x y image2)
-      <br>
-      (underlay/align x-place y-place image1 image2 ...)
-      (underlay/offset image1 x y image2)
-      (underlay/align/offset x-place y-place image1 x y image2)
-      (underlay/xy image1 x y image2)
-    </code>
-    As you can see, much like above and beside, overlay/align and underlay/align use and x-place and y-place to specify where to place an image in relation to another one.
-    However, these functions require both an x and y place.
-    Why might this be?
-    <br>
-    Overlay and underlay also have some variations we haven't encountered before.
-    The /offset variation actually works similarly to that of /align, but instead of using a place on a particular axis, the function takes a numerical value.
-    <br>
-    Given this fact, what do you think /align/offset might do?
-    <br>
-    The /xy variation may look similar to the previous functions, but it does something quite different.
-    Instead of determining the amount by which the image is offset or aligned on a particular axis, the x and y positions exactly place the image at those coordinates.
-    <br>
-    Now, there is one more major placement function we haven't covered: place-image.
-    <code class="block">
-      (place-image image x y scene)
-      (place-image/align image x y x-place y-place scene)
-    </code>
-    Place-image, like overlay/xy, uses an x and a y coordinate to place an image.
-    The image is placed with the center at the specified coordinates.
-    Unlike overlay/xy, however, place-image crops the image so that fits within the background or scene.
-    <br>
-    We will use place image to create our final image:
-    <code class="block">
-      (place-image saturn 450 125
-        (overlay/xy (scale 0.5 venus) -50 -200
-          (underlay/align "middle" "bottom"
-                  (overlay/offset purple-star -200 -125 sky)
-                  blue-star
-           )
-          )
-        )
-      </code>
-    Once everything is put together we have a full picture.
-  </p>
+<p>
+  With our test functions written and our desired outputs specified, it’s time for the stub.
+  The stub is like a first draft of our function whose chief purpose to get our test functions to execute.
+  If we can get the test functions to run, even if they fail, we’re still closer to our goal than if the test functions failed to run at all.
+  <br>
+  <br>
+  To write a stub, you first begin with the define keyword that is
+  used to define functions in Dr. Racket. Enter the name of the
+  function you’re working on as well as any parameters representing
+  the inputs that the function will take. These should match the
+  inputs noted in the signature up above.
+  <br>
+  <br>
+  After the function header is formed, a function needs a body containing the code that will execute when the function is called.
+  In the case of the stub, we’re only interested in making sure the header is called by the test functions without fail.
+  For this reason, we will simply include some bogus value, preferably of the same data type as the function’s expected output.
+  We want to enter a bogus value to eliminate the chance that our tests will pass, even though no code has been written.
+  <br>
+  <br>
+  Let’s see what a stub would look like for our example:
+  <code class="block">
+    ; Stub
+    (define (cubed num) 3241)
+  </code>
+  Even though the number 3241 may be the correct answer for some number cubed, it’s highly unlikely that we’ve chosen a cube root of 3241 as one of our test expressions.
+  <br>
+  <br>
+  Let’s click Run to see what happens.
+</p>
 
 <div class="footer">
   <h4>Copywright Notice</h6>
