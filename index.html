@@ -14,8 +14,8 @@
   <div class="column sidemenu">
     <ul>
       <li><a href="#Introduction">Introduction</a></li>
-      <li><a href="#Simple Shapes" >Simple Shapes</a></li>
-      <li><a href="#Polygons" >Polygons</a></li>
+      <li><a href="#Purpose" >Purpose</a></li>
+      <li><a href="#Signature" >signature</a></li>
       <li><a href="#Text" >Text</a></li>
       <li><a href="#Color" >Color</a></li>
       <li><a href="#Editing" >Editing</a></li>
@@ -196,84 +196,58 @@
              one of our test expressions.
              <br>
              <br>
-             Let’s click Run to see what happens. 
+             Let’s click Run to see what happens.
     </p>
 
 
 <!-- SECTION 1 -->
 
-    <h2 id="Simple Shapes">Simple Shapes</h2>
+    <h2 id="Purpose">Purpose</h2>
 
      <p>
-       Let's start with a basic circle, one of the easiest shapes to create.
-       A circle only requires three parameters: size, mode, and color. <!-- make parameters code -->
-       We will see these parameters and this format repeated in the construction of other shapes, but what differentiates a circle is that the size is defined by the radius.
-       The radius is given as a number, denoting how many pixels used, which is typical for how size is defined in Racket.
-       The mode and color parameters don't change much between shapes, with <i>mode</i> describing whether the circle should be solid or an outline, and <i>color</i>, which we will discuss more in depth a little later.
+       As the best way to learn is by doing, for the remainder of the chapter,
+       we will go through each of the steps of the recipe again. This time however,
+       we'll walk through a series of examples to see the recipe in action in various
+       functions.
+       <br>
+       <br>
+       As you already know, the first step when defining a new function is to state
+       the purpose of the function that you are about to write. It's not unusual
+       for novice programs to jump right in to writing code without fully understanding
+       what the function is supposed to do. The simple step of stating the purpose
+       forces us to confront our understanding of the task at hand. If you cannot
+       clearly and succinctly come up with a purpose statement that fits on at most
+       two line, then one of two things is true. Either your understanding of the
+       function is lacking, or the function you are trying to write can be broken
+       down until a few less complicated functions. Let's try to write some good purpose
+       statements for the examples that we will be building together.
+       <br>
+       <br>
+       Example 1
+       <br>
        <code class="block">
-         (circle size mode color) -> image
+         Problem Statement:
+         As you may know, stop signs are fairly similar in every country, with the
+         red octogon being the international standard. And even though many countries
+         use the English word "STOP" on their stop signs, some countries have chosen to use
+         their local language instead.
+         <br>
+         Write a function that takes a text input, and outputs the image of a stop
+          sign with the text displayed in white letters.
        </code>
-       What circle will be created with the following?
-       <code class="block">
-         (circle 80 "solid" "red")
+       For the purpose, we want to briefly explain what our function will return,
+       and which inputs it will require. How about the following?
+        <code class="block">
+        ; Purpose: Return an image of a "stop" sign, given the text input by the user
        </code>
-       Try for yourself by clicking this button:
-       <br>
-       <br>
-        <a class="try-it" href="src/circle.rkt" download>try it</a>
-       <br>
-       <br>
-       Was this your result?
-       <br>
-       <br>
-         <img src="images/red-circle.png"/>
-       <br>
-       <br>
-       As expected, the resulting image is that of a solid red circle of radius 25 pixels.
-       If we switch the mode to "outline," we get the following:
-       <code class="block">
-         (circle 80 "outline" "red")
-       </code>
-       Try changing the radius and observe the effect on the circle's size.
-       Experiment with different colors as well.
-       <br>
-       <br>
-       The simplicity of circles is that their radius is the same in all directions.
-       What if instead we wanted to draw an elongated circle, or an ellipse?
-       The ellipse function is very similar to that of a circle, except that now we need to specify a width and a height.
-       <code class="block">
-         (ellipse width height mode color) <!-- add arrow -->
-       </code>
-       Let's try creating an ellipse:
-       <code class="block">
-         (ellipse 200 100 "solid" "pink")
-       </code>
-       What do we get?
-       </p>
-       <br>
-       <br>
-       <img src="images/pink-oval.png" />
-       <br>
-       <a class="try-it" style="text-align:center;" href="src/ellipse.rkt" download>try it</a>
-       <br>
-       <a class="fa fa-question-circle" style="font-size:24px"></a>
-       <a class="question">
-         Can you tell which argument corresponds to the width?
-       </a>
-       <br>
-       <a class="fa fa-question-circle" style="font-size:24px"></a>
-       <a class="question">
-         Which argument corresponds to the height?
-       </a>
-       <br>
-       <a class="fa fa-question-circle" style="font-size:24px"></a>
-       <a class="question">
-         How do the width and height of this ellipse compare to the circles we created above?
-       </a>
+
+
+
+
 
 <!-- SECTION 2 -->
 
-    <h2 id="Polygons">Polygons</h2>
+    <h2 id="Signature">Signature</h2>
 
       <p>
         Polygons are shapes with straight sides and angles.
