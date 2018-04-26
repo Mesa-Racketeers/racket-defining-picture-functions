@@ -20,6 +20,11 @@
       <li><a href="#Stub" >Stub</a></li>
       <li><a href="#Template" >Template</a></li>
       <li><a href="#Code" >Code</a></li>
+      <li><a href="#The Design Recipe">The Design Recipe</a></li>
+      <ul>
+        <li><a href="#Purpose">Purpose</a></li> <!-- working on making a nested menu for sub-sections -->
+      </ul>
+      <li><a href="#Practice">Practice</a></li>
     </ul>
   </div>
 
@@ -440,7 +445,7 @@
       We will need to create a function parameter that will take the text that the user
        wants to input. It's a good habit to make parameter names concise, but descriptive.
        In this case, let's go with stop-txt.
-       
+
 
     </p>
 
@@ -458,6 +463,162 @@
   <p>
 
   </p>
+
+      So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
+      We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter-->
+      In this chapter, we are going to define functions that accept images as an inputs or return images as their outputs.
+
+    </p>
+
+<!-- SECTION 1 -->
+
+<h2 id="The Design Recipe">The Design Recipe</h2>
+
+<p>
+  Designing functions can be complicated, but he process is simplified using a 'design recipe'
+  A design recipe is a step-by-step process that precisely dictates how to build or define functions.
+  We will be going over each step of the recipe in detail in this chapter.
+  <br>
+  <br>
+  It is possible to cobble together a function from bits and pieces of code, approaching the problem arbitrarily and forcing the function to work via brute force.
+  Although this haphazard approach to programming may succeed on smaller, less sophisticated functions, functions with this programming "philosophy" at their core are ultimately more difficult to execute.
+  <br>
+  <br>
+  In the world of software development, projects often require the coordinated cooperation of many people.
+  For this reason, it is important to clarify exactly what a program will be expected to do, and what the inputs are, and what the expected output will be.
+  Therefore a systematic recipe for writing functions is incredibly valuable.
+  <br>
+  <br>
+  The design recipe also allows for a divide-and-conquer approach, breaking large problems into smaller ones.
+  It also requires you to more completely understand and express different aspects of your function.
+</p>
+
+<!-- SECTION 1.1 -->
+
+<h3 id="Purpose">Purpose</h3>
+
+<p>
+  The first step of writing any function is to clarify and express exactly what you intend to the function to do.
+  That is the concept behind the purpose statement.
+  At first, you will probably want to jump in and begin coding right away.
+  What you may find later on, however, is that you don't fully understand the specifics of what your function is supposed to do, or what components ou may need to complete it.
+  The simple step of stating the purpose forces us to confront our understanding of the task at hand.
+  You may also find that putting the problem you're trying to solve into words automatically deepens your understanding of the problem.
+  A good purpose statement succinctly explains what the function will accept as inputs, what it will do, and what it will output, if anything.
+  <br>
+  <br>
+  Let's try writing some good purpose statements.
+  For simplicity, in these first examples we are going to use numbers.
+  Later, we will explore how the same process can apply to graphics.
+  <br>
+  Here is our challenge:
+  <code class="block">
+    Create a function that cubes any number.
+  </code>
+  A good way to begin writing purpose statements is to follow this basic format:
+  <code class="block">
+    ; Purpose : Given ..., returns ...
+  </code>
+  What you are <i>given</i> is your input.
+  What you <i>return</i> is your expected output.
+  <br>
+  This may seem overly simplified, but knowing these two components of your function from the very beginning can really help you a great deal later on.
+  <br>
+  For the purpose statement of this function, we could write the following:
+  <code class="block">
+    ; Purpose : Given any number, returns that number raised to the third power.
+  </code>
+  Keep in mind that a purpose statement should be fairly short, around 1-2 lines of comments.
+  If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
+  If you cannot clearly and succinctly come up with a purpose statement that fits on at most two line, then it is likely one of two things is true.
+  Either your understanding of the function is lacking, or the function you are trying to write can be broken down into a few functions of lesser complexity.
+</p>
+<!-- SECTION 1.2 -->
+
+<h3 id="Signature">Signature</h3>
+
+<p>
+  Signature
+  <br>
+  After you have clarified the the purpose of your function, you need to specify the signature.
+  A signature is our toolbox.
+  It clearly states what datatypes our program will be utilizing.
+</p>
+
+<!-- SECTION 1.3 -->
+
+<h3 id="Examples">Examples</h3>
+
+<p>
+  The next step of the recipe is to create tests for the function that we want to write.
+  Often, testing is almost an afterthought to the function-writing process.
+  Testing is a tedious process, and because the goal of testing is to identify errors, it doesn’t seem particularly rewarding.
+  For this reason, it is important to get into the habit of writing tests for your function, before you write a single line of code of the function itself.
+  That way, testing will never get pushed aside.
+  <br>
+  <br>
+  Another important reason to write test scenarios this early in the process, is to define expectations early, and to avoid falling into the trap of thinking that our function is “good enough” if it returns a result that is mostly right.
+  By creating test scenarios that specify exactly what a function should output, it becomes clear whether a function is correct or not.
+  <br>
+  <br>
+  To create tests in Dr. Racket, we normally use the check-expect function.
+  The check-expect function takes the function that you expect to write with some test arguments included, as well as the expected result that the function should output, given the inputs provided.
+  Remember, the number of inputs and the data types of the inputs and output should match your signature.
+  Let’s see how this applies to our cubed function.
+   <code class="block">
+     ; Tests/Examples
+     (check-expect (cubed 3) 27)
+   </code>
+   As you can see, we’ve called the check-expect function in the usual manner.
+   The first argument is the cubed function that we expect to test as well as the test input 3.
+   The last argument is the expected output given the input, in this case 27.
+   <br>
+   <br>
+   It’s a good idea to include a variety of tests that cover a wide-range of scenarios.
+   This ensures that our function is robust.
+   <code class="block">
+     (check-expect (cubed 1) 1)
+     (check-expect (cubed 0) 0)
+     (check-expect (cubed -4) -64)
+   </code>
+   Side note: the check-expect function is not the only test function available for use.
+   It is sufficient for the needs of this chapter, and for most functions outputting images.
+   But if you’d like to learn more about other test functions, be sure to check out Dr. Racket’s documentation regarding check-within, check-random, and check-satisfied.
+</p>
+
+<!-- SECTION 1.4 -->
+
+<h3 id="Stub">Stub</h3>
+
+<p>
+  With our test functions written and our desired outputs specified, it’s time for the stub.
+  The stub is like a first draft of our function whose chief purpose to get our test functions to execute.
+  If we can get the test functions to run, even if they fail, we’re still closer to our goal than if the test functions failed to run at all.
+  <br>
+  <br>
+  To write a stub, you first begin with the define keyword that is
+  used to define functions in Dr. Racket. Enter the name of the
+  function you’re working on as well as any parameters representing
+  the inputs that the function will take. These should match the
+  inputs noted in the signature up above.
+  <br>
+  <br>
+  After the function header is formed, a function needs a body containing the code that will execute when the function is called.
+  In the case of the stub, we’re only interested in making sure the header is called by the test functions without fail.
+  For this reason, we will simply include some bogus value, preferably of the same data type as the function’s expected output.
+  We want to enter a bogus value to eliminate the chance that our tests will pass, even though no code has been written.
+  <br>
+  <br>
+  Let’s see what a stub would look like for our example:
+  <code class="block">
+    ; Stub
+    (define (cubed num) 3241)
+  </code>
+  Even though the number 3241 may be the correct answer for some number cubed, it’s highly unlikely that we’ve chosen a cube root of 3241 as one of our test expressions.
+  <br>
+  <br>
+  Let’s click Run to see what happens.
+</p>
 
 <div class="footer">
   <h4>Copywright Notice</h6>
