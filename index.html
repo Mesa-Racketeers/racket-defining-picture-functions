@@ -14,16 +14,7 @@
   <div class="column sidemenu">
     <ul>
       <li><a href="#Introduction">Introduction</a></li>
-      <li><a href="#Purpose" >Purpose</a></li>
-      <li><a href="#Signature" >Signature</a></li>
-      <li><a href="#Tests/Examples" >Tests/Examples</a></li>
-      <li><a href="#Stub" >Stub</a></li>
-      <li><a href="#Template" >Template</a></li>
-      <li><a href="#Code" >Code</a></li>
       <li><a href="#The Design Recipe">The Design Recipe</a></li>
-      <ul>
-        <li><a href="#Purpose">Purpose</a></li> <!-- working on making a nested menu for sub-sections -->
-      </ul>
       <li><a href="#Practice">Practice</a></li>
     </ul>
   </div>
@@ -41,441 +32,21 @@
 
 <!-- INTRODUCTION -->
 
-    <h2 id="Introduction"> Introduction</h2>
-    <p>
-      At this point, we've learned most of what there is to know about graphics
-      in Dr. Racket. In case you missed it, the chapter on graphics can be found
-       here (link). In this chapter, we are going to incorporate what we learned
-        about graphics in the writing of functions that accept images as their
-        inputs and/or return images as their outputs.
-      <br>
-      <br>
-      We will be writing our functions using the How to Design Functions recipe,
-       which we will from now on refer to simply as "the recipe." If you have
-       never heard of or used the How to Design Functions recipe, don't worry.
-       We will be going over each step of the recipe in detail in this chapter.
-       <br>
-       <br>
-       You may be wondering why we need a recipe when designing a function in
-       the first place. We've probably all experienced the satisfying sensation
-       of cobbling together a function from bits and pieces of code found on the
-        internet, and then seeing the function work. While this haphazard
-        approach to programming may occasionally on smaller, unsophisticated
-        functions, in the long run, any project with this programming
-        "philosophy" at its core is sure to fail.
-        <br>
-        <br>
-        In the world of software development, projects may and probably will
-        require the coordinated cooperation of many people. For this reason, it
-        is important to clarify exactly what a program will be expected to do,
-        and what inputs and outputs it will take. It is for this reason that a
-        systematic recipe for writing functions is incredibly valuable.
-        <br>
-        <br>
-        What exactly does a recipe provide?
-        <br>
-        - Helps break large problems into smaller ones (divide-and-conquer)
-        <br>
-        - Requires you to understand and express exactly what inputs the
-        function will take, what it will do, and what it will output
-        <br>
-        <br>
-        Purpose Statement
-        <br>
-        The first step of writing any function is to clarify and express exactly
-         what the function will be expected to do. That is the idea behind
-         writing the purpose statement. You will find that, by forcing yourself
-         to put the problem you're trying to solve into words, your
-         understanding of the problem will automatically deepen. A good purpose
-         statement will succinctly explain what the function will accept as
-         inputs, what it will do, and what it will output, if anything.
-         <br>
-         <br>
-         As a simple example, let's write a function that takes a number and
-         returns that number cubed (to the power of 3).
-         <br>
-         For the purpose statement of this function, we could write the
-         following:
-         <code class="block">
-          ; Purpose: Returns the number that was input raised to the third power
-         </code>
-         A purpose statement should be fairly short, meaning about 1-2 lines of
-         comments. If you find yourself needing more than that, it may be a sign
-          that the function you're trying to write could be broken up into
-          smaller functions.
-          <br>
-          <br>
-          Signature
-          <br>
-          With the purpose clarified, its time to write the signature of our
-          function. The signature is simply a commented line that shows the name
-           of the function, followed by a list of the types of inputs to the function and
-            an arrow pointing to the types of outputs we expect the function to output.
-           The signature serves as a set of instructions for anyone who may want to
-           use our function. It provides the name of the function, the expected input
-           types, and the expected output type. With this information, anyone should
-           be able to use our function.
-          <br>
-          <br>
-          Tests/Examples
-          <br>
-          The next step of the recipe is to create tests for the function that
-          we want to write. Often, testing is almost an afterthought to the
-          function-writing process. Testing is a tedious process, and because
-          the goal of testing is to identify errors, it doesn’t seem
-          particularly rewarding. For this reason, it is important to get into
-          the habit of writing tests for your function, before you write a
-          single line of code of the function itself. That way, testing will
-          never get pushed aside.
-          <br>
-          <br>
-          Another important reason to write test scenarios this early in the
-          process, is to define expectations early, and to avoid falling into
-          the trap of thinking that our function is “good enough” if it returns
-          a result that is mostly right. By creating test scenarios that specify
-           exactly what a function should output, it becomes clear whether a
-           function is correct or not.
-           <br>
-           <br>
-           To create tests in Dr. Racket, we normally use the check-expect
-           function. The check-expect function takes the function that you
-           expect to write with some test arguments included, as well as the
-           expected result that the function should output, given the inputs
-           provided. Remember, the number of inputs and the data types of the
-           inputs and output should match your signature. Let’s see how this
-           applies to our cubed function.
-           <code class="block">
-             ; Tests/Examples
-             (check-expect (cubed 3) 27)
-           </code>
-           As you can see, we’ve called the check-expect function in the usual
-           manner. The first argument is the cubed function that we expect to
-           test as well as the test input 3. The last argument is the expected
-           output given the input, in this case 27.
-           <br>
-           <br>
-           It’s a good idea to include a variety of tests that cover a
-           wide-range of scenarios. This ensures that our function is robust.
-           <code class="block">
-             (check-expect (cubed 1) 1)
-             (check-expect (cubed 0) 0)
-             (check-expect (cubed -4) -64)
-           </code>
-           Side note: the check-expect function is not the only test function
-           available for use. It is sufficient for the needs of this chapter,
-           and for most functions outputting images. But if you’d like to learn
-           more about other test functions, be sure to check out Dr. Racket’s
-           documentation regarding check-within, check-random, and
-           check-satisfied.
-           <br>
-           <br>
-           Stub
-           <br>
-           With our test functions written and our desired outputs specified,
-           it’s time for the stub. The stub is like a first draft of our
-           function whose chief purpose to get our test functions to execute. If
-            we can get the test functions to run, even if they fail, we’re still
-             closer to our goal than if the test functions failed to run at all.
-             <br>
-             <br>
-             To write a stub, you first begin with the define keyword that is
-             used to define functions in Dr. Racket. Enter the name of the
-             function you’re working on as well as any parameters representing
-             the inputs that the function will take. These should match the
-             inputs noted in the signature up above.
-          <br>
-          <br>
-          After the function header is formed, a function needs a body
-          containing the code that will execute when the function is called. In
-          the case of the stub, we’re only interested in making sure the header
-          is called by the test functions without fail. For this reason, we will
-           simply include some bogus value, preferably of the same data type as
-           the function’s expected output. We want to enter a bogus value to
-           eliminate the chance that our tests will pass, even though no code
-           has been written.
-           <br>
-           <br>
-           Let’s see what a stub would look like for our example:
-           <code class="block">
-             ; Stub
-             (define (cubed num) 3241)
-           </code>
-           Even though the number 3241 may be the correct answer for some number
-            cubed, it’s highly unlikely that we’ve chosen a cube root of 3241 as
-             one of our test expressions.
-             <br>
-             <br>
-             Let’s click Run to see what happens.
-    </p>
+<h2 id="Introduction"> Introduction</h2>
 
+<p>
+    So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
+    We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter-->
+    In this chapter, we are going to define functions that accept images as an inputs or return images as their outputs.
+</p>
 
-<!-- SECTION 1 -->
-
-    <h2 id="Purpose">Purpose</h2>
-
-     <p>
-       As the best way to learn is by doing, for the remainder of the chapter,
-       we will go through each of the steps of the recipe again. This time however,
-       we'll walk through a series of examples to see the recipe in action in various
-       functions.
-       <br>
-       <br>
-       As you already know, the first step when defining a new function is to state
-       the purpose of the function that you are about to write. It's not unusual
-       for novice programs to jump right in to writing code without fully understanding
-       what the function is supposed to do. The simple step of stating the purpose
-       forces us to confront our understanding of the task at hand. If you cannot
-       clearly and succinctly come up with a purpose statement that fits on at most
-       two line, then one of two things is true. Either your understanding of the
-       function is lacking, or the function you are trying to write can be broken
-       down until a few less complicated functions. Let's try to write some good purpose
-       statements for the examples that we will be building together.
-       <br>
-       <br>
-       Example 1
-       <br>
-       <code class="block">
-         Problem Statement:
-         As you may know, stop signs are fairly similar in every country, with the
-         red octogon being the international standard. And even though many countries
-         use the English word "STOP" on their stop signs, some countries have chosen to use
-         their local language instead.
-         <br>
-         Write a function that takes a text input, and outputs the image of a stop
-          sign with the text displayed in white letters.
-       </code>
-       For the purpose, we want to briefly explain what our function will return,
-       and which inputs it will require. How about the following?
-        <code class="block">
-        ; Purpose: Return an image of a "stop" sign, given the text input by the user
-       </code>
-
-
-
-
-
-<!-- SECTION 2 -->
-
-    <h2 id="Signature">Signature</h2>
-
-      <p>
-        With the purpose of our function clearly stated and understood, it's time
-        to come up with our function's signature. The signature is a
-        guideline that shows how to use the function we are going to write. It will
-        show the name of our function, the type of inputs that our function will
-         take, and the type of the expected output of our function.
-         <br>
-         <br>
-         Let's proceed with our examples to get a better idea of what a signature
-         should look like.
-       <br>
-       <br>
-       Example 1 (Stop Sign)
-       <br>
-       From the problem statement here (insert link), we can go ahead and name our
-       function. When naming a function, we want to make sure the name conveys
-       the general purpose behind our function. But you also need to make sure the
-        name is not exceedingly long. For this example, let's go ahead and name
-        it stop_sign_text.
-        <code class="block">
-          ; Signature
-          stop_sign_text:
-        </code>
-        The general idea behind our function is pretty simple. When given a string
-        of text, the function should output a stop sign with that text on it. We
-        can convey this in the signature as follows:
-        <code class="block">
-          ; Signature
-          stop_sign_text: text -> image
-        </code>
-        That's all there is to it. Given the signature, any other programmer would
-        have a clear set of instructions of how to use our function and what output
-        type(s) to expect. The signature also gives us a structure to fall back on
-        if we find ourselves lost while writing the function.
-
-      </p>
-
-<!-- section 2.1 -->
-
-      <i><h3 id="Squares">Squares</h3></i>
-
-        <p>
-          Like a circle, the square function requires a size.
-          In this case, the given numerical value specifies the length of a side.
-          This is followed by the mode and color, as before.
-          <code class="block">
-            (square side-length mode color) -> image
-          </code>
-          Here's an example:
-          <code class="block">
-            (square 150 "solid" "blue")
-          </code>
-          <a class="try-it" href="src/square.rkt" download>try it</a>
-          And here's what is created:
-          <br>
-          <br>
-          <img src="images/blue-square.png" />
-          <br>
-          <br>
-          What about a square with a different mode?
-          <code class="block">
-            (square 150 "outline" "blue")
-          </code>
-          <a class="try-it" href="src/square-outline.rkt" download>try it</a>
-          <img src="images/blue-square-outline.png" />
-          <br>
-          <br>
-        </p>
-        <a class="fa fa-question-circle" style="font-size:24px"></a>
-        <a class="question">
-          How does a square with a side length of 150 compare to a circle with a radius of 80?
-        </a>
-        <br>
-        <a class="fa fa-question-circle" style="font-size:24px"></a>
-        <a class="question">
-          Which would you expect to be larger? Why?
-        </a>
-
-
-
-
-<!-- SECTION 3 -->
-
-  <h2 id="Tests/Examples">Tests/Examples</h2>
-    <p>
-      The next step in the recipe is arguably what makes the recipe so powerful.
-      The act of creating test cases is a very important part of writing successful
-      functions. The problem is that testing is usually pushed back to the end of
-      a development schedule, where it is treated as a necessary evil that gets rushed
-      through. By forcing us to create test cases up front, the recipe forces us to
-      exactly what outputs we want our function to give us. In a sense, we are clarifying
-     specifications for our function.
-     <br>
-     <br>
-     When testing is pushed to the end of a development timeline, it becomes very
-     easy for us as humans, fatigued, and wanting to move on to the next project,
-      to wave our hands at unwanted or unexpected behavior and declare that our function
-      is "good enough."
-     <br>
-     <br>
-     By creating the test cases at the very beginning, before we know what hardships
-     we'll face during coding, we specify exactly what we consider acceptable, and
-     what constitutes failure. Getting into the habit of creating test cases at the
-     onset of a development cycle will pay dividends during your career as a programmer
-     or developer, so it pays to get into this habit now.
-     <br>
-     <br>
-     Example 1 (Stop Sign)
-     <br>
-     Whenever writing a function that outputs an image, it is a good idea to first
-     do the work of creating the desired image using the graphics functions that we
-     have in our toolkit. Doing this serves two purposes. First, it gives you a finished
-     example that you can then test your function against. And second, working through
-     putting together the desired image will usually help you frame the function that
-     are about to write.
-     <br>
-     <br>
-     As you should be familiar with creating graphics in Dr.Racket, we leave it as
-     an exercise to create an image of a stop sign with the word "STOP" written in
-     all capital letters. As we want to test stop signs in other languages as well,
-     go ahead and create another stop sign with the word "ALTO" in all upper case
-     letters.
-     <br>
-     <br>
-     We've gone ahead and created our own copies. You can see the code we used here (link).
-     <br>
-     <br>
-     <!-- insert stop sign images with STOP and ALTO -->
-     <br>
-     <br>
-     Now that we have our desired outputs in the form of functions, we can create
-     our test expressions.
-     <br>
-     <br>
-     In DrRacket, we will usually use the check-expect function to test our functions.
-     First, call check-expect like you would any other function (preceded by an open
-     parenthesis). The first argument is then a call to the function you are about to write
-     and a test argument. Our function will take a text string input, so for our first
-     argument, let's enter the string "STOP". Our function will only take one argument
-     so we can close the function call with a closing parenthesis. The last argument that
-     check-expect takes is the expected result of the function call. In this case,
-     we can either copy and paste the image that we expect stop-sign-text to output,
-     or we can copy and paste the code we used to create the image. These are ultimately
-     equivalent so the choice is up to you.
-     <br>
-     <br>
-      <code class="block">
-        (check-expect (stop-sign-text "STOP") image)
-      </code>
-      Usually, the more test cases we provide, the better. Since we've already gone through
-      the work of creating a Mexican stop sign, let's go ahead and create a test that
-       outputs that image as well.
-       <code class="block">
-         (check-expect (stop-sign-text "ALTO") image)
-       </code>
-       Given the test cases above, we've basically narrowed down what results will
-       qualify our function as acceptable, or not acceptable. When writing functions
-       that contain conditional statements (if, cond, etc.), it is necessary to create
-       test cases that cover all possible options. For this function, our test-cases should
-       be enough.
-    </p>
-
-<!-- SECTION 4 -->
-
-  <h2 id="Stub">Stub</h2>
-    <p>
-      The next step in the recipe is fairly straightforward, but offers the benefit
-      of making sure we don't trip over ourselves before we even begin coding. The idea
-      behind the stub is to take advantage of the fact that since we've already written
-      calls to our function in the test cases above. If we can get the test cases to
-      run without throwing a compiler error, then we know that we're calling our function
-      correctly and we're inputting exactly what's expected. A stub is therefore a
-      function header for our function that purposely returns an incorrect value.
-      The reason we want it to return an incorrect value is because we don't want our test
-      cases to pass without us having even written any code yet!
-      <br>
-      <br>
-      Example 1 (Stop Sign)
-      <br>
-      To write a stub for our function, let's begin by calling the define keyword used to
-      define functions, followed by an open parenthesis and the name of our function.
-      <code class="block">
-        (define (stop-sign-text
-      </code>
-      We will need to create a function parameter that will take the text that the user
-       wants to input. It's a good habit to make parameter names concise, but descriptive.
-       In this case, let's go with stop-txt.
-
-
-    </p>
-
-
-<!-- SECTION 5 -->
-  <h2 id="Template">Template</h2>
-
-  <p>
-
-  </p>
-
-<!-- SECTION 6 -->
-
-  <h2 id="Code">Code</h2>
-  <p>
-
-  </p>
-
-      So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
-      We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter-->
-      In this chapter, we are going to define functions that accept images as an inputs or return images as their outputs.
-
-    </p>
 
 <!-- SECTION 1 -->
 
 <h2 id="The Design Recipe">The Design Recipe</h2>
 
 <p>
-  Designing functions can be complicated, but he process is simplified using a 'design recipe'
+  Designing functions can be complicated, but the process is simplified using a 'design recipe'.
   A design recipe is a step-by-step process that precisely dictates how to build or define functions.
   We will be going over each step of the recipe in detail in this chapter.
   <br>
@@ -513,7 +84,7 @@
   <br>
   Here is our challenge:
   <code class="block">
-    Create a function that cubes any number.
+    Create a function that squares any number.
   </code>
   A good way to begin writing purpose statements is to follow this basic format:
   <code class="block">
@@ -526,64 +97,90 @@
   <br>
   For the purpose statement of this function, we could write the following:
   <code class="block">
-    ; Purpose : Given any number, returns that number raised to the third power.
+    ; Purpose : Given any number, returns that number raised to the second power.
   </code>
   Keep in mind that a purpose statement should be fairly short, around 1-2 lines of comments.
   If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
   If you cannot clearly and succinctly come up with a purpose statement that fits on at most two line, then it is likely one of two things is true.
   Either your understanding of the function is lacking, or the function you are trying to write can be broken down into a few functions of lesser complexity.
+  <a class="fa fa-question-circle" style="font-size:24px"></a>
+  <a class="question">
+    Consider a pre-existing function that you already know. If you were to write that function, what might the purpose statement be?
+  </a>
+  <a class="fa fa-question-circle" style="font-size:24px"></a>
+  <a class="question">
+    What about a graphics function, like <code> overlay </code> or <code> rotate </code>?
+  </a>
 </p>
+
 <!-- SECTION 1.2 -->
 
 <h3 id="Signature">Signature</h3>
 
 <p>
-  Signature
-  <br>
   After you have clarified the the purpose of your function, you need to specify the signature.
-  A signature is our toolbox.
+  A signature is like your toolbox.
   It clearly states what datatypes our program will be utilizing.
-</p>
+  The signature can also serve as a set of instructions for constructing parts of our function.
+  When writing your signature, ask: what are we working with?
+  What data am I starting with, and where do I want to end up?
+ <br>
+ Let's proceed with our example to get a better idea of what a signature should look like.
+ <code class="block">
+   ; Signature : number -> number
+ </code>
+ Our function accepts a number, and is expected to produce a number as well.
+ Specifying the signature of a pre-existing function can be a way to better understand what that function does.
+ For example, the signature of the <code> place-image </code> would be:
+ <code class="block">
+   ; Signature : image number number image -> image
+ </code>
+ <a class="fa fa-question-circle" style="font-size:24px"></a>
+ <a class="question">
+   What would the signature be for a graphics function that produces a shape, like <code> ellipse </code> or <code> radial-star </code>?
+ </a>
+ </p>
 
 <!-- SECTION 1.3 -->
 
 <h3 id="Examples">Examples</h3>
 
 <p>
-  The next step of the recipe is to create tests for the function that we want to write.
-  Often, testing is almost an afterthought to the function-writing process.
-  Testing is a tedious process, and because the goal of testing is to identify errors, it doesn’t seem particularly rewarding.
-  For this reason, it is important to get into the habit of writing tests for your function, before you write a single line of code of the function itself.
-  That way, testing will never get pushed aside.
+  Testing is a vital component of the function design process.
+  Creating effective examples of your function allows you to determine whether it is working as anticipated.
   <br>
+  It is important to write examples prior to coding your function, because you will continually test your program as you add more to the code.
   <br>
-  Another important reason to write test scenarios this early in the process, is to define expectations early, and to avoid falling into the trap of thinking that our function is “good enough” if it returns a result that is mostly right.
-  By creating test scenarios that specify exactly what a function should output, it becomes clear whether a function is correct or not.
+  The function is most commonly used to create tests is <code>check-expect</code>.
+  The check-expect function recieves the name of your function and test arguments for each datatype you specified in your signature.
+  It also includes the result you expect from your function, given the inputs provided.
+  If we were to write the signature for the <code>check-expect</code> function, it might be:
+  <code class="block">
+    ; Signature : your-function datatype(s) expected-result -> boolean
+  </code>
+  Remember, the number of inputs and the datatypes of the inputs and output should match the signature you wrote for your function.
+  Let’s see how this applies to our squared function.
+  <code class="block">
+    ; Tests/Examples
+    (check-expect (squared 3) 9)
+  </code>
+  The first argument is the squared function that we are testing and our test input 3.
+  The last argument is the expected output given the input, in this case 9.
   <br>
-  <br>
-  To create tests in Dr. Racket, we normally use the check-expect function.
-  The check-expect function takes the function that you expect to write with some test arguments included, as well as the expected result that the function should output, given the inputs provided.
-  Remember, the number of inputs and the data types of the inputs and output should match your signature.
-  Let’s see how this applies to our cubed function.
-   <code class="block">
-     ; Tests/Examples
-     (check-expect (cubed 3) 27)
-   </code>
-   As you can see, we’ve called the check-expect function in the usual manner.
-   The first argument is the cubed function that we expect to test as well as the test input 3.
-   The last argument is the expected output given the input, in this case 27.
-   <br>
-   <br>
-   It’s a good idea to include a variety of tests that cover a wide-range of scenarios.
-   This ensures that our function is robust.
-   <code class="block">
-     (check-expect (cubed 1) 1)
-     (check-expect (cubed 0) 0)
-     (check-expect (cubed -4) -64)
-   </code>
-   Side note: the check-expect function is not the only test function available for use.
-   It is sufficient for the needs of this chapter, and for most functions outputting images.
-   But if you’d like to learn more about other test functions, be sure to check out Dr. Racket’s documentation regarding check-within, check-random, and check-satisfied.
+  Now, this test alone does not cover all scenarios our function needs to handle.
+  We need to create additional test cases for all the conditions we expect our function to encounter.
+  <code class="block">
+    ; Tests/Examples
+    (check-expect (squared 3) 9)
+    (check-expect (squared 0) 0)
+    (check-expect (squared -4) 16)
+  </code>
+  Sometimes when coding a function you may find that the examples you created don't fully
+  This will ensure that all parts of our function works.
+
+  As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
+  It is sufficient for the needs of this chapter, and for most functions that will output images.
+  If you’d like to learn more about other test functions, be sure to check out the documentation regarding check-within, check-random, and check-satisfied.
 </p>
 
 <!-- SECTION 1.4 -->
@@ -592,33 +189,142 @@
 
 <p>
   With our test functions written and our desired outputs specified, it’s time for the stub.
-  The stub is like a first draft of our function whose chief purpose to get our test functions to execute.
+  The stub is like an extremely abbreviated version of what will eventually be our complete function.
+  Consider it a first draft, whose chief purpose is to get our test functions to execute.
+  <br>
+  Most of the stub is written like a full function definition.
+  Begin with the name of the function you’re working on as well as any parameters representing the inputs that the function will take.
+  Remember, these should match the inputs noted in the signature up above.
+  <br>
   If we can get the test functions to run, even if they fail, we’re still closer to our goal than if the test functions failed to run at all.
-  <br>
-  <br>
-  To write a stub, you first begin with the define keyword that is
-  used to define functions in Dr. Racket. Enter the name of the
-  function you’re working on as well as any parameters representing
-  the inputs that the function will take. These should match the
-  inputs noted in the signature up above.
-  <br>
-  <br>
-  After the function header is formed, a function needs a body containing the code that will execute when the function is called.
-  In the case of the stub, we’re only interested in making sure the header is called by the test functions without fail.
-  For this reason, we will simply include some bogus value, preferably of the same data type as the function’s expected output.
-  We want to enter a bogus value to eliminate the chance that our tests will pass, even though no code has been written.
-  <br>
+  For this reason, we will simply include some bogus value instead of a full function body, preferably of the same data type as the function’s expected output.
+  We want to enter a bogus value to eliminate the chance that our tests will pass.
   <br>
   Let’s see what a stub would look like for our example:
   <code class="block">
     ; Stub
-    (define (cubed num) 3241)
+    (define (squared num) -1)
   </code>
-  Even though the number 3241 may be the correct answer for some number cubed, it’s highly unlikely that we’ve chosen a cube root of 3241 as one of our test expressions.
+  We know the value -1 will never be an actual result, since a squared number will never be negative.
   <br>
-  <br>
-  Let’s click Run to see what happens.
+  Run the stub.
+  What happens? Is the result what we anticipated?
 </p>
+
+
+<!-- Section 2 -->
+
+<h2 id="Stop Sign"> Stop Sign </h2>
+
+<p>
+ Stop signs are ubiquitous, and generally share the same distinctive design regardless of the country they appear in.
+ A red octogon accompanied by white text is the international standard.
+ Many countries use the English word "STOP" on their signs, with others electing to use their local language instead.
+ <br>
+ In this example, we want to write a function that produces a stop sign.
+ This function will take a text input, and output the image of a stop sign with the text displayed in white letters.
+ <br>
+ Lets follow the design recipe
+ Recall that for the purpose, we want to briefly explain what our function will return, and which inputs it will require.
+<code class="block">
+; Purpose: Return an image of a "stop" sign, given the text input by the user
+</code>
+Example 1 (Stop Sign)
+<br>
+From the problem statement here (insert link), we can go ahead and name our
+function.
+When naming a function, we want to make sure the name conveys the general purpose behind our function.
+But you also need to make sure the name is not exceedingly long.
+For this example, let's go ahead and name it stop_sign_text.
+<code class="block">
+  ; Signature
+  stop_sign_text:
+</code>
+The general idea behind our function is pretty simple.
+When given a string of text, the function should output a stop sign with that text on it.
+We can convey this in the signature as follows:
+<code class="block">
+  ; Signature
+  stop_sign_text: text -> image
+</code>
+That's all there is to it.
+Given the signature, any other programmer would have a clear set of instructions of how to use our function and what output type(s) to expect.
+The signature also gives us a structure to fall back on if we find ourselves lost while writing the function.
+<br>
+Whenever writing a function that outputs an image, it is a good idea to first do the work of creating the desired image using the graphics functions that we have in our toolkit.
+Doing this serves two purposes.
+First, it gives you a finished example that you can then test your function against.
+And second, working through putting together the desired image will usually help you frame the function that are about to write.
+<br>
+<br>
+As you should be familiar with creating graphics in Dr.Racket, we leave it as
+an exercise to create an image of a stop sign with the word "STOP" written in
+all capital letters.
+As we want to test stop signs in other languages as well,
+go ahead and create another stop sign with the word "ALTO" in all upper case
+letters.
+<br>
+<br>
+We've gone ahead and created our own copies. You can see the code we used here (link).
+<br>
+<br>
+The next step in the recipe is fairly straightforward, but offers the benefit
+of making sure we don't trip over ourselves before we even begin coding.
+The idea
+behind the stub is to take advantage of the fact that since we've already written
+calls to our function in the test cases above.
+If we can get the test cases to
+run without throwing a compiler error, then we know that we're calling our function
+correctly and we're inputting exactly what's expected.
+A stub is therefore a
+function header for our function that purposely returns an incorrect value.
+The reason we want it to return an incorrect value is because we don't want our test
+cases to pass without us having even written any code yet!
+<br>
+<br>
+Example 1 (Stop Sign)
+<br>
+To write a stub for our function, let's begin by calling the define keyword used to
+define functions, followed by an open parenthesis and the name of our function.
+<code class="block">
+(define (stop-sign-text
+</code>
+We will need to create a function parameter that will take the text that the user
+wants to input. It's a good habit to make parameter names concise, but descriptive.
+In this case, let's go with stop-txt.
+
+<!-- insert stop sign images with STOP and ALTO -->
+
+<br>
+In DrRacket, we will usually use the check-expect function to test our functions.
+First, call check-expect like you would any other function (preceded by an open
+parenthesis). The first argument is then a call to the function you are about to write
+and a test argument. Our function will take a text string input, so for our first
+argument, let's enter the string "STOP". Our function will only take one argument
+so we can close the function call with a closing parenthesis. The last argument that
+check-expect takes is the expected result of the function call. In this case,
+we can either copy and paste the image that we expect stop-sign-text to output,
+or we can copy and paste the code we used to create the image. These are ultimately
+equivalent so the choice is up to you.
+<br>
+<br>
+<code class="block">
+(check-expect (stop-sign-text "STOP") image)
+</code>
+Usually, the more test cases we provide, the better. Since we've already gone through
+the work of creating a Mexican stop sign, let's go ahead and create a test that
+outputs that image as well.
+<code class="block">
+ (check-expect (stop-sign-text "ALTO") image)
+</code>
+Given the test cases above, we've basically narrowed down what results will
+qualify our function as acceptable, or not acceptable. When writing functions
+that contain conditional statements (if, cond, etc.), it is necessary to create
+test cases that cover all possible options. For this function, our test-cases should
+be enough.
+</p>
+
+<!-- stop sign followed by yield sign challenge -->
 
 <div class="footer">
   <h4>Copywright Notice</h6>
