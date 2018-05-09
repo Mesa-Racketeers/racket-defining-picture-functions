@@ -12,7 +12,8 @@ img {
     margin-right: auto;
 }
 
-.question {
+div.question {
+  list-style-image: 
   font-family: sans-serif;
   font-weight: bold;
   font-size: 24;

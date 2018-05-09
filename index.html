@@ -13,9 +13,14 @@
 <div class="clearfix">
   <div class="column sidemenu">
     <ul>
-      <li><a href="#Introduction">Introduction</a></li>
-      <li><a href="#The Design Recipe">The Design Recipe</a></li>
-      <li><a href="#Practice">Practice</a></li>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#designrecipe">The Design Recipe</a></li>
+      <li><a href="#stop-sign">Stop Sign</a></li>
+      <li><a href="#counterchange">Counter-Change</a></li>
+      <li><a href="#bulls-eye">Bulls-Eye</a></li>
+      <li><a href="#pinwheel">Pinwheel</a></li>
+      <li><a href="#business-card">Business Card</a></li>
+      <li><a href="#clock-face">Clock Face</a></li>
     </ul>
   </div>
 
@@ -32,7 +37,7 @@
 
 <!-- INTRODUCTION -->
 
-<h2 id="Introduction"> Introduction</h2>
+<h2 id="introduction"> Introduction</h2>
 
 <p>
     So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
@@ -43,7 +48,7 @@
 
 <!-- SECTION 1 -->
 
-<h2 id="The Design Recipe">The Design Recipe</h2>
+<h2 id="designrecipe">The Design Recipe</h2>
 
 <p>
   Designing functions can be complicated, but the process is simplified using a 'design recipe'.
@@ -103,14 +108,14 @@
   If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
   If you cannot clearly and succinctly come up with a purpose statement that fits on at most two line, then it is likely one of two things is true.
   Either your understanding of the function is lacking, or the function you are trying to write can be broken down into a few functions of lesser complexity.
-  <a class="fa fa-question-circle" style="font-size:24px"></a>
-  <a class="question">
+  <div class="fa fa-question-circle" style="font-size:24px"></div>
+  <div class="question">
     Consider a pre-existing function that you already know. If you were to write that function, what might the purpose statement be?
-  </a>
-  <a class="fa fa-question-circle" style="font-size:24px"></a>
-  <a class="question">
+  </div>
+  <div class="fa fa-question-circle" style="font-size:24px"></a>
+  <div class="question">
     What about a graphics function, like <code> overlay </code> or <code> rotate </code>?
-  </a>
+  </div>
 </p>
 
 <!-- SECTION 1.2 -->
@@ -135,10 +140,10 @@
  <code class="block">
    ; Signature : image number number image -> image
  </code>
- <a class="fa fa-question-circle" style="font-size:24px"></a>
- <a class="question">
+ <div class="fa fa-question-circle" style="font-size:24px"></div>
+ <div class="question">
    What would the signature be for a graphics function that produces a shape, like <code> ellipse </code> or <code> radial-star </code>?
- </a>
+ </div>
  </p>
 
 <!-- SECTION 1.3 -->
@@ -214,7 +219,7 @@
 
 <!-- Section 2 -->
 
-<h2 id="Stop Sign"> Stop Sign </h2>
+<h2 id="stop-sign"> Stop Sign </h2>
 
 <p>
  Stop signs are ubiquitous, and generally share the same distinctive design regardless of the country they appear in.
@@ -226,20 +231,20 @@
  <br>
  Lets follow the design recipe
  Recall that for the purpose, we want to briefly explain what our function will return, and which inputs it will require.
-<code class="block">
-; Purpose: Return an image of a "stop" sign, given the text input by the user
-</code>
-Example 1 (Stop Sign)
-<br>
-From the problem statement here (insert link), we can go ahead and name our
-function.
-When naming a function, we want to make sure the name conveys the general purpose behind our function.
-But you also need to make sure the name is not exceedingly long.
-For this example, let's go ahead and name it stop_sign_text.
-<code class="block">
+ <code class="block">
+   ; Purpose: Return an image of a "stop" sign, given the text input by the user
+ </code>
+ Example 1 (Stop Sign)
+ <br>
+ From the problem statement here (insert link), we can go ahead and name our
+ function.
+ When naming a function, we want to make sure the name conveys the general purpose behind our function.
+ But you also need to make sure the name is not exceedingly long.
+ For this example, let's go ahead and name it stop_sign_text.
+ <code class="block">
   ; Signature
   stop_sign_text:
-</code>
+  </code>
 The general idea behind our function is pretty simple.
 When given a string of text, the function should output a stop sign with that text on it.
 We can convey this in the signature as follows:
@@ -247,7 +252,6 @@ We can convey this in the signature as follows:
   ; Signature
   stop_sign_text: text -> image
 </code>
-That's all there is to it.
 Given the signature, any other programmer would have a clear set of instructions of how to use our function and what output type(s) to expect.
 The signature also gives us a structure to fall back on if we find ourselves lost while writing the function.
 <br>
@@ -273,16 +277,12 @@ of making sure we don't trip over ourselves before we even begin coding.
 The idea
 behind the stub is to take advantage of the fact that since we've already written
 calls to our function in the test cases above.
-If we can get the test cases to
-run without throwing a compiler error, then we know that we're calling our function
+If we can get the test cases to run without throwing a compiler error, then we know that we're calling our function
 correctly and we're inputting exactly what's expected.
 A stub is therefore a
 function header for our function that purposely returns an incorrect value.
 The reason we want it to return an incorrect value is because we don't want our test
 cases to pass without us having even written any code yet!
-<br>
-<br>
-Example 1 (Stop Sign)
 <br>
 To write a stub for our function, let's begin by calling the define keyword used to
 define functions, followed by an open parenthesis and the name of our function.
@@ -322,9 +322,302 @@ qualify our function as acceptable, or not acceptable. When writing functions
 that contain conditional statements (if, cond, etc.), it is necessary to create
 test cases that cover all possible options. For this function, our test-cases should
 be enough.
+
+  <code class="block">
+    ; Purpose : given two colors and a string of text, return a stop sign
+  </code>
+
+  <code class="block">
+    ; Signature : string (color) string (color) string -> image
+  </code>
+
+  <code class="block">
+    ; Examples :
+  </code>
+
+  <code class="block">
+    ; Stub :
+    (define (stop-sign clr clr str) 0)
+  </code>
+
+  <code class="block">
+    ; Template :
+    (define (stop-sign clr1 clr2 str)
+      (overlay
+        (text ... ... ...)
+        (regular-polygon ... ... ... ...)
+        )
+      )
+  </code>
+
+  <code class="block">
+    ; Code :
+    (define (stop-sign clr1 clr2 str)
+      (overlay
+        (text str 75 clr1)
+        (regular-polygon 100 8 "solid" clr2)
+        )
+      )
+  </code>
+
 </p>
 
 <!-- stop sign followed by yield sign challenge -->
+
+<!-- Section 3 -->
+
+<h2 id="counterchange"> Counter-Change </h2>
+
+<p>
+
+  <code class="block">
+    ; Purpose : given two images, return a checkerboard of those images
+  </code>
+
+  <code class="block">
+    ; Signature : image image -> image
+  </code>
+
+  <code class="block">
+    ; Examples :
+  </code>
+
+  <code class="block">
+    ; Stub :
+    (define (counter-change img1 img2) 0)
+  </code>
+
+  <code class="block">
+    ; Template :
+    (define (counter-change img1 img2)
+      (above
+        (beside ... ...)
+        (beside ... ...)
+        )
+      )
+  </code>
+
+  <code class="block">
+    ; Code :
+    (define (counter-change img1 img2)
+      (above
+        (beside img2 (flip-horizontal img1))
+        (beside img1 (flip-horizontal img2))
+        )
+      )
+  </code>
+
+  <img src="images/peach1.png"/>
+  <img src="images/cherry1.png"/>
+  <img src="images/counter-cherry-peach.png"/>
+
+</p>
+
+<!-- Section 4 -->
+
+<h2 id="bulls-eye"> Bulls-Eye </h2>
+
+<p>
+
+  <code class="block">
+    ; Purpose : given two colors, return a bulls-eye comprised of those colors
+  </code>
+
+  <code class="block">
+    ; Signature : string (color) string (color) -> image
+  </code>
+
+  <code class="block">
+    ; Examples :
+  </code>
+
+  <code class="block">
+    ; Stub :
+    (define (bulls-eye clr clr) 0)
+  </code>
+
+  <code class="block">
+    ; Template :
+    (define (bulls-eye clr1 clr2)
+      (overlay
+        (circle ... ...)
+        (circle ... ...)
+        )
+      )
+  </code>
+
+  <code class="block">
+    ; Code :
+    (define (bulls-eye clr1 clr2)
+      (overlay
+        (circle 10 "solid" clr1)
+        (circle 20 "solid" clr2)
+        (circle 30 "solid" clr1)
+        (circle 40 "solid" clr2)
+        (circle 50 "solid" clr1)
+        (circle 60 "solid" clr2)
+        (circle 70 "solid" clr1)
+        (circle 80 "solid" clr2)
+        (circle 90 "solid" clr1)
+        (circle 100 "solid" clr2)
+        )
+      )
+  </code>
+
+  <img src="images/bulls-eye.png"/>
+
+  <!-- for bonus/exercise -->
+  <img src="images/bulls-eye-tr.png"/>
+
+</p>
+
+<!-- Section 5 -->
+
+<h2 id="pinwheel"> Pinwheel </h2>
+
+<p>
+
+  <code class="block">
+    ; Purpose : given a shape or image, return a 'pinwheel' comprised of that shape
+  </code>
+
+  <code class="block">
+    ; Signature : image -> image
+  </code>
+
+  <code class="block">
+    ; Examples :
+  </code>
+
+  <code class="block">
+    ; Stub :
+    (define (pinwheel img) 0)
+  </code>
+
+  <code class="block">
+    ; Template :
+    (define (pinwheel img)
+      (rotate ...
+        (above
+          (beside
+            (rotate ... ...)
+            (rotate ... ...)
+            )
+          (beside
+            (rotate ... ...)
+            (rotate ... ...)
+            )
+        )
+      )
+    )
+  </code>
+
+  <code class="block">
+    ; Code :
+    (define (pinwheel img)
+      (rotate -45
+          (above
+           (beside
+              (rotate 45 img)
+              (rotate -45 img)
+            )
+           (beside
+              (rotate -45 img)
+              (rotate 45 img)
+            )
+           )
+          )
+  )
+  </code>
+
+  <img src="images/turq-pinwheel.png"/>
+  <img src="images/orch-pinwheel.png"/>
+
+<!-- for bonus/exercise -->
+
+  <img src="images/rainbow-pinwheel.png"/>
+
+</p>
+
+<!-- Section 6 -->
+
+<h2 id="business-card"> Business Card </h2>
+
+<p>
+
+  <code class="block">
+    ; Purpose : given a name, a job, an identifying image, and a logo, return a business card.
+  </code>
+
+  <code class="block">
+    ; Signature : image image text text -> image
+  </code>
+
+  <code class="block">
+    ; Examples :
+  </code>
+
+  <code class="block">
+    ; Stub :
+    (define (business-card id logo name job) 0)
+  </code>
+
+  <code class="block">
+    ; Template :
+    (define (business-card id logo name job)
+      (overlay/align/offset ... ...
+        (beside ...
+          (above
+            (text ... ... ...)
+            (text ... ... ...)
+            )
+          )
+          ... ...
+        )
+      )
+  </code>
+
+  <code class="block">
+    ; Code :
+    (define (business-card id logo name job)
+      (overlay/align/offset "right" "top"
+        logo
+        5 -10
+        (overlay/offset
+          (beside
+            (place-image
+              id
+              115 100
+              (rectangle 175 225 "solid" "white")
+              )
+            (above
+              (text name 36 "black")
+              (text/font job 24 "dimgray" #f 'roman 'italic 'normal #f)
+              )
+            )
+          40 0
+            (rectangle 500 250 "solid" "whitesmoke")
+          )
+        )
+      )
+  </code>
+
+  <img src="images/pigeon.png"/>
+  <img src="images/purple-planet.png"/>
+
+  <img src="images/pigeon-crop.png"/>
+
+  <img src="images/business-card.png"/>
+
+</p>
+
+<!-- Section 7 -->
+
+<h2 id="clock-face"> Clock Face </h2>
+
+<p>
+  ...
+</p>
 
 <div class="footer">
   <h4>Copywright Notice</h6>
