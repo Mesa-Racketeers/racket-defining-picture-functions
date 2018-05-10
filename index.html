@@ -72,10 +72,13 @@
   The first step of writing any function is to clarify and express exactly what you intend to the function to do.
   That is the concept behind the purpose statement.
   At first, you will probably want to jump in and begin coding right away.
-  What you may find later on, however, is that you don't fully understand the specifics of what your function is supposed to do, or what components ou may need to complete it.
+  What you may find later on, however, is that you don't fully understand the
+  specifics of what your function is supposed to do, or what components you may need to complete it.
   The simple step of stating the purpose forces us to confront our understanding of the task at hand.
-  You may also find that putting the problem you're trying to solve into words automatically deepens your understanding of the problem.
-  A good purpose statement succinctly explains what the function will accept as inputs, what it will do, and what it will output, if anything.
+  You may also find that putting the problem you're trying to solve into words
+  automatically deepens your understanding of the problem.
+  A good purpose statement succinctly explains what the function will accept as
+  inputs, what it will do, and what it will output, if anything.
   <br>
   <br>
   Let's try writing some good purpose statements.
@@ -103,10 +106,12 @@
   If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
   If you cannot clearly and succinctly come up with a purpose statement that fits on at most two line, then it is likely one of two things is true.
   Either your understanding of the function is lacking, or the function you are trying to write can be broken down into a few functions of lesser complexity.
+  <br>
   <a class="fa fa-question-circle" style="font-size:24px"></a>
   <a class="question">
     Consider a pre-existing function that you already know. If you were to write that function, what might the purpose statement be?
   </a>
+  <br>
   <a class="fa fa-question-circle" style="font-size:24px"></a>
   <a class="question">
     What about a graphics function, like <code> overlay </code> or <code> rotate </code>?
@@ -127,13 +132,13 @@
  <br>
  Let's proceed with our example to get a better idea of what a signature should look like.
  <code class="block">
-   ; Signature : number -> number
+   ; Signature : number &rarr; number
  </code>
  Our function accepts a number, and is expected to produce a number as well.
  Specifying the signature of a pre-existing function can be a way to better understand what that function does.
  For example, the signature of the <code> place-image </code> would be:
  <code class="block">
-   ; Signature : image number number image -> image
+   ; Signature : image number number image &rarr; image
  </code>
  <a class="fa fa-question-circle" style="font-size:24px"></a>
  <a class="question">
@@ -156,10 +161,10 @@
   It also includes the result you expect from your function, given the inputs provided.
   If we were to write the signature for the <code>check-expect</code> function, it might be:
   <code class="block">
-    ; Signature : your-function datatype(s) expected-result -> boolean
+    ; Signature : your-function datatype(s) expected-result &rarr; boolean
   </code>
   Remember, the number of inputs and the datatypes of the inputs and output should match the signature you wrote for your function.
-  Let’s see how this applies to our squared function.
+  Let's see how this applies to our squared function.
   <code class="block">
     ; Tests/Examples
     (check-expect (squared 3) 9)
@@ -180,7 +185,7 @@
 
   As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
   It is sufficient for the needs of this chapter, and for most functions that will output images.
-  If you’d like to learn more about other test functions, be sure to check out the documentation regarding check-within, check-random, and check-satisfied.
+  If you'd like to learn more about other test functions, be sure to check out the documentation regarding check-within, check-random, and check-satisfied.
 </p>
 
 <!-- SECTION 1.4 -->
@@ -188,19 +193,19 @@
 <h3 id="Stub">Stub</h3>
 
 <p>
-  With our test functions written and our desired outputs specified, it’s time for the stub.
+  With our test functions written and our desired outputs specified, it's time for the stub.
   The stub is like an extremely abbreviated version of what will eventually be our complete function.
   Consider it a first draft, whose chief purpose is to get our test functions to execute.
   <br>
   Most of the stub is written like a full function definition.
-  Begin with the name of the function you’re working on as well as any parameters representing the inputs that the function will take.
+  Begin with the name of the function you're working on as well as any parameters representing the inputs that the function will take.
   Remember, these should match the inputs noted in the signature up above.
   <br>
-  If we can get the test functions to run, even if they fail, we’re still closer to our goal than if the test functions failed to run at all.
-  For this reason, we will simply include some bogus value instead of a full function body, preferably of the same data type as the function’s expected output.
+  If we can get the test functions to run, even if they fail, we're still closer to our goal than if the test functions failed to run at all.
+  For this reason, we will simply include some bogus value instead of a full function body, preferably of the same data type as the function's expected output.
   We want to enter a bogus value to eliminate the chance that our tests will pass.
   <br>
-  Let’s see what a stub would look like for our example:
+  Let's see what a stub would look like for our example:
   <code class="block">
     ; Stub
     (define (squared num) -1)
@@ -224,12 +229,11 @@
  In this example, we want to write a function that produces a stop sign.
  This function will take a text input, and output the image of a stop sign with the text displayed in white letters.
  <br>
- Lets follow the design recipe
+ Let's follow the design recipe
  Recall that for the purpose, we want to briefly explain what our function will return, and which inputs it will require.
 <code class="block">
 ; Purpose: Return an image of a "stop" sign, given the text input by the user
 </code>
-Example 1 (Stop Sign)
 <br>
 From the problem statement here (insert link), we can go ahead and name our
 function.
@@ -245,7 +249,7 @@ When given a string of text, the function should output a stop sign with that te
 We can convey this in the signature as follows:
 <code class="block">
   ; Signature
-  stop_sign_text: text -> image
+  stop_sign_text: text &rarr; image
 </code>
 That's all there is to it.
 Given the signature, any other programmer would have a clear set of instructions of how to use our function and what output type(s) to expect.
@@ -281,8 +285,6 @@ function header for our function that purposely returns an incorrect value.
 The reason we want it to return an incorrect value is because we don't want our test
 cases to pass without us having even written any code yet!
 <br>
-<br>
-Example 1 (Stop Sign)
 <br>
 To write a stub for our function, let's begin by calling the define keyword used to
 define functions, followed by an open parenthesis and the name of our function.
