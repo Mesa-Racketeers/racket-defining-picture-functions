@@ -54,7 +54,7 @@
   Designing functions can be complicated, but the process is simplified using a 'design recipe'.
   A design recipe is a step-by-step process that precisely dictates how to build or define functions.
   We will be going over each step of the recipe in detail in this chapter.
-  <br>
+  <br> <!-- should be new <p> for all double <br> in both chapters -->
   <br>
   It is possible to cobble together a function from bits and pieces of code, approaching the problem arbitrarily and forcing the function to work via brute force.
   Although this haphazard approach to programming may succeed on smaller, less sophisticated functions, functions with this programming "philosophy" at their core are ultimately more difficult to execute.
@@ -112,7 +112,7 @@
   <div class="question">
     Consider a pre-existing function that you already know. If you were to write that function, what might the purpose statement be?
   </div>
-  <div class="fa fa-question-circle" style="font-size:24px"></a>
+  <div class="fa fa-question-circle" style="font-size:24px"></div>
   <div class="question">
     What about a graphics function, like <code> overlay </code> or <code> rotate </code>?
   </div>
@@ -134,6 +134,7 @@
  <code class="block">
    ; Signature : number -> number
  </code>
+ <!-- include explanation for ... -> ... i.e. given ... -> returns ... -->
  Our function accepts a number, and is expected to produce a number as well.
  Specifying the signature of a pre-existing function can be a way to better understand what that function does.
  For example, the signature of the <code> place-image </code> would be:
@@ -145,6 +146,8 @@
    What would the signature be for a graphics function that produces a shape, like <code> ellipse </code> or <code> radial-star </code>?
  </div>
  </p>
+
+ <!-- verb-noun form for function names/function naming conventions -->
 
 <!-- SECTION 1.3 -->
 
@@ -337,12 +340,12 @@ be enough.
 
   <code class="block">
     ; Stub :
-    (define (stop-sign clr clr str) 0)
+    (define (stop-sign color str) 0)
   </code>
 
   <code class="block">
     ; Template :
-    (define (stop-sign clr1 clr2 str)
+    (define (stop-sign color str)
       (overlay
         (text ... ... ...)
         (regular-polygon ... ... ... ...)
@@ -352,17 +355,17 @@ be enough.
 
   <code class="block">
     ; Code :
-    (define (stop-sign clr1 clr2 str)
+    (define (stop-sign color str)
       (overlay
-        (text str 75 clr1)
-        (regular-polygon 100 8 "solid" clr2)
+        (text str 75 "white")
+        (regular-polygon 100 8 "solid" "red")
         )
       )
   </code>
 
 </p>
 
-<!-- stop sign followed by yield sign challenge -->
+<!-- stop sign followed by yield sign challenge (include picture) -->
 
 <!-- Section 3 -->
 
@@ -384,12 +387,12 @@ be enough.
 
   <code class="block">
     ; Stub :
-    (define (counter-change img1 img2) 0)
+    (define (counter-change img-1 img-2) 0)
   </code>
 
   <code class="block">
     ; Template :
-    (define (counter-change img1 img2)
+    (define (counter-change img-1 img-2)
       (above
         (beside ... ...)
         (beside ... ...)
@@ -399,13 +402,15 @@ be enough.
 
   <code class="block">
     ; Code :
-    (define (counter-change img1 img2)
+    (define (counter-change img-1 img-2)
       (above
-        (beside img2 (flip-horizontal img1))
-        (beside img1 (flip-horizontal img2))
+        (beside img-2 (flip-horizontal img-1))
+        (beside img-1 (flip-horizontal img-2))
         )
       )
   </code>
+
+  <!-- make actual checkerboard as example, then fruit as exercise -->
 
   <img src="images/peach1.png"/>
   <img src="images/cherry1.png"/>
@@ -463,6 +468,8 @@ be enough.
         )
       )
   </code>
+
+  <!-- test commenting out a line, use beside instead of overlay to show individual circles -->
 
   <img src="images/bulls-eye.png"/>
 
@@ -592,7 +599,7 @@ be enough.
               )
             (above
               (text name 36 "black")
-              (text/font job 24 "dimgray" #f 'roman 'italic 'normal #f)
+              (text/font job 24 "dimgray" #f "roman" "italic" "normal" #f)
               )
             )
           40 0
