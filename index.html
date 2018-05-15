@@ -54,17 +54,17 @@
   Designing functions can be complicated, but the process is simplified using a 'design recipe'.
   A design recipe is a step-by-step process that precisely dictates how to build or define functions.
   We will be going over each step of the recipe in detail in this chapter.
-  <br>
-  <br>
+</p>
+<p>
   It is possible to cobble together a function from bits and pieces of code, approaching the problem arbitrarily and forcing the function to work via brute force.
   Although this haphazard approach to programming may succeed on smaller, less sophisticated functions, functions with this programming "philosophy" at their core are ultimately more difficult to execute.
-  <br>
-  <br>
+</p>
+<p>
   In the world of software development, projects often require the coordinated cooperation of many people.
   For this reason, it is important to clarify exactly what a program will be expected to do, and what the inputs are, and what the expected output will be.
   Therefore a systematic recipe for writing functions is incredibly valuable.
-  <br>
-  <br>
+</p>
+<p>
   The design recipe also allows for a divide-and-conquer approach, breaking large problems into smaller ones.
   It also requires you to more completely understand and express different aspects of your function.
 </p>
@@ -84,8 +84,8 @@
   automatically deepens your understanding of the problem.
   A good purpose statement succinctly explains what the function will accept as
   inputs, what it will do, and what it will output, if anything.
-  <br>
-  <br>
+</p>
+<p>
   Let's try writing some good purpose statements.
   For simplicity, in these first examples we are going to use numbers.
   Later, we will explore how the same process can apply to graphics.
@@ -115,7 +115,7 @@
   <div class="question">
     Consider a pre-existing function that you already know. If you were to write that function, what might the purpose statement be?
   </div>
-  <div class="fa fa-question-circle" style="font-size:24px"></a>
+  <div class="fa fa-question-circle" style="font-size:24px"></div>
   <div class="question">
     What about a graphics function, like <code> overlay </code> or <code> rotate </code>?
   </div>
@@ -135,14 +135,21 @@
  <br>
  Let's proceed with our example to get a better idea of what a signature should look like.
  <code class="block">
-   ; Signature : number &rarr; number
+   ; Signature : Number -> Number
  </code>
+ Note the arrow seperating our two datatypes.
+ The presence of the arrow indicates the datatype(s) on the left side are what we expect to input, and the type(s) on the right are what we expect the output to be.
+ It is another way of saying <code> Given ... -> Returns ... </code>
+ Note also the capitalization of Number and Number.
+ Capitalization in the signature denotes a datatype.
+ <br>
  Our function accepts a number, and is expected to produce a number as well.
  Specifying the signature of a pre-existing function can be a way to better understand what that function does.
  For example, the signature of the <code> place-image </code> would be:
  <code class="block">
-   ; Signature : image number number image &rarr; image
+   ; Signature : Image Number Number Image -> Image
  </code>
+
  <div class="fa fa-question-circle" style="font-size:24px"></div>
  <div class="question">
    What would the signature be for a graphics function that produces a shape, like <code> ellipse </code> or <code> radial-star </code>?
@@ -164,28 +171,35 @@
   It also includes the result you expect from your function, given the inputs provided.
   If we were to write the signature for the <code>check-expect</code> function, it might be:
   <code class="block">
-    ; Signature : your-function datatype(s) expected-result &rarr; boolean
+    ; Signature : your-function datatype(s) expected-result -> boolean
   </code>
   Remember, the number of inputs and the datatypes of the inputs and output should match the signature you wrote for your function.
-  Let's see how this applies to our squared function.
+  <br>
+  Since the <code> check-expect </code> function requires the name of your function, this is our first opportunity to come up with a good name for the function we are designing.
+  A good practice for function naming is to follow the verb-noun form.
+  This convention includes a verb to denote the action your function is taking, and a noun to denote what is being acted upon.
+  This function, for example, might be called square-number.
+  Squaring is the action we are taking, and a number is what we are squaring.
+<p/>
+<p>
+  Let's see how <code> check-expect </code> applies to our square-number function.
   <code class="block">
-    ; Tests/Examples
-    (check-expect (squared 3) 9)
+    ; Examples :
+    (check-expect (square-number 3) 9)
   </code>
-  The first argument is the squared function that we are testing and our test input 3.
+  The first argument is the square-number function that we are testing and our test input 3.
   The last argument is the expected output given the input, in this case 9.
   <br>
   Now, this test alone does not cover all scenarios our function needs to handle.
   We need to create additional test cases for all the conditions we expect our function to encounter.
   <code class="block">
-    ; Tests/Examples
-    (check-expect (squared 3) 9)
-    (check-expect (squared 0) 0)
-    (check-expect (squared -4) 16)
+    ; Examples :
+    (check-expect (square-number 3) 9)
+    (check-expect (square-number 0) 0)
+    (check-expect (square-number -4) 16)
   </code>
   Sometimes when coding a function you may find that the examples you created don't fully
   This will ensure that all parts of our function works.
-
   As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
   It is sufficient for the needs of this chapter, and for most functions that will output images.
   If you'd like to learn more about other test functions, be sure to check out the documentation regarding check-within, check-random, and check-satisfied.
@@ -210,10 +224,10 @@
   <br>
   Let's see what a stub would look like for our example:
   <code class="block">
-    ; Stub
-    (define (squared num) -1)
+    ; Stub :
+    (define (square-number num) -1)
   </code>
-  We know the value -1 will never be an actual result, since a squared number will never be negative.
+  We know the value -1 will never be an actual result, since a square-number number will never be negative.
   <br>
   Run the stub.
   What happens? Is the result what we anticipated?
@@ -225,147 +239,94 @@
 <h2 id="stop-sign"> Stop Sign </h2>
 
 <p>
- Stop signs are ubiquitous, and generally share the same distinctive design regardless of the country they appear in.
- A red octogon accompanied by white text is the international standard.
- Many countries use the English word "STOP" on their signs, with others electing to use their local language instead.
- <br>
- In this example, we want to write a function that produces a stop sign.
- This function will take a text input, and output the image of a stop sign with the text displayed in white letters.
- <br>
- Let's follow the design recipe
- Recall that for the purpose, we want to briefly explain what our function will return, and which inputs it will require.
- <code class="block">
-   ; Purpose: Return an image of a "stop" sign, given the text input by the user
- </code>
- Example 1 (Stop Sign)
- <br>
- From the problem statement here (insert link), we can go ahead and name our
- function.
- When naming a function, we want to make sure the name conveys the general purpose behind our function.
- But you also need to make sure the name is not exceedingly long.
- For this example, let's go ahead and name it stop_sign_text.
- <code class="block">
-  ; Signature
-  stop_sign_text:
-  </code>
-The general idea behind our function is pretty simple.
-When given a string of text, the function should output a stop sign with that text on it.
-We can convey this in the signature as follows:
-<code class="block">
-  ; Signature
-  stop_sign_text: text &rarr; image
-</code>
-Given the signature, any other programmer would have a clear set of instructions of how to use our function and what output type(s) to expect.
-The signature also gives us a structure to fall back on if we find ourselves lost while writing the function.
-<br>
-Whenever writing a function that outputs an image, it is a good idea to first do the work of creating the desired image using the graphics functions that we have in our toolkit.
-Doing this serves two purposes.
-First, it gives you a finished example that you can then test your function against.
-And second, working through putting together the desired image will usually help you frame the function that are about to write.
-<br>
-<br>
-As you should be familiar with creating graphics in Dr.Racket, we leave it as
-an exercise to create an image of a stop sign with the word "STOP" written in
-all capital letters.
-As we want to test stop signs in other languages as well,
-go ahead and create another stop sign with the word "ALTO" in all upper case
-letters.
-<br>
-<br>
-We've gone ahead and created our own copies. You can see the code we used here (link).
-<br>
-<br>
-The next step in the recipe is fairly straightforward, but offers the benefit
-of making sure we don't trip over ourselves before we even begin coding.
-The idea
-behind the stub is to take advantage of the fact that since we've already written
-calls to our function in the test cases above.
-If we can get the test cases to run without throwing a compiler error, then we know that we're calling our function
-correctly and we're inputting exactly what's expected.
-A stub is therefore a
-function header for our function that purposely returns an incorrect value.
-The reason we want it to return an incorrect value is because we don't want our test
-cases to pass without us having even written any code yet!
-<br>
-To write a stub for our function, let's begin by calling the define keyword used to
-define functions, followed by an open parenthesis and the name of our function.
-<code class="block">
-(define (stop-sign-text
-</code>
-We will need to create a function parameter that will take the text that the user
-wants to input. It's a good habit to make parameter names concise, but descriptive.
-In this case, let's go with stop-txt.
-
-<!-- insert stop sign images with STOP and ALTO -->
-
-<br>
-In DrRacket, we will usually use the check-expect function to test our functions.
-First, call check-expect like you would any other function (preceded by an open
-parenthesis). The first argument is then a call to the function you are about to write
-and a test argument. Our function will take a text string input, so for our first
-argument, let's enter the string "STOP". Our function will only take one argument
-so we can close the function call with a closing parenthesis. The last argument that
-check-expect takes is the expected result of the function call. In this case,
-we can either copy and paste the image that we expect stop-sign-text to output,
-or we can copy and paste the code we used to create the image. These are ultimately
-equivalent so the choice is up to you.
-<br>
-<br>
-<code class="block">
-(check-expect (stop-sign-text "STOP") image)
-</code>
-Usually, the more test cases we provide, the better. Since we've already gone through
-the work of creating a Mexican stop sign, let's go ahead and create a test that
-outputs that image as well.
-<code class="block">
- (check-expect (stop-sign-text "ALTO") image)
-</code>
-Given the test cases above, we've basically narrowed down what results will
-qualify our function as acceptable, or not acceptable. When writing functions
-that contain conditional statements (if, cond, etc.), it is necessary to create
-test cases that cover all possible options. For this function, our test-cases should
-be enough.
-
+  Stop signs are ubiquitous, and generally share the same distinctive design regardless of the country they appear in.
+  A red octogon accompanied by white text is the international standard.
+  Many countries use the English word "STOP" on their signs, with others electing to use their local language instead.
+</p>
+<p>
+  In this example, we want to write a function that produces a stop sign.
+  This function will take a text input, and output the image of a stop sign with the text displayed in white letters.
   <code class="block">
-    ; Purpose : given two colors and a string of text, return a stop sign
+    Create a function that produces the image of a stop sign, with text determined by the user.
   </code>
-
+  Let's apply the design recipe to this problem.
+  Recall that for the purpose statement, we want to briefly explain what our function will return, and which inputs it will require.
   <code class="block">
-    ; Signature : string (color) string (color) string -> image
+    ; Purpose : Given a string of text, return the image of a stop sign displaying that text.
   </code>
-
+  The general idea behind our function is pretty simple.
+  When given a string of text, the function should output a stop sign with that text on it.
+  Our requirements for this function are made clear by the purpose statement, so we can easily write the signature.
+  <code class="block">
+    ; Signature : String -> Image
+  </code>
+  This signature gives us a very basic form of how our function will be used, in additon to stating the input and output type(s) we are expecting to use and produce.
+</p>
+<p>
+  The <code> check-expect </code> function that we use to test our functions requires a specific example of an input value and the output value that would result.
+  This is not generally problematic when writing functions that contain simple datatypes such as numbers or strings, but can be more difficult when our expected output is an image.
+  One way to utilize the <code> check-expect </code> function in this context is to create the image our function will produce prior to coding the function itself.
+  This gives you a finished example that you can then test your function against.
+  <br>
+  For detailed information on how to produce images themselves, refer back to our previous chapter. <!-- Link to previous chapter. -->
+  <br>
+  As we want to test stop signs in other languages as well, we should create another stop sign with the word "ALTO".
+  You can find both examples here, if you want to use them in our own testing. <!-- Place TRY IT with code here -->
+</p>
+<p>
+  Now that we have our example images, we can write the tests for our function.
+  We also want to pick a descriptive name, using the verb-noun naming convention.
   <code class="block">
     ; Examples :
+    (check-expect (make-stop-sign "STOP") <img src="images/stop-sign.png" width="20%"> )
   </code>
-
+  The last argument that check-expect takes is the expected result of the function call.
+  In this case, we can either copy and paste the image itself, or the code used to create the image.
+  These are ultimately equivalent so the choice is up to you.
+</p>
+<p>
+  Usually, the more test cases we provide, the better.
+  We've already created a Spanish language stop sign, so let's make a test featuring that image as well.
+  <code class="block">
+    ; Examples :
+    (check-expect (make-stop-sign "ALTO") <img src="images/alto-sign.png" width="20%"> )
+  </code>
+</p>
+<p>
+  Next, we write the stub.
+  Remember that the stub mimics a full function definition, with a bogus value in place of code.
   <code class="block">
     ; Stub :
-    (define (stop-sign clr clr str) 0)
+    (define (make-stop-sign str) "bogus")
   </code>
-
+  The parameter being used here is <code> str </code>, which indicates that our expected input is a string.
+</p>
+<p>
   <code class="block">
     ; Template :
-    (define (stop-sign clr1 clr2 str)
+    (define (stop-sign str)
       (overlay
         (text ... ... ...)
         (regular-polygon ... ... ... ...)
         )
       )
   </code>
-
+</p>
+<p>
   <code class="block">
     ; Code :
-    (define (stop-sign clr1 clr2 str)
+    (define (stop-sign str)
       (overlay
-        (text str 75 clr1)
-        (regular-polygon 100 8 "solid" clr2)
+        (text str 75 "white")
+        (regular-polygon 100 8 "solid" "red")
         )
       )
   </code>
-
 </p>
 
-<!-- stop sign followed by yield sign challenge -->
+<!-- add yield sign challenge -->
+
+<img src="images/yield-sign.png">
 
 <!-- Section 3 -->
 
@@ -410,6 +371,7 @@ be enough.
       )
   </code>
 
+  <img src="images/counter-change.png"/>
   <img src="images/peach1.png"/>
   <img src="images/cherry1.png"/>
   <img src="images/counter-cherry-peach.png"/>
@@ -534,11 +496,14 @@ be enough.
   </code>
 
   <img src="images/turq-pinwheel.png"/>
-  <img src="images/orch-pinwheel.png"/>
+  <img src="images/double-turq-pinwheel.png"/>
+  <img src="images/double-double-turq-pinwheel.png"/>
 
 <!-- for bonus/exercise -->
 
   <img src="images/rainbow-pinwheel.png"/>
+  <img src="images/double-rainbow-pinwheel.png"/>
+  <img src="images/double-double-rainbow-pinwheel.png"/>
 
 </p>
 
@@ -619,7 +584,124 @@ be enough.
 <h2 id="clock-face"> Clock Face </h2>
 
 <p>
-  ...
+  <code class="block">
+    (define clock-face
+      (circle 130 "solid" "white")
+    )
+  </code>
+
+
+  <code class="block">
+    ; Purpose : Given a number, return an image of that number.
+  </code>
+  <code class="block">
+    ; Signature : String -> Image
+  </code>
+  <code class="block">
+    ; Examples :
+    (check-expect (digit "12") <img src="images/digit.png"/>)
+  </code>
+  <code class="block">
+    ; Stub :
+    (define (digit num) 0)
+  </code>
+  <code class="block">
+    ; Template :
+    (define (digit num)
+      (overlay
+        ...
+        ...
+      )
+    )
+  </code>
+  <code class="block">
+    ; Code :
+    (define (digit num)
+      (text/font num 30 "black" #f 'swiss 'normal 'bold #f)
+    )
+  </code>
+
+
+  <code class="block">
+    ; Purpose : Given a string and an image, return an image of the string overlayed on the image, both rotated +30 degrees.
+  </code>
+  <code class="block">
+    ; Signature : String Image -> Image
+  </code>
+  <code class="block">
+    ; Examples :
+    (check-expect (place-turn "12" clock-face) <img src="images/place-turn.png"/>)
+  </code>
+  <code class="block">
+    ; Stub :
+    (define (place-turn str face) 0)
+  </code>
+  <code class="block">
+    ; Template :
+    (define (place-turn str)
+      (rotate ...
+        (overlay/align ... ... ... ...)
+      )
+    )
+  </code>
+  <code class="block">
+    ; Code :
+    (define (place-turn str face)
+      (rotate 30
+        (overlay/align
+          "middle" "top"
+          (digit str)
+          face
+        )
+      )
+    )
+  </code>
+
+  <code class="block">
+    ; Purpose : Given a series of numbers, return an image of the numbers placed on a clock face.
+  </code>
+  <code class="block">
+    ; Signature : String -> Image
+  </code>
+  <code class="block">
+    ; Examples :
+    (check-expect (place-numbers clock-face) <img src="images/place-numbers.png"/>)
+  </code>
+  <code class="block">
+    ; Stub :
+    (define (place-numbers face) 0)
+  </code>
+  <code class="block">
+    ; Template :
+    (define (place-numbers face)
+      (rotate ...
+        (foldl ... ...)
+      )
+    )
+  </code>
+  <code class="block">
+    ; Code :
+    (define (place-numbers face)
+      (rotate -30
+        (foldl place-turn face
+          '("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12")
+        )
+      )
+    )
+  </code>
+
+  <code class="block">
+    ; Code :
+    (define (clock face)
+      (overlay
+        (place-numbers face)
+        (circle 150 "outline" "black")
+      )
+    )
+  </code>
+
+  <img src="images/clock.png"/>
+
 </p>
 
 <div class="footer">
