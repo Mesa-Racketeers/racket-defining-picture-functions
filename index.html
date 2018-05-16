@@ -156,6 +156,10 @@
 <p>
   Testing is a vital component of the function design process.
   Creating effective examples of your function allows you to determine whether it is working as anticipated.
+  Tests also serve the very useful purpose of outlining the exact specifications of the
+  function you plan to write. By demonstrating how you want your function to handle
+  various inputs, you are defining requirements. A popular term for this is Test-Driven Development (TDD).
+
   <br>
   It is important to write examples prior to coding your function, because you will continually test your program as you add more to the code.
   <br>
@@ -183,7 +187,7 @@
     (check-expect (squared 0) 0)
     (check-expect (squared -4) 16)
   </code>
-  Sometimes when coding a function you may find that the examples you created don't fully
+  Sometimes when coding a function you may find that the examples you created don't fully   <!-- incomplete sentence -->
   This will ensure that all parts of our function works.
 
   As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
@@ -219,7 +223,68 @@
   What happens? Is the result what we anticipated?
 </p>
 
+<h3 id="Template">Template</h3>
 
+<p>
+  The next step in the HtDF recipe is the template. You can think of the template as
+  a sort of inventory that you're going to perform before writing the code. It's here, before
+  we embark on the challege of coding our function that we want to see what tools
+  we have available to us, and which tools we should expect to use in our function.
+  The template should definitely contain copies of the function inputs. This will remind
+  us to use each of the inputs inside of our function. For simpler functions, listing the inputs
+  along with "..." should be enough for your template. For more complicated functions where you foresee
+  the use of conditional statements, you will want to include a section for each condition
+  you expect to encounter.
+</p>
+<p>
+  In the case of our <code>squared</code> function, there are no foreseeable conditional statements
+  that we will have to handle. The following template should suffice:
+</p>
+<code class="block">
+  (define (squared num)
+    ... num ...)
+</code>
+<p>
+  This template should remind us that our function should be a function of the input <code>num</code>.
+</p>
+
+<h3 id="Code">Code</h3>
+
+<p>
+  At this point, we have worked our way through all the necessary preparations required
+  for our code. We have succinctly stated the purpose of the function in a clear and understandable
+  way. We have thought through the input and output data types we expect our function
+  to use.  We have outlined exactly what our function should output in a few critical test cases.
+  We have done an inventory of the tools we have at our fingertips. We are ready to code.
+</p>
+<p>
+  Because we have already done the work of gathering all of our tools in one place in the template,
+  why not just use the template as a starting point for our code. At this point, you can
+  create a copy of the template below the original template, and comment out the original.
+  With the template copy as the starting point, you can think of coding as filling in the
+  blanks of the template.
+</p>
+<p>
+  Let's look to our <code>squared</code> function as an example:
+</p>
+<code class="block">
+  ; Code
+  (define (squared num)
+    ... num ...)
+</code>
+<p>
+  We begin with our template. We know that our function will be a function of <code>num</code>.
+  In fact, to square a number is to multiply it by itself. In code, that would look as follows:
+</p>
+<code class="block">
+  ; Code
+  (define (squared num)
+    (* num num))
+</code>
+<p>
+Does our code use the input it was given? Indeed it uses it twice to multiply <code>num</code>
+by itself. Let's go ahead and run to see if our function passes the tests.
+</p>
 <!-- Section 2 -->
 
 <h2 id="stop-sign"> Stop Sign </h2>
@@ -275,8 +340,8 @@ letters.
 We've gone ahead and created our own copies. You can see the code we used here (link).
 <br>
 <br>
-The next step in the recipe is fairly straightforward, but offers the benefit
-of making sure we don't trip over ourselves before we even begin coding.
+The next step in the recipe offers the benefit of making sure we don't trip over
+ ourselves before we even begin coding.
 The idea
 behind the stub is to take advantage of the fact that since we've already written
 calls to our function in the test cases above.
@@ -294,7 +359,7 @@ define functions, followed by an open parenthesis and the name of our function.
 </code>
 We will need to create a function parameter that will take the text that the user
 wants to input. It's a good habit to make parameter names concise, but descriptive.
-In this case, let's go with stop-txt.
+In this case, let's go with stop-text.
 
 <!-- insert stop sign images with STOP and ALTO -->
 
@@ -340,12 +405,12 @@ be enough.
 
   <code class="block">
     ; Stub :
-    (define (stop-sign clr clr str) 0)
+    (define (stop-sign color color str) 0)
   </code>
 
   <code class="block">
     ; Template :
-    (define (stop-sign clr1 clr2 str)
+    (define (stop-sign color1 color2 str)
       (overlay
         (text ... ... ...)
         (regular-polygon ... ... ... ...)
@@ -355,10 +420,10 @@ be enough.
 
   <code class="block">
     ; Code :
-    (define (stop-sign clr1 clr2 str)
+    (define (stop-sign color1 color2 str)
       (overlay
-        (text str 75 clr1)
-        (regular-polygon 100 8 "solid" clr2)
+        (text str 75 color1)
+        (regular-polygon 100 8 "solid" color2)
         )
       )
   </code>
@@ -372,40 +437,88 @@ be enough.
 <h2 id="counterchange"> Counter-Change </h2>
 
 <p>
+  For our next challenge, we will use the recipe to write a counter-change function.
+  A counter-change is when you have two images create a 2-by-2 checkerboard pattern
+  with each image at opposite corners.
+</p>
+
+<p>
+  As usual, the first step of the recipe is the Purpose. Remember that the purpose
+  should succinctly describe what the function is going to take as inputs, and what
+  it will output. In this case, our function will take two images as inputs, and
+  will output a single image of the original two images counter-changed. The following
+  purpose statement captures the general idea effectively.
+</p>
 
   <code class="block">
-    ; Purpose : given two images, return a checkerboard of those images
+    ; Purpose : given two images, return a checkerboard of those two images
   </code>
+
+  <p>
+    The next step is to create a signature. The signature should capture the purpose
+    in terms of the data types that our function will take as inputs, and the data type
+    that it will output. In this case, our function will be taking two images, and then
+    outputting a single image based on the two input images.
+  </p>
 
   <code class="block">
     ; Signature : image image -> image
   </code>
 
+  <p>
+    At this point, we will need to create some examples that will specify exactly
+    how we would like our function to behave. Recall that this step allows us to
+    outline the exact specifications of our function, and to define what constitutes
+    successful output. The process of creating examples should also serve to provide
+    us with a general outline for how our function will work. This will help us when
+    it comes time to write code.
+  </p>
   <code class="block">
     ; Examples :
   </code>
 
+  <p>
+   With our tests and examples in place, it is time to write the stub. Recall that the
+   purpose of the stub is simply to get our tests to run, and not to pass. This will assure us that our
+   function header is written correctly.
+  </p>
   <code class="block">
     ; Stub :
-    (define (counter-change img1 img2) 0)
+    (define (counter-change image1 image2) 0)
   </code>
+  <p>
+    The next step in the recipe is to construct a template. The template is where we take
+    inventory of the inputs we have available to us. Our function should use each of our
+    inputs.
+  </p>
 
   <code class="block">
     ; Template :
-    (define (counter-change img1 img2)
+    (define (counter-change image1 image2)
       (above
-        (beside ... ...)
+        (beside ... ...)               <!-- I don't think this is how a template should look-->
         (beside ... ...)
         )
       )
   </code>
 
+  <p>
+    Now it is time to code our function. The benefit of using the recipe is that we should
+    have already gone through the process of creating an example of the output we want
+    up in the Examples step. You will often find that the function you write is ultimately
+    a generalized version of an example your created.
+  </p>
+  <p>
+    Check out our code below for the <code>counter-change</code> function. Did you write it
+    the same way?
+  </p>
+
   <code class="block">
     ; Code :
-    (define (counter-change img1 img2)
+    (define (counter-change image1 image2)
       (above
-        (beside img2 (flip-horizontal img1))
-        (beside img1 (flip-horizontal img2))
+        (beside image2 (flip-horizontal image1))
+        (beside image1 (flip-horizontal image2))
         )
       )
   </code>
@@ -421,11 +534,25 @@ be enough.
 <h2 id="bulls-eye"> Bulls-Eye </h2>
 
 <p>
-
+  For our next example, we will create a function that takes two colors as string
+  inputs, and returns a dart-board of concentric circles, with the colors of the circles
+  alternating. The dart-board should have a radius of 100 pixels, and each concentric circle
+  should have a radius that is 10 pixels less than the previous circle.
+</p>
+<p>
+  As usual, we begin with our purpose. This will help us make sure that we know how our function
+  should behave.
+</p>
   <code class="block">
-    ; Purpose : given two colors, return a bulls-eye comprised of those colors
+    ; Purpose : given two colors, return an image of a bulls-eye comprised of those colors
   </code>
-
+  <p>
+    Our purpose statement should have hopefully made it clear that our function will need
+    two colors as inputs. As far as data types are concerned, colors are usually
+    contained in <code>strings</code>. For clarity, we can include the word "color" in
+    parentheses so we know what the <code>string</code> inputs represent. The output of
+    our function will be an image.
+  </p>
   <code class="block">
     ; Signature : string (color) string (color) -> image
   </code>
@@ -433,57 +560,98 @@ be enough.
   <code class="block">
     ; Examples :
   </code>
-
+<p>
+  With our examples written, we are ready to create the function header and check if
+ the examples are able to run (and fail, as expected). This is the role of the stub.
+ It is in the stub that we will name the function as well as the parameters that it will
+ take.
+</p>
+<p>
+  Try running with the stub below. The examples should execute successfully, even though
+  our function will fail. The stub outputs a 0, which is not quite the dart-board we are
+  looking for.
+</p>
   <code class="block">
     ; Stub :
-    (define (bulls-eye clr clr) 0)
+    (define (bulls-eye color1 color2) 0)
   </code>
-
+  <p>
+    With the stub successfully executing when we click run, we are ready to create a template
+    of our function. Go ahead and comment out the stub, and copy the function header we
+    created for the stub. It will now serve as our template's function header.
+  </p>
+  <p>
+    Remember that the body of the template should serve to remind us that we should
+    use each of the inputs inside of our function.
+  </p>
   <code class="block">
     ; Template :
-    (define (bulls-eye clr1 clr2)
+    (define (bulls-eye color1 color2)
       (overlay
-        (circle ... ...)
+        (circle ... ...)             <!--Not sure if this template is right according to recipe-->
         (circle ... ...)
         )
       )
   </code>
 
+  <p>
+    With our due diligence out of the way, we can finally begin to code. Using the examples we created
+    above, we can create a function that works similarly, but is generalized for any
+    color choices.
+  </p>
   <code class="block">
     ; Code :
-    (define (bulls-eye clr1 clr2)
+    (define (bulls-eye color1 color2)
       (overlay
-        (circle 10 "solid" clr1)
-        (circle 20 "solid" clr2)
-        (circle 30 "solid" clr1)
-        (circle 40 "solid" clr2)
-        (circle 50 "solid" clr1)
-        (circle 60 "solid" clr2)
-        (circle 70 "solid" clr1)
-        (circle 80 "solid" clr2)
-        (circle 90 "solid" clr1)
-        (circle 100 "solid" clr2)
+        (circle 10 "solid" color1)
+        (circle 20 "solid" color2)
+        (circle 30 "solid" color1)
+        (circle 40 "solid" color2)
+        (circle 50 "solid" color1)
+        (circle 60 "solid" color2)
+        (circle 70 "solid" color1)
+        (circle 80 "solid" color2)
+        (circle 90 "solid" color1)
+        (circle 100 "solid" color2)
         )
       )
   </code>
+
+  <div class="fa fa-question-circle" style="font-size:24px"></div>
+  <div class="question">
+    What image would you expect to see if you replaced <code>overlay</code> with <code>beside</code>?
+    How about <code>above</code>?
+  </div>
 
   <img src="images/bulls-eye.png"/>
 
   <!-- for bonus/exercise -->
   <img src="images/bulls-eye-tr.png"/>
 
-</p>
 
 <!-- Section 5 -->
 
 <h2 id="pinwheel"> Pinwheel </h2>
 
 <p>
+  For the next challenge, write a function that takes an image, and creates a "pinwheel"
+  of four copies of that image rotated about a corner of the original image.
+</p>
+<p>
+  As usual, the first step in the recipe is to summarize the purpose of our function.
+  Based on the description of the challenge, our function will take one image, and return
+  another image based on the original image. Let's see if we can capture that idea in a single
+  sentence.
+</p>
 
   <code class="block">
-    ; Purpose : given a shape or image, return a 'pinwheel' comprised of that shape
+    ; Purpose : given a shape or image, return a 'pinwheel' comprised of that image
   </code>
-
+  <p>
+    The signature for this function should reflect that the function will take one image
+    and return another image. Keep in mind that even though the output image will consist of
+    four copies of the original image, it will still be a single image.
+  </p>
   <code class="block">
     ; Signature : image -> image
   </code>
@@ -494,12 +662,12 @@ be enough.
 
   <code class="block">
     ; Stub :
-    (define (pinwheel img) 0)
+    (define (pinwheel image) 0)
   </code>
 
   <code class="block">
     ; Template :
-    (define (pinwheel img)
+    (define (pinwheel image)
       (rotate ...
         (above
           (beside
@@ -517,16 +685,16 @@ be enough.
 
   <code class="block">
     ; Code :
-    (define (pinwheel img)
+    (define (pinwheel image)
       (rotate -45
           (above
            (beside
-              (rotate 45 img)
-              (rotate -45 img)
+              (rotate 45 image)
+              (rotate -45 image)
             )
            (beside
-              (rotate -45 img)
-              (rotate 45 img)
+              (rotate -45 image)
+              (rotate 45 image)
             )
            )
           )
@@ -540,7 +708,6 @@ be enough.
 
   <img src="images/rainbow-pinwheel.png"/>
 
-</p>
 
 <!-- Section 6 -->
 
