@@ -673,26 +673,54 @@
 <!-- Section 6 -->
 
 <h2 id="business-card"> Business Card </h2>
-
 <p>
+For the next challenge, we will be creating a business card.
+This will let us practice using many of the placement functions we learned about in the
+graphics chapter here.    <!-- add link -->
+We will be using some silly images, but you could substitute your own pictures and logos if
+you'd like.
+</p>
+<p>
+Hopefully by now the steps of the recipe should be forming into habits.
+As usual, the first step of the recipe is the purpose.
+</p>
 
   <code class="block">
-    ; Purpose : given a name, a job, an identifying image, and a logo, return a business card.
+    ; Purpose : given an identifying image, a logo, a name, and a job, return a business card.
   </code>
-
+  <p>
+    The purpose statement should give us an idea of how the signature should be structured.
+    The identifying image and logo will clearly be of the <code>Image</code> data type.
+    The name and job will be <code>Strings</code>.
+    The complete business card will be an <code>Image</code>.
+  </p>
   <code class="block">
-    ; Signature : image image text text -> image
+    ; Signature : image image string string -> image
   </code>
-
+  <p>
+   Now comes the part of the recipe where we define the exact requirements of our
+   function.
+   The possible styles and layouts of a business card are endless.
+   Here, we will opt for a generic business card with the person's image on the left side,
+   and the logo toward the upper right.
+   The name and job title will occupy the center of the card slightly toward the right.
+  </p>
   <code class="block">
     ; Examples :
   </code>
-
+  <p>
+    With our examples in place, we will check to see if we can build a function
+    header that will get our examples to run.
+  </p>
   <code class="block">
     ; Stub :
     (define (business-card id logo name job) 0)
   </code>
-
+  <p>
+    Before we start writing the code for our function, we will need to lay out an
+    inventory of what we have available to use.
+    Each of our inputs will need to be used somewhere in the code.
+  </p>
   <code class="block">
     ; Template :
     (define (business-card id logo name job)
@@ -707,7 +735,11 @@
         )
       )
   </code>
-
+    <p>
+      Now we can finally code the function we need.
+      You will notice that we will need to use a few different placement functions
+      to get the code just right. 
+    </p>
   <code class="block">
     ; Code :
     (define (business-card id logo name job)
@@ -740,7 +772,6 @@
 
   <img src="images/business-card.png"/>
 
-</p>
 
 <!-- Section 7 -->
 
