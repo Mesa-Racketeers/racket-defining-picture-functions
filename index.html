@@ -640,7 +640,7 @@
     It's time to finally write our function. Since we have done the hard work of
     creating examples during the Examples step of the recipe, we have a general idea for how
     our function should work.
-    You will notice that our function is very similar to the example we created. 
+    You will notice that our function is very similar to the example we created.
   </p>
   <code class="block">
     ; Code :
@@ -747,13 +747,44 @@
 <h2 id="clock-face"> Clock Face </h2>
 
 <p>
+  As our last challenge in this chapter, we will attempt to create a clock face.
+  In our particular implementation, the numbers 1-12 on the clock-face should be oriented
+  relative to the center of the dial, with 12 at the top. This challenge will require us
+  to do more than simply place images a certain way. Though we could write one long
+  function that handles every facet of this challenge, we will instead do our best
+  to divide this challenge into several smaller challenges that we will then handle
+  separately. This approach to programming is called "divide and conquer", and you will
+  recall that it was one of our motivations for using the HtDF recipe to begin with.
+  Large problems are often dealt with much more effectively if they are broken down into
+  several smaller problems. 
+</p>
+<p>
+  To begin, let's create the blank clock-face. To avoid having to re-create it each time
+  we would like to draw the clock face, we can define a constant to hold the image of
+  our blank clock-face.
+</p>
   <code class="block">
     (define clock-face
       (circle 130 "solid" "white")
     )
   </code>
+  <p>
+    Here we have define the constant <code>clock-face</code> to bind to the image of a
+    white circle with a radius of 130 pixels. This is our blank clock face on which
+    we'll place our numbers.
+  </p>
+  <p>
+    Now that we have our clock face, it would be nice to place some numbers on it.
+    However, we do not currently have any images of numbers that we could use.
+    Remember, <code>Number</code> is a data type in Racket that is different than the <code>Image</code>
+    data type.
+    If we would like to have numbers on our clock face, we need to have images of the numbers
+    that we can position on our clock face. This leads us to the first part of our challenge.
+      We need a function that takes a number and returns an image of that number.
+  </p>
+  <p>
 
-
+  </p>
   <code class="block">
     ; Purpose : Given a number, return an image of that number.
   </code>
@@ -865,7 +896,6 @@
 
   <img src="images/clock.png"/>
 
-</p>
 
 <div class="footer">
   <h4>Copywright Notice</h6>
