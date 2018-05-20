@@ -756,7 +756,7 @@
   separately. This approach to programming is called "divide and conquer", and you will
   recall that it was one of our motivations for using the HtDF recipe to begin with.
   Large problems are often dealt with much more effectively if they are broken down into
-  several smaller problems. 
+  several smaller problems.
 </p>
 <p>
   To begin, let's create the blank clock-face. To avoid having to re-create it each time
@@ -783,48 +783,105 @@
       We need a function that takes a number and returns an image of that number.
   </p>
   <p>
-
+    As with any function, we begin by concisely stating our purpose:
   </p>
   <code class="block">
     ; Purpose : Given a number, return an image of that number.
   </code>
+  <p>
+    As usual, next comes the signature.
+    This will serve as a guide to anyone who would like to use our function.
+    We can also fall back to the signature if we lose our way.
+  </p>
   <code class="block">
-    ; Signature : String -> Image
+    ; Signature : String -> Image            <!-- I think it should be number -> image -->
   </code>
+  <p>
+    Now we will define some examples of how we expect our function to work.
+    Click here to see the code that was used to create the example image.
+    We will want our function to output an image for any number entered.
+  </p>
   <code class="block">
     ; Examples :
-    (check-expect (digit "12") <img src="images/digit.png"/>)
+    (check-expect (digit "12") <img src="images/digit.png"/>)  <!-- function name could have action verb -->
   </code>
+  <p>
+    With our examples defined, we have now defined what success looks like for our function.
+    The next step in the recipe is to see if we can get the examples to execute.
+    This will at least assure us that our function header is correct.
+  </p>
   <code class="block">
     ; Stub :
-    (define (digit num) 0)
+    (define (digit num) 0)   <!-- maybe have a blank string as output -->
   </code>
+  <p>
+    With our function header executing correctly, we are almost ready to begin coding our function.
+    First, we need to write our function template.
+    This will act as an inventory so that we know the general structure our function should follow.
+    Our function should definitely use the <code>num</code> argument, so we should include it in the body
+    of our template.
+  </p>
   <code class="block">
     ; Template :
     (define (digit num)
-      (overlay
-        ...
-        ...
+      (
+      ... num ...
       )
     )
   </code>
+  <p>
+    We are now ready to code our first function in this challenge.
+    Remember that our function should take a number input, and somehow convert it to an image.
+    Hint: you may need to convert your number to a string first.
+  </p>
   <code class="block">
     ; Code :
     (define (digit num)
       (text/font num 30 "black" #f 'swiss 'normal 'bold #f)
     )
   </code>
-
-
+  <p>
+    Congratulations! We now have a function that takes a number, and outputs an image
+    of that number.
+    This is a big step, but we're not there yet.
+    We now need to somehow arrange the numbers 1 through 12 around the clock face.
+  </p>
+  <p>
+    There are many possible ways we could go about this.
+    The method we will use here will have us placing a number, starting with 1, at the
+    top of the clock face, and then rotating the clock face some amount, and then placing the
+    next number at the top of the face.
+    Repeating this process for all 12 numbers should produce a fully-numbered clock face.
+  </p>
+  <p>
+    As always, we want to divide-and-conquer this task if at all possible.
+    Let's start with the simpler task of placing an image (in our case, of a number)
+    on the top of the clock face, and then rotating it by the appropriate amount.
+  </p>
+  <p>
+    The first thing to figure out is how much we would like to rotate the clock face,
+    once the number is placed.
+    A quick refresher of geometry will remind us that a circle has 360 degrees.
+    We would like to place 12 numbers at approximately equal intervals,
+    so the clock face should rotate 30 degrees between the placement of each number.
+  </p>
+  <p>
+    At this point, we can write the purpose of our next function.
+  </p>
   <code class="block">
-    ; Purpose : Given a string and an image, return an image of the string overlayed on the image, both rotated +30 degrees.
+    ; Purpose : Given a number and an image of a clock face,
+    return an image of the number overlayed on the clock face, both rotated +30 degrees.
   </code>
+  <p>
+    The following signature should reflect the data types that our function will input
+    and output, based on the purpose statement.
+  </p>
   <code class="block">
-    ; Signature : String Image -> Image
+    ; Signature : Number Image -> Image
   </code>
   <code class="block">
     ; Examples :
-    (check-expect (place-turn "12" clock-face) <img src="images/place-turn.png"/>)
+    (check-expect (place-turn 12 clock-face) <img src="images/place-turn.png"/>)
   </code>
   <code class="block">
     ; Stub :
