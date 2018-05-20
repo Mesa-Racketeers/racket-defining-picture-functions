@@ -590,21 +590,35 @@
 </p>
 <p>
   The signature for this function should reflect that the function will take one image and return another image.
-  Keep in mind that even though the output image will consist of four copies of the original image, it will still be a single image.
+  Keep in mind that even though the output image will consist of four copies of the original image,
+  it will still be a single image.
 </p>
   <code class="block">
     ; Signature : image -> image
   </code>
-
+  <p>
+    Now we must perform the critical step of creating examples of successful outputs of our function.
+    To see how we created our examples, click here.
+  </p>
   <code class="block">
     ; Examples :
   </code>
-
+  <p>
+    For the stub, we will create a header for our function and test that it works.
+    Remember that our function will only take a single image as an argument.
+    We will have our stub output 0 to guarantee that our tests fail.
+    All we want to verify is that they successfully run.
+  </p>
   <code class="block">
     ; Stub :
     (define (pinwheel image) 0)
   </code>
-
+  <p>
+    We are almost ready to code, but first we need to perform an inventory of what we have to work with.
+    This is the role of the template.
+    A properly constructed template should remind us that our function will use our input(s),
+    in this case <code>image</code>.
+  </p>
   <code class="block">
     ; Template :
     (define (pinwheel image)
@@ -622,7 +636,12 @@
       )
     )
   </code>
-
+  <p>
+    It's time to finally write our function. Since we have done the hard work of
+    creating examples during the Examples step of the recipe, we have a general idea for how
+    our function should work.
+    You will notice that our function is very similar to the example we created. 
+  </p>
   <code class="block">
     ; Code :
     (define (pinwheel image)
