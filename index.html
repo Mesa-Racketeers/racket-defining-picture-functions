@@ -35,14 +35,16 @@
         </p>
       </div>
 
+<!-- ADD SOURCE FILES FOR ALL EXAMPLES AND CHALLENGES -->
+
 <!-- INTRODUCTION -->
 
 <h2 id="introduction"> Introduction</h2>
 
 <p>
     So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
-    We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter-->
-    In this chapter, we are going to define functions that accept images as an inputs or return images as their outputs.
+    We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter in github-->
+    In this chapter, we are going to define functions that accept images as arguments or return an image output.
 </p>
 
 
@@ -94,8 +96,7 @@
   Stating the purpose of our function forces us to confront our understanding of the task at hand.
   You may also find that putting the problem you're trying to solve into words
   automatically deepens your understanding of the problem.
-  A good purpose statement succinctly explains what the function will accept as
-  inputs, what it will do, and what it will output, if anything.
+  A good purpose statement succinctly explains what the function will accept as arguments, what it will do, and what it will output, if anything.
 </p>
 <p>
   Let's try writing some good purpose statements.
@@ -126,7 +127,7 @@
     Consider a pre-existing function that you already know. If you were to write that function, what might the purpose statement be?
   </div>
   <div class="question">
-    What about a graphics function, like <code> overlay </code> or <code> rotate </code>?
+    What about a graphics function, like <code>overlay</code> or <code>rotate</code>?
   </div>
 </p>
 
@@ -208,7 +209,6 @@
     (check-expect (square-number 0) 0)
     (check-expect (square-number -4) 16)
   </code>
-  Sometimes when coding a function you may find that the examples you created don't fully   <!-- incomplete sentence -->
   This will ensure that all parts of our function works.
   As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
   It is sufficient for the needs of this chapter, and for most functions that will output images.
@@ -252,13 +252,13 @@
   The template is a basic skeleton of our full function.
   We can outline the basic format and components without being concerned with precise details.
   The template also functions as a sort of inventory, where we take stock of what datatypes and functions are available to us, and decide which we may want to use to construct our function.
-  The convention for writing a template is to <!-- establish template convention -->
+  The convention for writing a template is to <!-- establish template convention, write ellipses, you can start with parameters first or with functions, either way it needs  to be an outline for your function -->
 </p>
 <p>
   In the case of our <code>squared</code> function, we know that when squaring a number, you multiply it by itself.
   So, we know we will likely need to use <code>*</code>, the multiplication function.
   <code>*</code> requires two arguments, but we don't need to be specific yet, so we can just include <code>...</code> where those inputs will go.
-  <code class="block">
+  <code class="block"> <!-- at this stage you can check that your format or syntax is correct, you can run the template and it will tell you if parentheses are in the right place -->
     (define (square-number num)
       (* ... ...)
     )
@@ -270,8 +270,8 @@
 
 <p>
   At this point, we have worked our way through all the necessary preparations required for our code.
-  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and output data types we expect our function to use.
-  We also outlined exactly what our function should output in a few critical test cases.
+  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and output datatypes we expect our function to use.
+  We also outlined exactly what our function should return in a few critical test cases.
   Now that we have a basic outline for our function, we can move on to the coding step.
 </p>
 <p>
@@ -297,7 +297,7 @@
 </p>
 <p>
   In this example, we want to write a function that produces a stop sign.
-  This function will take a text input, and output the image of a stop sign with the text displayed in white letters.
+  This function will take a text input, and return the image of a stop sign with the text displayed in white letters.
   <code class="block">
     Create a function that produces the image of a stop sign, with text determined by the user.
    </code>
@@ -307,7 +307,7 @@
     ; Purpose : Given a string of text, return the image of a stop sign displaying that text.
   </code>
   The general idea behind our function is pretty simple.
-  When given a string of text, the function should output a stop sign with that text on it.
+  When given a string of text, the function should return a stop sign with that text on it.
   Our requirements for this function are made clear by the purpose statement, so we can write the signature right away.
   <code class="block">
     ; Signature : String &rarr; Image
@@ -384,7 +384,7 @@
 </div>
 <code class="block">
   ; Examples :
-  (check-expect (make-yield-sign "YIELD") <img src="images/yield-sign.png" width="40%"> )
+  (check-expect (make-yield-sign "YIELD") <img src="images/yield-sign.png" width="30%"> )
 </code>
 
 <!-- Section 3 -->
@@ -398,8 +398,8 @@
 
 <p>
   As usual, the first step of the recipe is the purpose statement.
-  Remember that the purpose should succinctly describe what the function is going to take as inputs, and what it will output.
-  In this case, our function will take two images as inputs, and will output a single image of the original two images counter-changed.
+  Remember that the purpose should succinctly describe what the function is going to take as inputs, and what it will return.
+  In this case, our function will take two images as inputs, and will return a single image of the original two images counter-changed.
   The following purpose statement captures the general idea effectively.
   <code class="block">
     ; Purpose : Given two images, return a checkerboard image comprised of those the two image arguments.
@@ -407,15 +407,15 @@
 </p>
 <p>
   Next we create the signature.
-  The signature should capture the purpose in terms of the data types that our function will take as inputs, and the data type that it will output.
-  In this case, our function will be taking two images, and then outputting a single image based on the two input images.
+  The signature should capture the purpose in terms of the data types that our function will take as inputs, and the datatype that it will return.
+  In this case, our function will be taking two images, and then returning a single image based on the two input images.
   <code class="block">
     ; Signature : Image Image &rarr; Image
   </code>
 </p>
 <p>
   We need to create an example that will test our function.
-  Recall that this step allows us to outline the exact specifications of our function, and to define what constitutes successful output.
+  Recall that this step allows us to outline the exact specifications of our function, and to define what we want our function to return.
   The process of creating examples should also serves to provide us with a general outline for how our function will work.
   This will help us when it comes time to write code.
   <code class="block">
@@ -477,8 +477,8 @@
     ; Code :
     (define (make-counter-change image-1 image-2)
       (above
-        (beside image2 image1)
-        (beside image1 image2)
+        (beside image-2 image-1)
+        (beside image-1 image-2)
         )
       )
   </code>
@@ -491,7 +491,7 @@
   <img src="images/cherry1.png"/>
 </div>
 <div class="question">
-  Challenge : Using these two images, can you alter the function you just made so when it prints output, the images are oriented like they are in this <code>check-expect</code>?
+  Challenge : Using these two images, can you alter the function you just made so when it returns the final image, all images are oriented like they are in this <code>check-expect</code>?
   <br>
   Hint: use <code>flip-horizontal</code>.
 </div>
@@ -518,7 +518,7 @@
   Our purpose statement should have hopefully made it clear that our function will need two colors as inputs.
   Available preset colors are given as <code>strings</code>.
   For clarity, we can note that the <code>string</code> inputs represent colors.
-  The output of our function will be an image.
+  Our function will return an image.
   <code class="block">
     ; Signature : String String &rarr; Image, where all strings are colors
   </code>
@@ -527,7 +527,7 @@
   Next we create an example to test our function, following the same format as in previous challenges.
   <code class="block">
     ; Examples :
-    (check-expect (make-bulls-eye "hotpink" "deepskyblue") <img src="images/bulls-eye.png" width="50%"/>)
+    (check-expect (make-bulls-eye "hotpink" "deepskyblue") <img src="images/bulls-eye.png" width="30%"/>)
   </code>
 </p>
 <p>
@@ -612,16 +612,16 @@
     ; Code :
     (define (make-bulls-eye color-1 color-2)
       (overlay
-        (circle 10 "solid" color1)
-        (circle 20 "solid" color2)
-        (circle 30 "solid" color1)
-        (circle 40 "solid" color2)
-        (circle 50 "solid" color1)
-        (circle 60 "solid" color2)
-        (circle 70 "solid" color1)
-        (circle 80 "solid" color2)
-        (circle 90 "solid" color1)
-        (circle 100 "solid" color2)
+        (circle 10 "solid" color-1)
+        (circle 20 "solid" color-2)
+        (circle 30 "solid" color-1)
+        (circle 40 "solid" color-2)
+        (circle 50 "solid" color-1)
+        (circle 60 "solid" color-2)
+        (circle 70 "solid" color-1)
+        (circle 80 "solid" color-2)
+        (circle 90 "solid" color-1)
+        (circle 100 "solid" color-2)
         )
       )
   </code>
@@ -655,14 +655,14 @@
 </p>
 <p>
   The signature for this function should reflect that the function will take one image and return another image.
-  Keep in mind that even though the output image will consist of four copies of the original image,
+  Keep in mind that even though the image our function returns will consist of four copies of the original image,
   it will still be a single image.
   <code class="block">
     ; Signature : Image &rarr; Image
   </code>
 </p>
 <p>
-  Now we must perform the critical step of creating examples to test successful outputs of our function.
+  Now we must perform the critical step of creating examples to test what our function will return.
   Let's use a rhombus to test our function, since it will be evident if the individual elements of our pinwheel are not aligned properly if the width and height of our test image is different.
   <code class="block">
     ; Examples :
@@ -672,7 +672,7 @@
 <p>
   The stub will test that our examples work.
   Remember that our function will only take a single image as an argument.
-  We will have our stub output a string to guarantee that our tests fail.
+  We will have our stub return a string to guarantee that our tests fail.
   All we want to verify is that they successfully run.
   <code class="block">
     ; Stub :
@@ -912,6 +912,8 @@
 
 <h2 id="clock-face"> Clock Face </h2>
 
+<!-- Update code for face and for place and turn function -->
+
 <p>
   As our last challenge in this chapter, we will attempt to create a clock face.
   In our particular implementation, the numbers 1-12 on the clock-face should be oriented relative to the center of the dial, with 12 at the top. This challenge will require us to do more than simply place images a certain way.
@@ -958,7 +960,7 @@
   <p>
     Now we will define some examples of how we expect our function to work.
     Click here to see the code that was used to create the example image.
-    We will want our function to output an image for any number entered.
+    We will want our function to return an image for any number entered.
   </p>
   <code class="block">
     ; Examples :
@@ -999,7 +1001,7 @@
     )
   </code>
   <p>
-    Congratulations! We now have a function that takes a number, and outputs an image of that number.
+    Congratulations! We now have a function that takes a number, and return an image of that number.
     This is a big step, but we're not there yet.
     We now need to somehow arrange the numbers 1 through 12 around the clock face.
   </p>
@@ -1024,7 +1026,7 @@
     ; Purpose : Given a number and an image of a clock face, return an image of the number overlayed on the clock face, both rotated +30 degrees.
   </code>
   <p>
-    The following signature should reflect the data types that our function will input and output, based on the purpose statement.
+    The following signature should reflect the datatypes that our function will input and return, based on the purpose statement.
   </p>
   <code class="block">
     ; Signature : Number Image &rarr; Image
@@ -1150,6 +1152,8 @@
   </code>
 
   <img src="images/clock.png"/>
+
+<!-- Challenge: adding hands to the clock face -->
 
 <!-- Footer -->
 
