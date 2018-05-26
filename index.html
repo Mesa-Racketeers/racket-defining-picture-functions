@@ -928,11 +928,11 @@
 </p>
   <code class="block">
     (define clock-face
-      (circle 130 "solid" "white")
+      (circle 130 "solid" "gray")
     )
   </code>
   <p>
-    Here we have define the constant <code>clock-face</code> to bind to the image of a white circle with a radius of 130 pixels.
+    Here we have define the constant <code>clock-face</code> to bind to the image of a gray circle with a radius of 130 pixels.
     This is our blank clock face on which we'll place our numbers.
   </p>
   <p>
@@ -964,7 +964,7 @@
   </p>
   <code class="block">
     ; Examples :
-    (check-expect (print-digit "12") <img src="images/digit.png"/>)
+    (check-expect (create-digit-image "12") <img src="images/digit.png"/>)
   </code>
   <p>
     With our examples defined, we have now defined what success looks like for our function.
@@ -973,7 +973,7 @@
   </p>
   <code class="block">
     ; Stub :
-    (define (print-digit num) 0)
+    (define (create-digit-image num) 0)
   </code>
   <p>
     With our function header executing correctly, we are almost ready to begin coding our function.
@@ -983,7 +983,7 @@
   </p>
   <code class="block">
     ; Template :
-    (define (digit num)
+    (define (create-digit-image num)
       (
       ... num ...
       )
@@ -996,7 +996,7 @@
   </p>
   <code class="block">
     ; Code :
-    (define (digit num)
+    (define (create-digit-image num)
       (text/font (number->string num) 30 "black" #f "swiss" "normal" "bold" #f)
     )
   </code>
@@ -1040,7 +1040,7 @@
   </p>
   <code class="block">
     ; Examples :
-    (check-expect (place-turn 12 clock-face) <img src="images/place-turn.png"/>)   <!-- Should start with 1, 2, 3... otherwise clock is backwards -->
+    (check-expect (place-turn 12 clock-face) <img src="images/clock-face-gray-12-rot.png"/>)   <!-- Should start with 1, 2, 3... otherwise clock is backwards -->
   </code>
   <p>
     Let's see if we can get our test to run.
@@ -1048,16 +1048,25 @@
   </p>
   <code class="block">
     ; Stub :
-    (define (place-turn str face) 0)    <!--Recommend change function name to place-num-and-rotate - DB -->
+    (define (place-turn num face) 0)    <!--Recommend change function name to place-num-and-rotate - DB -->
   </code>
   <p>
   Great!
   We got our examples to run.
   We're almost there.
+  For the template, we will gather the tools that we have at our disposal.
+  Well, to start, we know that we will want to overlay the number we input on the face.
+  However, the <code>overlay</code> function simply centers one image "on top of" another.
+  We would like to place the number on the clock face, but at the top of the face in the vertical direction
+  and in the center in the horizontal direction.
+  Fortunately, the <code>overlay/align</code> allows us to specify where we want to place the top
+  image relative to the below image.
+  Once we overlay the number on the clock-face, we will want to use <code>rotate</code> to rotate
+  the clock-face by 30 degrees.
 </p>
   <code class="block">
     ; Template :
-    (define (place-turn str face)
+    (define (place-turn num face)
       (rotate ...
         (overlay/align ... ... ... ...)
       )
@@ -1065,15 +1074,15 @@
   </code>
  <p>
  At this point, we're ready to code our function.
- Do you see how the function <code>digit</code> has helped us keep our code clean?
+ Do you see how the function <code>create-digit-image</code> has helped us keep our code clean?
  </p>
   <code class="block">
     ; Code :
-    (define (place-turn str face)
+    (define (place-turn num face)
       (rotate 30
         (overlay/align
           "middle" "top"
-          (digit str)
+          (create-digit-image num)
           face
         )
       )
@@ -1115,7 +1124,7 @@
   </p>
   <code class="block">
     ; Examples :
-    (check-expect (place-numbers clock-face) <img src="images/place-numbers.png"/>)
+    (check-expect (place-numbers clock-face) <img src="images/clock-face-correct.png"/>)
   </code>
   <p>
     Let's get our examples to run with the stub.
@@ -1124,23 +1133,138 @@
     ; Stub :
     (define (place-numbers face) 0)
   </code>
+  <p>
+    Now, as we gather our inventory inside the template, we know that we will need to
+    use the <code>face</code> that is input into the function. We also know that we
+    will need to use the <code>place-turn</code> function that we created above.
+  </p>
   <code class="block">
     ; Template :
     (define (place-numbers face)
+      (place-turn ... ...)
       (... face ...)
     )
   </code>
+  <p>
+    Well, we already succeeded in using the <code>place-turn</code> function above to
+    place a number on the face. Since the <code>place-turn</code> function rotates the
+    face in the counter-clockwise direction, it will be best to start with the number 1,
+    and begin rotating. By the time we reach the number 12, the number 1 should have
+    rotated to it's correct position.
+  </p>
+  <p>
+    To begin, let's place the number 1 on the face.
+  </p>
   <code class="block">
     ; Code :
     (define (place-numbers face)
-      (rotate -30
-        (foldl place-turn face
-          '("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12")
+        (place-turn 1 face)
+    )
+  </code>
+  <p>
+    The key to finishing this function is to realize that the clock-face rotated with a 1
+    can now be fed back into the place-turn function as a new clock-face. This time,
+    let's call place-turn again with the number 2 and the original <code>place-turn</code>
+    as an argument for the next one.
+  </p>
+  <code class="block">
+    ; Code :
+    (define (place-numbers face)
+      (place-turn 2
+        (place-turn 1 face)
+        )
+    )
+  </code>
+  <p>
+    If you call <code>(place-numbers clock-face)</code> in the "Interactions Window",
+    you should get the following result:
+  </p>
+  <img src="images/clock-face-gray-1-2.png"/>
+  <p>
+    Following this pattern, we can now populate the whole clock-face with the numbers 1-12.
+  </p>
+  <code class="block">
+    ; Code :
+    (define (place-numbers face)
+      (place-turn 12
+        (place-turn 11
+          (place-turn 10
+            (place-turn 9
+              (place-turn 8
+                (place-turn 7
+                  (place-turn 6
+                    (place-turn 5
+                      (place-turn 4
+                        (place-turn 3
+                          (place-turn 2
+                            (place-turn 1 face)
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
         )
       )
     )
   </code>
+  <p>
+    If we try to run <code>(place-numbers clock-face)</code> in the interactions window,
+    we get the following result:
+  </p>
+  <img src="images/clock-face-wrong.png"/>
 
+  <p>
+    It looks like we are very close. However, when the number 12 is added, the <code>place-turn</code>
+    function proceeds to rotate the entire face by 30 degrees.
+  </p>
+  <p>
+    There are many ways to fix this, but one way that lets us keep the code consistent
+    is to start by placing 12 first, and then placing 1, 2, 3... on to 11. Let's give it
+    a try.
+  </p>
+  <code class="block">
+    ; Code :
+    (define (place-numbers face)
+      (place-turn 11
+        (place-turn 10
+          (place-turn 9
+            (place-turn 8
+              (place-turn 7
+                (place-turn 6
+                  (place-turn 5
+                    (place-turn 4
+                      (place-turn 3
+                        (place-turn 2
+                          (place-turn 1
+                            (place-turn 12 face)
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  </code>
+  <p>
+    Now if we try to run <code>(place-numbers clock-face)</code> in the interactions window,
+    we get the following result:
+  </p>
+  <img src="images/clock-face-correct.png"/>
+  <p>
+    At this point, our function produces a complete and correct clock-face populated with the numbers 1-12.
+    Congratulations!
+  </p>
+
+  <!--
   <code class="block">
     ; Code :
     (define (clock face)
@@ -1152,6 +1276,8 @@
   </code>
 
   <img src="images/clock.png"/>
+-->
+
 
 <!-- Challenge: adding hands to the clock face -->
 
