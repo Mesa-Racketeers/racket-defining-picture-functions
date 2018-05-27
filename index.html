@@ -44,7 +44,7 @@
 <p>
     So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
     We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter in github-->
-    In this chapter, we are going to define functions that accept images as arguments or return an image output.
+    In this chapter, we are going to define functions that accept images as arguments or return an image.
 </p>
 
 
@@ -56,7 +56,7 @@
 
 <p>
   Designing functions can be complicated, but the process is simplified using a 'design recipe'.
-  A design recipe is a step-by-step process that precisely articulates how to build or define functions.
+  A design recipe is a step-by-step process that outlines how to build or define functions.
   We will be going over each step of the recipe in detail in this chapter.
 </p>
 <p>
@@ -65,7 +65,7 @@
 </p>
 <p>
   In the world of software development, projects often require the coordinated cooperation of many people.
-  For this reason, it is important to clarify exactly what a program will be expected to do, and what the inputs are, and what the expected output will be.
+  For this reason, it is important to clarify exactly what a program will be expected to do, and what the inputs are, and what it will be expected to return.
   Therefore a systematic recipe for writing functions is incredibly valuable.
 </p>
 <p>
@@ -96,7 +96,7 @@
   Stating the purpose of our function forces us to confront our understanding of the task at hand.
   You may also find that putting the problem you're trying to solve into words
   automatically deepens your understanding of the problem.
-  A good purpose statement succinctly explains what the function will accept as arguments, what it will do, and what it will output, if anything.
+  A good purpose statement succinctly explains what the function will accept as arguments, what it will do, and what it will return, if anything.
 </p>
 <p>
   Let's try writing some good purpose statements.
@@ -148,7 +148,7 @@
    ; Signature : Number &rarr; Number
  </code>
  Note the arrow seperating our two datatypes.
- The presence of the arrow indicates the datatype(s) on the left side are what we expect to input, and the type(s) on the right are what we expect the output to be.
+ The presence of the arrow indicates the datatype(s) on the left side are what we expect to input, and the type(s) on the right are what we expect the function to return.
  It is another way of saying <code> Given ... &rarr; Returns ... </code>
  Note also the capitalization of Number and Number.
  Capitalization in the signature denotes a datatype in these notes.
@@ -199,7 +199,7 @@
     (check-expect (square-number 3) 9)
   </code>
   The first argument is the square-number function that we are testing and our test input 3.
-  The last argument is the expected output given the input, in this case 9.
+  The last argument is what the function is expected to return given the input, in this case 9.
   <br>
   Now, this test alone does not cover all scenarios our function needs to handle.
   We need to create additional test cases for all the conditions we expect our function to encounter.
@@ -211,7 +211,7 @@
   </code>
   This will ensure that all parts of our function works.
   As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
-  It is sufficient for the needs of this chapter, and for most functions that will output images.
+  It is sufficient for the needs of this chapter, and for most functions that will return images.
   If you'd like to learn more about other test functions, be sure to check out the documentation regarding <code>check-within</code>, <code>check-random</code>, and <code>check-satisfied</code>.
 </p>
 
@@ -220,7 +220,7 @@
 <h3 id="Stub">Stub</h3>
 
 <p>
-  With our test functions written and our desired outputs specified, it's time for the stub.
+  With our test functions written and our desired return data types specified, it's time for the stub.
   The stub is like an extremely abbreviated version of what will eventually be our complete function.
   Consider it a first draft, the chief purpose of which is to get our examples to execute.
   <br>
@@ -270,7 +270,7 @@
 
 <p>
   At this point, we have worked our way through all the necessary preparations required for our code.
-  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and output datatypes we expect our function to use.
+  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and return datatypes we expect our function to use.
   We also outlined exactly what our function should return in a few critical test cases.
   Now that we have a basic outline for our function, we can move on to the coding step.
 </p>
@@ -312,10 +312,10 @@
   <code class="block">
     ; Signature : String &rarr; Image
   </code>
-  This signature gives us a very basic form of how our function will be used, in addition to stating the input and output type(s) we are expecting to use and produce.
+  This signature gives us a very basic form of how our function will be used, in addition to stating the input and return type(s) we are expecting to use and produce.
 </p>
 <p>
-  The <code>check-expect</code> function that we use to test our functions requires a specific example of an input value and the output value that would result.
+  The <code>check-expect</code> function that we use to test our functions requires a specific example of an input value and the return value that would result.
   This is not generally problematic when writing functions that contain simple datatypes such as numbers or strings, but can be more difficult when our expected output is an image.
   One way to utilize the <code>check-expect</code> function in this context is to create the image our function will produce prior to coding the function itself.
   This gives you a finished example that you can then test your function against.
@@ -380,7 +380,7 @@
   Challenge : Now that you know how to create a function that produces a stop sign, can you figure out how to build a similar function that instead produces a yield sign?
   <br>
   Here is an example you might use when completing the recipe.
-  Note the expected output, which is the image you want your function to make.
+  Note the expected return data type, which is the image you want your function to make.
 </div>
 <code class="block">
   ; Examples :
@@ -435,7 +435,7 @@
 <p>
   The next step in the recipe is to construct a template.
   The template should be a skeleton of what our eventual function will look like.
-  We need to consider what functions we may need to use to get our intended output.
+  We need to consider what functions we may need to use to get our intended return.
   Most likely, we will need to stack two rows of images to create the full image.
   For this we can use the <code>above</code> function.
   It requires two arguments, which we can fill in later.
