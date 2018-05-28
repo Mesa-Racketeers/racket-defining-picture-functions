@@ -124,7 +124,8 @@
   If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
   If you cannot clearly and succinctly come up with a purpose statement that fits within two lines, the function you are trying to write can likely be broken down into a few functions of lesser complexity.
   <div class="question">
-    Consider a pre-existing function that you already know. If you were to write that function, what might the purpose statement be?
+    Consider a pre-existing function that you already know.
+    If you were to write that function, what might the purpose statement be?
   </div>
   <div class="question">
     What about a graphics function, like <code>overlay</code> or <code>rotate</code>?
@@ -155,12 +156,12 @@
  <br>
  Our function accepts a number, and is expected to produce a number as well.
  Specifying the signature of a pre-existing function can be a way to better understand what that function does.
- For example, the signature of the <code> place-image </code> would be:
+ For example, the signature of the <code>place-image</code> would be:
  <code class="block">
    ; Signature : Image Number Number Image &rarr; Image
  </code>
  <div class="question">
-   What would the signature be for a graphics function that produces a shape, like <code> ellipse </code> or <code> radial-star </code>?
+   What would the signature be for a graphics function that produces a shape, like <code>ellipse</code> or <code> radial-star </code>?
  </div>
 </p>
 
@@ -220,7 +221,7 @@
 <h3 id="Stub">Stub</h3>
 
 <p>
-  With our test functions written and our desired return data types specified, it's time for the stub.
+  With our test functions written and our desired return datatypes specified, it's time for the stub.
   The stub is like an extremely abbreviated version of what will eventually be our complete function.
   Consider it a first draft, the chief purpose of which is to get our examples to execute.
   <br>
@@ -250,19 +251,26 @@
 <p>
   The next step in the HtDF recipe is the template.
   The template is a basic skeleton of our full function.
-  We can outline the basic format and components without being concerned with precise details.
+  We can outline the basic format and components of your function without being concerned about the precise details of how it will work.
   The template also functions as a sort of inventory, where we take stock of what datatypes and functions are available to us, and decide which we may want to use to construct our function.
-  The convention for writing a template is to <!-- establish template convention, write ellipses, you can start with parameters first or with functions, either way it needs  to be an outline for your function -->
+  The convention for writing a template is to use ellipses where you have elected to leaves gaps in your code.
+  There are different ways of thinking about and using a template.
+  You can start with your parameters and fill in everything else later, or you can begin by specifying what functions you know you will need to use.
+  Either way, the goal is to create an outline for your function.
+
 </p>
 <p>
   In the case of our <code>squared</code> function, we know that when squaring a number, you multiply it by itself.
   So, we know we will likely need to use <code>*</code>, the multiplication function.
   <code>*</code> requires two arguments, but we don't need to be specific yet, so we can just include <code>...</code> where those inputs will go.
-  <code class="block"> <!-- at this stage you can check that your format or syntax is correct, you can run the template and it will tell you if parentheses are in the right place -->
+  <code class="block">
+    ; Template :
     (define (square-number num)
       (* ... ...)
     )
   </code>
+  At this stage you can also check that your syntax and formatting is correct.
+  You can run the template and it will tell you if all parentheses are in the right place.
   In the next section, we will fill out the gaps in our template.
 </p>
 
@@ -270,7 +278,7 @@
 
 <p>
   At this point, we have worked our way through all the necessary preparations required for our code.
-  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and return datatypes we expect our function to use.
+  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and output datatypes we expect our function to use.
   We also outlined exactly what our function should return in a few critical test cases.
   Now that we have a basic outline for our function, we can move on to the coding step.
 </p>
@@ -278,14 +286,17 @@
   Looking at our template, what arguments should we replace the <code>...</code> spaces with?
   <code class="block">
     ; Code :
-    (define (squared num)
+    (define (square-number num)
       (* num num)
     )
   </code>
 </p>
 <p>
-  No we can run our code and see if our function passes the tests we set.
+  Now we can run our code and see if our function passes the tests we set.
+  <a class="try-it" href="src/square-number.rkt" download>Try It</a>
 </p>
+
+
 <!-- Section 2 -->
 
 <h2 id="stop-sign"> Stop Sign </h2>
@@ -312,7 +323,7 @@
   <code class="block">
     ; Signature : String &rarr; Image
   </code>
-  This signature gives us a very basic form of how our function will be used, in addition to stating the input and return type(s) we are expecting to use and produce.
+  This signature gives us a very basic form of how our function will be used, in addition to stating the input and output type(s) we are expecting to use and produce.
 </p>
 <p>
   The <code>check-expect</code> function that we use to test our functions requires a specific example of an input value and the return value that would result.
@@ -374,13 +385,14 @@
       )
     )
    </code>
-</p>
 
+   <a class="try-it" href="src/stop-sign.rkt" download>Try It</a>
+</p>
 <div class="question">
   Challenge : Now that you know how to create a function that produces a stop sign, can you figure out how to build a similar function that instead produces a yield sign?
   <br>
   Here is an example you might use when completing the recipe.
-  Note the expected return data type, which is the image you want your function to make.
+  Note the expected return datatype, which is the image you want your function to make.
 </div>
 <code class="block">
   ; Examples :
@@ -435,7 +447,7 @@
 <p>
   The next step in the recipe is to construct a template.
   The template should be a skeleton of what our eventual function will look like.
-  We need to consider what functions we may need to use to get our intended return.
+  We need to consider what functions we may need to use to get our intended output.
   Most likely, we will need to stack two rows of images to create the full image.
   For this we can use the <code>above</code> function.
   It requires two arguments, which we can fill in later.
@@ -482,6 +494,7 @@
         )
       )
   </code>
+  <a class="try-it" href="src/counter-change.rkt" download>Try It</a>
 </p>
 <div class="question">
   You can, of course, use this function with any images.
@@ -625,6 +638,7 @@
         )
       )
   </code>
+  <a class="try-it" href="src/bulls-eye.rkt" download>Try It</a>
 </p>
 <div class="question">
   What image would you expect to see if you replaced the function <code>overlay</code> with <code>beside</code>?
@@ -742,6 +756,7 @@
   </code>
   Before you run your code, can you picture how the resulting image will look?
   It is helpful to visualize what you expect your function will return.
+  <a class="try-it" href="src/pinwheel.rkt" download>Try It</a>
 </p>
 <p>
   Let's try something we haven't done before: produce an image, then use our function on that image.
@@ -834,7 +849,7 @@
   Before we start writing the code for our function, we need to create a template.
   The design of our business card will have the ID picture on the left side, and the logo toward the upper right.
   The name and job title will be centered on the card, slightly toward the right.
-  There are a few ways we could align and place the images together, so let's just work our way up.
+  There are a few ways we could align and place the images together, so let's start with something central and work our way out.
   We can start with the text, which will be in two lines.
   <code class="block">
     ; Template :
@@ -858,7 +873,7 @@
     )
   </code>
   The only thing left to add is the logo.
-  Since it requires fairly precise placement, we can use a function like <code>overlay/align/offset</code>, which lets us very exactly specify where to put the logo.
+  Since it requires fairly precise placement, we can use a function like <code>overlay/align/offset</code>, which lets us specify exactly where to put the logo.
   <code class="block">
     ; Template :
     (define (business-card id logo name job)
@@ -876,7 +891,36 @@
 </p>
 <p>
   Now we can finally code the function we need.
-  You will notice that we will need to use a few different placement functions to get the code just right.
+  Most of the arguments we have used in our function can be changed and experimented with to get a different look.
+  <code class="block">
+    ; Code :
+    (define (business-card id logo name job)
+      (overlay/align/offset "right" "top"
+        logo
+        5 -10
+        (overlay/offset
+          (beside
+            id
+            (above
+              (text name 36 "black")
+              (text/font job 24 "dimgray" #f "roman" "italic" "normal" #f)
+              )
+            )
+          40 0
+            (rectangle 500 250 "solid" "whitesmoke")
+          )
+        )
+      )
+  </code>
+  Try changing colors or numbers and see how that effects the look of your final image.
+</p>
+<p>
+  Let's add one last thing to this function.
+  The image we have used would probably look more like an ID picture if it were a rectangle.
+  <br>
+  Recall that the function <code>place-image</code> constrains the image that it returns by the dimensions of the background image that is given.
+  <br>
+  Can you guess how this might help us?
   <code class="block">
     ; Code :
     (define (business-card id logo name job)
@@ -889,10 +933,10 @@
               id
               115 100
               (rectangle 175 225 "solid" "white")
-              )
+            )
             (above
               (text name 36 "black")
-              (text/font job 24 "dimgray" #f 'roman 'italic 'normal #f)
+              (text/font job 24 "dimgray" #f "roman" "italic" "normal" #f)
               )
             )
           40 0
@@ -901,18 +945,13 @@
         )
       )
   </code>
-</p>
-
-  <img src="images/pigeon-crop.png"/>
-
   <img src="images/business-card.png"/>
-
+  <a class="try-it" href="src/business-card.rkt" download>Try It</a>
+</p>
 
 <!-- Section 7 -->
 
 <h2 id="clock-face"> Clock Face </h2>
-
-<!-- Update code for face and for place and turn function -->
 
 <p>
   As our last challenge in this chapter, we will attempt to create a clock face.
@@ -922,282 +961,275 @@
   Large problems are often dealt with much more effectively if they are broken down into several smaller problems.
 </p>
 <p>
-  To begin, let's create the blank clock-face. To avoid having to re-create it each time
-  we would like to draw the clock face, we can define a constant to hold the image of
-  our blank clock-face.
-</p>
+  To begin, let's create the blank clock-face and define it as a constant.
   <code class="block">
     (define clock-face
-      (circle 130 "solid" "gray")
+      (circle 130 "outline" "black")
     )
   </code>
-  <p>
-    Here we have define the constant <code>clock-face</code> to bind to the image of a gray circle with a radius of 130 pixels.
-    This is our blank clock face on which we'll place our numbers.
-  </p>
-  <p>
-    Now that we have our clock face, it would be nice to place some numbers on it.
-    However, we do not currently have any images of numbers that we could use.
-    Remember, <code>Number</code> is a data type in Racket that is different than the <code>Image</code> data type.
-    If we would like to have numbers on our clock face, we need to have images of the numbers that we can position on our clock face.
-    This leads us to the first part of our challenge.
-    We need a function that takes a number and returns an image of that number.
-  </p>
-  <p>
-    As with any function, we begin by concisely stating our purpose:
-  </p>
+</p>
+<p>
+  Now we have defined the constant <code>clock-face</code>, which returns the image of an outlined circle with a radius of 130 pixels.
+  This is the blank clock face on which we will place our numbers.
+</p>
+<p>
+  Remember, the <code>Number</code> datatype is distinct from the <code>Image</code> datatype.
+  If we would like to have numbers on our clock face, we need to have images of the numbers.
+  We need a function that accepts a number and returns an image of that number.
+</p>
+<p>
+  As with any function, we begin by concisely stating our purpose:
   <code class="block">
     ; Purpose : Given a number, return an image of that number.
   </code>
-  <p>
-    As usual, next comes the signature.
-    This will serve as a guide to anyone who would like to use our function.
-    We can also fall back to the signature if we lose our way.
-  </p>
+</p>
+<p>
+  The signature is specified next.
+  We know our function will accept a number, and we want it to return an image of that number.
   <code class="block">
     ; Signature : Number &rarr; Image
   </code>
-  <p>
-    Now we will define some examples of how we expect our function to work.
-    Click here to see the code that was used to create the example image.
-    We will want our function to return an image for any number entered.
-  </p>
+</p>
+<p>
+  Now we will create some examples of how we expect our function to work.
+  We want our function to return an image for any number entered.
   <code class="block">
     ; Examples :
-    (check-expect (create-digit-image "12") <img src="images/digit.png"/>)
+    (check-expect (print-digit-image "12") <img src="images/print-digit-image.png"/>)
   </code>
-  <p>
-    With our examples defined, we have now defined what success looks like for our function.
-    The next step in the recipe is to see if we can get the examples to execute.
-    This will at least assure us that our function header is correct.
-  </p>
+</p>
+<p>
+  With our examples defined, we know what success looks like for our function.
+  The next step in the recipe is to see if we can get the examples to execute.
   <code class="block">
     ; Stub :
-    (define (create-digit-image num) 0)
+    (define (print-digit-image num) 0)
   </code>
-  <p>
-    With our function header executing correctly, we are almost ready to begin coding our function.
-    First, we need to write our function template.
-    This will act as an inventory so that we know the general structure our function should follow.
-    Our function should definitely use the <code>num</code> argument, so we should include it in the body of our template.
-  </p>
+</p>
+<p>
+  We are almost ready to begin coding our function, but first we need to write our function template.
+  Our final image will consist of text, so we can begin by using the <code>text/font</code> function.
+  Remember that this function is like the <code>text</code> function with additional parameters.
   <code class="block">
     ; Template :
-    (define (create-digit-image num)
-      (
-      ... num ...
-      )
+    (define (print-digit-image num)
+      (text/font ... ... ... ... ... ... ... ...)
     )
   </code>
-  <p>
-    We are now ready to code our first function in this challenge.
-    Remember that our function should take a number input, and somehow convert it to an image.
-    Hint: you may need to convert your number to a string first.
-  </p>
+</p>
+<p>
+  Now we can start coding.
+  Our <code>num</code> argument will determine what the <code>text/font</code> function prints.
+  However, <code>text/font</code> can only accept a string, and our argument is a number.
+  We need to convert the number to a string before it can be used by <code>text/font</code>.
   <code class="block">
     ; Code :
-    (define (create-digit-image num)
+      (define (print-digit-image num)
+        (text/font (number->string num) ... ... ... ... ... ... ...)
+      )
+  </code>
+  All we need to do now is fill in the rest of the gaps in our code.
+  <code class="block">
+    ; Code :
+    (define (print-digit-image num)
       (text/font (number->string num) 30 "black" #f "swiss" "normal" "bold" #f)
     )
   </code>
-  <p>
-    Congratulations! We now have a function that takes a number, and return an image of that number.
-    This is a big step, but we're not there yet.
-    We now need to somehow arrange the numbers 1 through 12 around the clock face.
-  </p>
-  <p>
-    There are many possible ways we could go about this.
-    The method we will use here will have us placing a number, starting with 1, at the top of the clock face, and then rotating the clock face some amount, and then placing the next number at the top of the face.
-    Repeating this process for all 12 numbers should produce a fully-numbered clock face.
-  </p>
-  <p>
-    As always, we want to divide-and-conquer this task if at all possible.
-    Let's start with the simpler task of placing an image (in our case, of an image) on the top of the clock face, and then rotating it by the appropriate amount.
-  </p>
-  <p>
-    The first thing to figure out is how much we would like to rotate the clock face, once the number is placed.
-    A quick refresher of geometry will remind us that a circle has 360 degrees.
-    We would like to place 12 numbers at approximately equal intervals, so the clock face should rotate 30 degrees between the placement of each number.
-  </p>
-  <p>
-    At this point, we can write the purpose of our next function.
-  </p>
+  <a class="try-it" href="src/print-digit-image.rkt" download>Try It</a>
+</p>
+<p>
+  We now have a function that accepts number, and returns an image of that number.
+  This is a big step, but we're not there yet.
+  We now need to somehow arrange the numbers 1 through 12 around the clock face.
+</p>
+<p>
+  There are many possible ways we could go about this.
+  The method we will use places a number, starting with 12, at the top of the clock face, and then rotates the clock face some amount before placing the next number in the same way.
+  Repeating this process for all 12 numbers should produce a fully-numbered clock face.
+</p>
+<p>
+  As always, we want to break down each larger task into smaller steps whenever possible.
+  Let's start with the simpler task of placing an image on the top of the clock face, and then rotating it the appropriate amount.
+</p>
+<p>
+  At this point, we can write the purpose of our next function.
   <code class="block">
-    ; Purpose : Given a number and an image of a clock face, return an image of the number overlayed on the clock face, both rotated +30 degrees.
+    ; Purpose : Given a number and an image of a clock face, return an image of the number overlayed on the clock face, both rotated some degrees.
   </code>
-  <p>
-    The following signature should reflect the datatypes that our function will input and return, based on the purpose statement.
-  </p>
+</p>
+<p>
+  The following signature should reflect the datatypes that our function will accept and return, based on the purpose statement.
   <code class="block">
     ; Signature : Number Image &rarr; Image
   </code>
-  <p>
-    Now let's come up with some examples.
-    Something to keep in mind is that our function returns an image of a clock face with a number on it.
-    This new image could now be used as the face input for the function when we want to place the number 2.
-    Can you see how this might be used to fill up our clock face with all the numbers?
-    You can see the code we used here.
-  </p>
+</p>
+<p>
+  Now let's come up with some examples.
+  Something to keep in mind is that our function returns an image of a clock face with a number on it.
+  This new image could now be used as the face input for the function when we want to place the number 2.
+  Can you see how this might be used to fill up our clock face with all the numbers?
   <code class="block">
     ; Examples :
-    (check-expect (place-turn 12 clock-face) <img src="images/clock-face-gray-12-rot.png"/>)   <!-- Should start with 1, 2, 3... otherwise clock is backwards -->
+    (check-expect (place-and-rotate 12 clock-face) <img src="images/place-and-rotate.png"/>)
   </code>
-  <p>
-    Let's see if we can get our test to run.
-    Make sure the inputs match the signature.
-  </p>
+</p>
+<p>
+  Let's see if we can get our test to run.
+  Make sure the arguments match the signature.
   <code class="block">
     ; Stub :
-    (define (place-turn num face) 0)    <!--Recommend change function name to place-num-and-rotate - DB -->
+    (define (place-and-rotate face) 0)
   </code>
-  <p>
-  Great!
-  We got our examples to run.
-  We're almost there.
-  For the template, we will gather the tools that we have at our disposal.
-  Well, to start, we know that we will want to overlay the number we input on the face.
-  However, the <code>overlay</code> function simply centers one image "on top of" another.
-  We would like to place the number on the clock face, but at the top of the face in the vertical direction
-  and in the center in the horizontal direction.
-  Fortunately, the <code>overlay/align</code> allows us to specify where we want to place the top
-  image relative to the below image.
-  Once we overlay the number on the clock-face, we will want to use <code>rotate</code> to rotate
-  the clock-face by 30 degrees.
 </p>
+<p>
+  For the template, we will gather the tools that we have at our disposal.
+  To start, we know that we will want to overlay the number we input on the face.
+  However, the <code>overlay</code> function simply centers one image "on top of" another.
+  We would like to place the number on the clock face, but at the top of the face in the vertical direction and in the center in the horizontal direction.
+  Fortunately, the <code>overlay/align/offset</code> allows us to specify where we want to place the foreground image relative to the background image.
+  Looking at our purpose statement, we will probably also want to use <code>rotate</code> to rotate the resultant image.
   <code class="block">
     ; Template :
-    (define (place-turn num face)
+    (define (place-and-rotate num face)
       (rotate ...
-        (overlay/align ... ... ... ...)
+        (overlay/align/offset ... ... ... ... ... ...)
       )
     )
   </code>
- <p>
- At this point, we're ready to code our function.
- Do you see how the function <code>create-digit-image</code> has helped us keep our code clean?
+</p>
+<p>
+  At this point, we're ready to code our function.
+  The first thing to figure out is how much we would like to rotate the clock face, once the number is placed.
+  The <code>rotate</code> function accepts a number of degrees by which to rotate the given image.
+  A circle has 360 degrees.
+  We would like to place 12 numbers at approximately equal intervals, so the clock face should rotate +30 degrees between the placement of each number.
+  <code class="block">
+    ; Code :
+    (define (place-and-rotate num face)
+      (rotate 30
+        (overlay/align/offset ... ... ... ... ... ...)
+      )
+    )
+  </code>
+  Next we can add the required arguments for <code>overlay/align/offset</code>.
+  One of the arguments we need is the image of a number, to place upon the clock face.
+  We can utilize our previous function in order to create that image.
  </p>
   <code class="block">
     ; Code :
-    (define (place-turn num face)
+    (define (place-and-rotate num face)
       (rotate 30
-        (overlay/align
+        (overlay/align/offset
           "middle" "top"
-          (create-digit-image num)
+          (print-digit-image num)
+          0 -10
           face
         )
       )
     )
   </code>
-   <p>
-     Very well done!
-     Our functions our coming together nicely, and we are just a few steps away from creating a fully numbered clock face.
-     At this point, we have a function that takes a number and converts it into an <code>Image</code>.
-     We have another function that takes a number and a clock face, places the number on the top of the clock face, and returns the clock face rotated 30 degrees to make room for the next number.
-   </p>
-   <p>
-     Now we just need a function that places each number 1 through 12 and returns an <code>Image</code> of the fully-numbered clock face.
-     We have already seen how, after we place the number 1 on the clock face, we can feed the new clock face directly into our function again to place the number 2.
-     Our new function will need to go through and place each number 1 through 12 in a similar way.
-   </p>
-   <p>
-     You may recall that there is a certain equivalence between images and functions that return the data type <code>Image</code>.
-     If a function takes an <code>Image</code> as an argument, we can cut and paste the actual image graphic into the code, or we can input a function that returns an <code>Image</code>.
-     We'll see how this feature could prove to be very useful.
-   </p>
-   <p>
-     The purpose of our last function will be to take a clock face and populate it with numbers.
-   </p>
+  Note that <code>0</code> and <code>-10</code> denote the direction and amount the first image is offset from the background.
+  We want our image centered, but slightly away from the edge of the background image.
+  <a class="try-it" href="src/place-and-rotate.rkt" download>Try It</a>
+</p>
+<p>
+  At this point, we have a function that takes a number and converts it into an <code>Image</code>.
+  We also have a function that takes a number and a clock face, places the number on the top of the clock face, and returns the clock face rotated +30 degrees to make room for the next number.
+</p>
+<p>
+  Now we just need a function that places each number 1 through 12 and returns an <code>Image</code> of the fully-numbered clock face.
+  We have already seen how, after we place the number 12 on the clock face, we can feed the new clock face directly into our function again to place the number 1.
+  Our new function will place each number in a similar way.
+</p>
+<p>
+  You may recall that there is a certain equivalence between images and functions that return an <code>Image</code>.
+  If a function takes an <code>Image</code> as an argument, we can cut and paste the actual image graphic into the code, or we can input a function that returns an <code>Image</code>.
+  We'll see how this will prove to be very useful.
+</p>
+<p>
+  The purpose of our last function will be to populate a clock face with numbers.
   <code class="block">
-    ; Purpose : Given a clock face image, return an image of the numbers 1-12 placed on the clock face.
+    ; Purpose : Given the image of a clock face, return an image of the numbers 1-12 placed on the clock face.
   </code>
-  <p>
-    The only input is the image of the clock face.
-    You might be tempted to think that we need to include a list of the numbers we want on the clock face.
-    But we already know which numbers we want (1-12).
-    There really is no additional input that we need to include besides the clock face itself.
-  </p>
+</p>
+<p>
+  The only argument we need is the image of the clock face.
+  You might be tempted to think that we need to include a list of the numbers we want on the clock face.
+  But we already know which numbers we want (1-12).
+  There really is no additional input that we need to include besides the clock face itself.
+</p>
+<p>
+  The signature reflects this.
   <code class="block">
     ; Signature : Image &rarr; Image
   </code>
-  <p>
-   The signature reflects this simplicity nicely.
-  </p>
+</p>
+<p>
+  Now we can implement our examples.
   <code class="block">
     ; Examples :
-    (check-expect (place-numbers clock-face) <img src="images/clock-face-correct.png"/>)
+    (check-expect (place-all-numbers clock-face) <img src="images/place-all-numbers.png"/>)
   </code>
-  <p>
-    Let's get our examples to run with the stub.
-  </p>
+
+<p>
+  Let's get our examples to run with the stub.
   <code class="block">
     ; Stub :
-    (define (place-numbers face) 0)
+    (define (place-all-numbers face) 0)
   </code>
-  <p>
-    Now, as we gather our inventory inside the template, we know that we will need to
-    use the <code>face</code> that is input into the function. We also know that we
-    will need to use the <code>place-turn</code> function that we created above.
-  </p>
+</p>
+<p>
+  Now, as we build our template, we know that the primary function we will need to use is the <code>place-and-rotate</code> that we created above.
   <code class="block">
     ; Template :
-    (define (place-numbers face)
-      (place-turn ... ...)
-      (... face ...)
+    (define (place-all-numbers face)
+      (place-and-rotate ... ...)
     )
   </code>
-  <p>
-    Well, we already succeeded in using the <code>place-turn</code> function above to
-    place a number on the face. Since the <code>place-turn</code> function rotates the
-    face in the counter-clockwise direction, it will be best to start with the number 1,
-    and begin rotating. By the time we reach the number 12, the number 1 should have
-    rotated to it's correct position.
-  </p>
-  <p>
-    To begin, let's place the number 1 on the face.
-  </p>
+</p>
+<p>
+  Since the <code>place-and-rotate</code> function rotates the face in the counter-clockwise direction, it will be best to start with the number 12, which is located at the very top.
+  By the time we reach the final number, the first number should have rotated to its correct position.
   <code class="block">
     ; Code :
-    (define (place-numbers face)
-        (place-turn 1 face)
+    (define (place-all-numbers face)
+        (place-and-rotate 12 face)
     )
   </code>
-  <p>
-    The key to finishing this function is to realize that the clock-face rotated with a 1
-    can now be fed back into the place-turn function as a new clock-face. This time,
-    let's call place-turn again with the number 2 and the original <code>place-turn</code>
-    as an argument for the next one.
-  </p>
+</p>
+<p>
+  The key to this function is using the image that <code>place-and-rotate</code> produces as an argument in another iteration of the same function.
+  We can call <code>place-and-rotate</code> again with the number 1 and the original <code>place-and-rotate</code> as an argument.
   <code class="block">
     ; Code :
-    (define (place-numbers face)
-      (place-turn 2
-        (place-turn 1 face)
-        )
+    (define (place-all-numbers face)
+      (place-and-rotate 1
+        (place-and-rotate 12 face)
+      )
     )
   </code>
-  <p>
-    If you call <code>(place-numbers clock-face)</code> in the "Interactions Window",
-    you should get the following result:
-  </p>
+</p>
+<p>
+  This function now produces the following image:
   <img src="images/clock-face-gray-1-2.png"/>
-  <p>
-    Following this pattern, we can now populate the whole clock-face with the numbers 1-12.
-  </p>
+</p>
+<p>
+  Following this pattern, we can now populate the whole clock-face with the numbers 1-12.
   <code class="block">
     ; Code :
-    (define (place-numbers face)
-      (place-turn 12
-        (place-turn 11
-          (place-turn 10
-            (place-turn 9
-              (place-turn 8
-                (place-turn 7
-                  (place-turn 6
-                    (place-turn 5
-                      (place-turn 4
-                        (place-turn 3
-                          (place-turn 2
-                            (place-turn 1 face)
+    (define (place-all-numbers face)
+      (place-and-rotate 11
+        (place-and-rotate 10
+          (place-and-rotate 9
+            (place-and-rotate 8
+              (place-and-rotate 7
+                (place-and-rotate 6
+                  (place-and-rotate 5
+                    (place-and-rotate 4
+                      (place-and-rotate 3
+                        (place-and-rotate 2
+                          (place-and-rotate 1
+                            (place-and-rotate 12 face)
                           )
                         )
                       )
@@ -1211,84 +1243,39 @@
       )
     )
   </code>
-  <p>
-    If we try to run <code>(place-numbers clock-face)</code> in the interactions window,
-    we get the following result:
-  </p>
-  <img src="images/clock-face-wrong.png"/>
-
-  <p>
-    It looks like we are very close. However, when the number 12 is added, the <code>place-turn</code>
-    function proceeds to rotate the entire face by 30 degrees.
-  </p>
-  <p>
-    There are many ways to fix this, but one way that lets us keep the code consistent
-    is to start by placing 12 first, and then placing 1, 2, 3... on to 11. Let's give it
-    a try.
-  </p>
-  <code class="block">
-    ; Code :
-    (define (place-numbers face)
-      (place-turn 11
-        (place-turn 10
-          (place-turn 9
-            (place-turn 8
-              (place-turn 7
-                (place-turn 6
-                  (place-turn 5
-                    (place-turn 4
-                      (place-turn 3
-                        (place-turn 2
-                          (place-turn 1
-                            (place-turn 12 face)
-                          )
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  </code>
-  <p>
-    Now if we try to run <code>(place-numbers clock-face)</code> in the interactions window,
-    we get the following result:
-  </p>
-  <img src="images/clock-face-correct.png"/>
-  <p>
-    At this point, our function produces a complete and correct clock-face populated with the numbers 1-12.
-    Congratulations!
+</p>
+<p>
+  If we run <code>(place-all-numbers clock-face)</code>, we get the following result:
+  <img src="images/place-all-numbers.png"/>
+  At this point, our function produces a complete and correct clock-face populated with the numbers 1-12.
+  Congratulations!
+  <a class="try-it" href="src/place-all-numbers.rkt" download>Try It</a>
   </p>
 
-
-  <!--
-  <code class="block">
-    ; Code :
-    (define (clock face)
-      (overlay
-        (place-numbers face)
-        (circle 150 "outline" "black")
-      )
-    )
-  </code>
-
-  <img src="images/clock.png"/>
--->
-
-
-<!-- Challenge: adding hands to the clock face -->
+<!-- Challenges -->
 <h2>Additional Challenges</h2>
 
 <h3>Adding Hands to the Clock-Face</h3>
-
 <p>
   Now that we have a clock-face populated with numbers, try adding hands to the clock-face.
-  Once you successfully add hands, write a function that takes the time as an hour and a minute
-  and returns a clock-face with the hands in the positions corresponding to the current time.
+  Once you successfully add hands, write a function that takes the time as an hour and a minute and returns a clock-face with the hands in the positions corresponding to the specified time.
+</p>
+<h3>Sierpinski Triangle</h3>
+<p>
+  A Sierpinski triangle is a type of fractal image comprised of a repreating pattern of triangles.
+  Here is an example:
+  <img src="images/serpinsky.png" width="60%"/>
+  Can you create a function that produces a Sierpinski triangle?
+  <br>
+  Hint: first create a function that produces this:
+  <img src="images/ser.png"/>
+</p>
+<h3>Color Wheel</h3>
+<p>
+  Create a function that takes three colors and produces an image of overlapping circles, like so:
+  <img src="images/cmy.png"/>
+  <img src="images/rgb.png"/>
+  Hint: make use of the alpha parameter to create transparent circles.
 </p>
 
 <!-- Footer -->
@@ -1316,6 +1303,12 @@
     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </i>
+  </p>
+  <p>
+    <i>
+      All images sourced from
+      <a href="https://www.freepngs.com/">freepngs.com</a>
     </i>
   </p>
 </div>
