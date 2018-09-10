@@ -2,1316 +2,1300 @@
 
 <html>
 
-<head>
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
 
-<body>
+  <body>
 
-<!-- sidebar -->
-<div class="clearfix">
-  <div class="column sidemenu">
-    <ul>
-      <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#designrecipe">The Design Recipe</a></li>
-      <li><a href="#stop-sign">Stop Sign</a></li>
-      <li><a href="#counterchange">Counter-Change</a></li>
-      <li><a href="#bulls-eye">Bulls-Eye</a></li>
-      <li><a href="#pinwheel">Pinwheel</a></li>
-      <li><a href="#business-card">Business Card</a></li>
-      <li><a href="#clock-face">Clock Face</a></li>
-    </ul>
-  </div>
-
-  <div class="column content">
-    <div class="header">
-      <h1>
-        <img src="https://racket-lang.org/img/racket-logo.svg" width="25px"/>
-        Building Pictures with Racket
-      </h1>
-        <p style="text-align:center;">
-        <i>By Rowan Weir, Daniel Barnas, Allan Schougaard</i>
-        </p>
+    <!-- sidebar -->
+    <div class="clearfix">
+      <div class="column sidemenu">
+	<ul>
+	  <li><a href="#introduction">Introduction</a></li>
+	  <li><a href="#designrecipe">The Design Recipe</a></li>
+	  <li><a href="#stop-sign">Stop Sign</a></li>
+	  <li><a href="#counterchange">Counter-Change</a></li>
+	  <li><a href="#bulls-eye">Bulls-Eye</a></li>
+	  <li><a href="#pinwheel">Pinwheel</a></li>
+	  <li><a href="#business-card">Business Card</a></li>
+	  <li><a href="#clock-face">Clock Face</a></li>
+	</ul>
       </div>
 
-<!-- ADD SOURCE FILES FOR ALL EXAMPLES AND CHALLENGES -->
+      <div class="column content">
+	<div class="header">
+	  <h1>
+            <img src="https://racket-lang.org/img/racket-logo.svg" width="25px"/>
+            Designing Picture Functions with Racket
+	  </h1>
+          <p style="text-align:center;">
+            <i>By Rowan Weir, Daniel Barnas, Allan Schougaard</i>
+          </p>
+	</div>
 
-<!-- INTRODUCTION -->
+	<!-- ADD SOURCE FILES FOR ALL EXAMPLES AND CHALLENGES -->
 
-<h2 id="introduction"> Introduction</h2>
+	<!-- INTRODUCTION -->
 
-<p>
-    So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
-    We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter in github-->
-    In this chapter, we are going to define functions that accept images as arguments or return an image.
-</p>
+	<h2 id="introduction"> Introduction</h2>
 
-
-<!-- SECTION 1 -->
-
-<h2 id="designrecipe">The Design Recipe</h2>
-
-<!-- Insert ordered list-->
-
-<p>
-  Designing functions can be complicated, but the process is simplified using a 'design recipe'.
-  A design recipe is a step-by-step process that outlines how to build or define functions.
-  We will be going over each step of the recipe in detail in this chapter.
-</p>
-<p>
-  It is possible to cobble together a function from bits and pieces of code, approaching the problem arbitrarily and forcing the function to work via brute force.
-  Although this haphazard approach to programming may succeed on smaller, less sophisticated functions, functions with this programming "philosophy" at their core are ultimately more difficult to develop.
-</p>
-<p>
-  In the world of software development, projects often require the coordinated cooperation of many people.
-  For this reason, it is important to clarify exactly what a program will be expected to do, and what the inputs are, and what it will be expected to return.
-  Therefore a systematic recipe for writing functions is incredibly valuable.
-</p>
-<p>
-  The design recipe also allows for a divide-and-conquer approach, breaking large problems into smaller ones.
-  It also requires you to more completely understand and express different aspects of your function.
-</p>
-<p>
-  The steps in the design recipe can be broken down as follows:
-  <ol>
-    <li>Purpose</li>
-    <li>Signature</li>
-    <li>Examples</li>
-    <li>Stub</li>
-    <li>Template</li>
-    <li>Code</li>
-  </ol>
-</p>
-
-<!-- SECTION 1.1 -->
-
-<h3 id="Purpose">Purpose</h3>
-
-<p>
-  The first step of writing any function is to clarify and express exactly what you intend to the function to do.
-  That is the concept behind the purpose statement.
-  At first, you will probably want to jump in and begin coding right away.
-  What you may find later on, however, is that you do not fully understand the specifics of what your function is supposed to do, or what components you may need to complete it.
-  Stating the purpose of our function forces us to confront our understanding of the task at hand.
-  You may also find that putting the problem you're trying to solve into words
-  automatically deepens your understanding of the problem.
-  A good purpose statement succinctly explains what the function will accept as arguments, what it will do, and what it will return, if anything.
-</p>
-<p>
-  Let's try writing some good purpose statements.
-  For simplicity, in these first examples we are going to use numbers.
-  Later, we will explore how the same process can apply to graphics.
-  <br>
-  Here is our challenge:
-  <code class="block">
-    Create a function that squares any number.
-  </code>
-  A good way to begin writing purpose statements is to follow this basic format:
-  <code class="block">
-    ; Purpose : Given ..., returns ...
-  </code>
-  What you are <i>given</i> is your input.
-  What you <i>return</i> is the function's expected output.
-  <br>
-  This may seem overly simplified, but knowing these two components of your function from the very beginning can really help you a great deal later on.
-  <br>
-  For the purpose statement of this function, we could write the following:
-  <code class="block">
-    ; Purpose : Given any number, returns that number raised to the second power.
-  </code>
-  Keep in mind that a purpose statement should be fairly short, around 1-2 lines of comments.
-  If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
-  If you cannot clearly and succinctly come up with a purpose statement that fits within two lines, the function you are trying to write can likely be broken down into a few functions of lesser complexity.
-  <div class="question">
-    Consider a pre-existing function that you already know.
-    If you were to write that function, what might the purpose statement be?
-  </div>
-  <div class="question">
-    What about a graphics function, like <code>overlay</code> or <code>rotate</code>?
-  </div>
-</p>
-
-<!-- SECTION 1.2 -->
-
-<h3 id="Signature">Signature</h3>
-
-<p>
-  After you have clarified the the purpose of your function, you need to specify the signature.
-  A signature is like your toolbox.
-  It clearly states what datatypes our program will be utilizing.
-  The signature can also serve as a set of instructions for constructing parts of our function.
-  When writing your signature, ask: what are we working with?
-  What data am I starting with, and what do I want to get back?
- <br>
- Let's proceed with our example to get a better idea of what a signature should look like.
- <code class="block">
-   ; Signature : Number &rarr; Number
- </code>
- Note the arrow seperating our two datatypes.
- The presence of the arrow indicates the datatype(s) on the left side are what we expect to input, and the type(s) on the right are what we expect the function to return.
- It is another way of saying <code> Given ... &rarr; Returns ... </code>
- Note also the capitalization of Number and Number.
- Capitalization in the signature denotes a datatype in these notes.
- <br>
- Our function accepts a number, and is expected to produce a number as well.
- Specifying the signature of a pre-existing function can be a way to better understand what that function does.
- For example, the signature of the <code>place-image</code> would be:
- <code class="block">
-   ; Signature : Image Number Number Image &rarr; Image
- </code>
- <div class="question">
-   What would the signature be for a graphics function that produces a shape, like <code>ellipse</code> or <code> radial-star </code>?
- </div>
-</p>
-
-<!-- SECTION 1.3 -->
-
-<h3 id="Examples">Examples</h3>
-
-<p>
-  Testing is a vital component of the function design process.
-  Creating effective examples of your function allows you to determine whether it is working as anticipated.
-  Tests also serve the purpose of outlining the exact specifications of the function you plan to write.
-  By demonstrating how you want your function to handle various inputs, you are defining requirements.
-  A popular term for this is Test-Driven Development (TDD).
-  <br>
-  It is important to write examples prior to coding your function, because you will continually test your program as you add more to the code.
-  <br>
-  The function is most commonly used in Racket to create tests is <code>check-expect</code>.
-  The check-expect function receives the name of your function and test arguments for each datatype you specified in your signature.
-  It also includes the result you expect from your function, given the inputs provided.
-  If we were to write the signature for the <code>check-expect</code> function, it might be:
-  <code class="block">
-    ; Signature : your-function datatype(s) expected-result &rarr; boolean
-  </code>
-  Remember, the number of inputs and the datatypes of the inputs and output should match the signature you wrote for your function.
-  <br>
-  Since the <code>check-expect</code> function requires the name of your function, this is our first opportunity to come up with a good name for the function we are designing.
-  A good practice for function naming is to follow the verb-noun form.
-  This convention includes a verb to denote the action your function is taking, and a noun to denote what is being acted upon.
-  This function, for example, might be called square-number.
-  Squaring is the action we are taking, and a number is what we are squaring.
-<p/>
-<p>
-  Let's see how <code>check-expect</code> applies to our square-number function.
-  <code class="block">
-    ; Examples :
-    (check-expect (square-number 3) 9)
-  </code>
-  The first argument is the square-number function that we are testing and our test input 3.
-  The last argument is what the function is expected to return given the input, in this case 9.
-  <br>
-  Now, this test alone does not cover all scenarios our function needs to handle.
-  We need to create additional test cases for all the conditions we expect our function to encounter.
-  <code class="block">
-    ; Examples :
-    (check-expect (square-number 3) 9)
-    (check-expect (square-number 0) 0)
-    (check-expect (square-number -4) 16)
-  </code>
-  This will ensure that all parts of our function works.
-  As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
-  It is sufficient for the needs of this chapter, and for most functions that will return images.
-  If you'd like to learn more about other test functions, be sure to check out the documentation regarding <code>check-within</code>, <code>check-random</code>, and <code>check-satisfied</code>.
-</p>
-
-<!-- SECTION 1.4 -->
-
-<h3 id="Stub">Stub</h3>
-
-<p>
-  With our test functions written and our desired return datatypes specified, it's time for the stub.
-  The stub is like an extremely abbreviated version of what will eventually be our complete function.
-  Consider it a first draft, the chief purpose of which is to get our examples to execute.
-  <br>
-  Most of the stub is written like a full function definition.
-  Begin with the name of the function you are working on as well as any parameters representing the inputs that the function will take.
-  Remember, these should match the inputs noted in the signature up above.
-  <br>
-  If we can get the test functions to run, even if they fail, we are still closer to our goal than if the test functions failed to run at all.
-  For this reason, we include some bogus value instead of a full function body, preferably of the same data type as the function's expected output.
-  We want to enter a bogus value to eliminate the chance that our tests will pass.
-  <br>
-  Let's see what a stub would look like for our example:
-  <code class="block">
-    ; Stub :
-    (define (square-number num) -1)
-  </code>
-  We know the value -1 will never be an actual result, since the result of <code>square-number</code> will never be negative.
-  <br>
-  Run the stub.
-  <div class="question">
-    What happens? Is the result what we anticipated?
-  </div>
-</p>
-
-<h3 id="Template">Template</h3>
-
-<p>
-  The next step in the HtDF recipe is the template.
-  The template is a basic skeleton of our full function.
-  We can outline the basic format and components of your function without being concerned about the precise details of how it will work.
-  The template also functions as a sort of inventory, where we take stock of what datatypes and functions are available to us, and decide which we may want to use to construct our function.
-  The convention for writing a template is to use ellipses where you have elected to leaves gaps in your code.
-  There are different ways of thinking about and using a template.
-  You can start with your parameters and fill in everything else later, or you can begin by specifying what functions you know you will need to use.
-  Either way, the goal is to create an outline for your function.
-
-</p>
-<p>
-  In the case of our <code>squared</code> function, we know that when squaring a number, you multiply it by itself.
-  So, we know we will likely need to use <code>*</code>, the multiplication function.
-  <code>*</code> requires two arguments, but we don't need to be specific yet, so we can just include <code>...</code> where those inputs will go.
-  <code class="block">
-    ; Template :
-    (define (square-number num)
-      (* ... ...)
-    )
-  </code>
-  At this stage you can also check that your syntax and formatting is correct.
-  You can run the template and it will tell you if all parentheses are in the right place.
-  In the next section, we will fill out the gaps in our template.
-</p>
-
-<h3 id="Code">Code</h3>
-
-<p>
-  At this point, we have worked our way through all the necessary preparations required for our code.
-  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and output datatypes we expect our function to use.
-  We also outlined exactly what our function should return in a few critical test cases.
-  Now that we have a basic outline for our function, we can move on to the coding step.
-</p>
-<p>
-  Looking at our template, what arguments should we replace the <code>...</code> spaces with?
-  <code class="block">
-    ; Code :
-    (define (square-number num)
-      (* num num)
-    )
-  </code>
-</p>
-<p>
-  Now we can run our code and see if our function passes the tests we set.
-  <a class="try-it" href="src/square-number.rkt" download>Try It</a>
-</p>
+	<p>
+	  So far, we have focused on building images with pre-existing functions from the 2htdf/image and picturing-programs libraries.
+	  We are going to utilize what we have covered previously in this chapter, so review the chapter on graphics first (here). <!-- insert link to previous chapter in github-->
+	  In this chapter, we are going to define functions that accept images as arguments or return an image.
+	</p>
 
 
-<!-- Section 2 -->
+	<!-- SECTION 1 -->
 
-<h2 id="stop-sign"> Stop Sign </h2>
+	<h2 id="designrecipe">The Design Recipe</h2>
 
-<p>
-  Stop signs are ubiquitous, and generally share the same distinctive design regardless of the country they appear in.
-  A red octogon accompanied by white text is the international standard.
-  Many countries use the English word "STOP" on their signs, with others electing to use their local language instead.
-</p>
-<p>
-  In this example, we want to write a function that produces a stop sign.
-  This function will take a text input, and return the image of a stop sign with the text displayed in white letters.
-  <code class="block">
-    Create a function that produces the image of a stop sign, with text determined by the user.
-   </code>
-  Let's apply the design recipe to this problem.
-  Recall that for the purpose statement, we want to briefly explain what our function will return, and which inputs it will require.
-  <code class="block">
-    ; Purpose : Given a string of text, return the image of a stop sign displaying that text.
-  </code>
-  The general idea behind our function is pretty simple.
-  When given a string of text, the function should return a stop sign with that text on it.
-  Our requirements for this function are made clear by the purpose statement, so we can write the signature right away.
-  <code class="block">
-    ; Signature : String &rarr; Image
-  </code>
-  This signature gives us a very basic form of how our function will be used, in addition to stating the input and output type(s) we are expecting to use and produce.
-</p>
-<p>
-  The <code>check-expect</code> function that we use to test our functions requires a specific example of an input value and the return value that would result.
-  This is not generally problematic when writing functions that contain simple datatypes such as numbers or strings, but can be more difficult when our expected output is an image.
-  One way to utilize the <code>check-expect</code> function in this context is to create the image our function will produce prior to coding the function itself.
-  This gives you a finished example that you can then test your function against.
-  <br>
-  For detailed information on how to produce images themselves, see our previous chapter. <!-- Link to previous chapter. -->
-  <br>
-  As we want to test stop signs in other languages as well, we should create another stop sign with the word "ALTO".
-  You can find both examples here, if you want to use them in our own testing. <!-- Place TRY IT with code here -->
-</p>
-<p>
-  Now that we have our example images, we can write the tests for our function.
-  We also want to pick a descriptive name, using the verb-noun naming convention.
-   <code class="block">
-     ; Examples :
-    (check-expect (make-stop-sign "STOP") <img src="images/stop-sign.png" width="20%"> )
-   </code>
-  The last argument that check-expect takes is the expected result of the function call.
-  In this case, we can either copy and paste the image itself, or the code used to create the image.
-  These are ultimately equivalent so the choice is up to you.
-</p>
-<p>
-  Usually, the more test cases we provide, the better.
-  We've already created a Spanish language stop sign, so let's make a test featuring that image as well.
-  <code class="block">
-    ; Examples :
-    (check-expect (make-stop-sign "ALTO") <img src="images/alto-sign.png" width="20%"> )
-  </code>
-</p>
-<p>
-  Next, we write the stub.
-  Remember that the stub mimics a full function definition, with a bogus value in place of code.
-   <code class="block">
-     ; Stub :
-    (define (make-stop-sign str) "stop-sign")
-   </code>
-  The parameter being used here is <code>str</code>, which indicates that our expected input is a string.
-</p>
-<p>
-   <code class="block">
-     ; Template :
-    (define (make-stop-sign str)
-       (overlay
-         (text ... ... ...)
-         (regular-polygon ... ... ... ...)
-         )
-       )
-   </code>
-</p>
-<p>
-  <code class="block">
-    ; Code :
-    (define (make-stop-sign str)
-      (overlay
-        (text str 75 "white")
-        (regular-polygon 100 8 "solid" "red")
-      )
-    )
-   </code>
+	<!-- Insert ordered list-->
 
-   <a class="try-it" href="src/stop-sign.rkt" download>Try It</a>
-</p>
-<div class="question">
-  Challenge : Now that you know how to create a function that produces a stop sign, can you figure out how to build a similar function that instead produces a yield sign?
-  <br>
-  Here is an example you might use when completing the recipe.
-  Note the expected return datatype, which is the image you want your function to make.
-</div>
-<code class="block">
-  ; Examples :
-  (check-expect (make-yield-sign "YIELD") <img src="images/yield-sign.png" width="30%"> )
-</code>
+	<p>
+	  Designing functions can be complicated, but the process is simplified using a 'design recipe'.
+	  A design recipe is a step-by-step process that outlines how to build or define functions.
+	  We will be going over each step of the recipe in detail in this chapter.
+	</p>
+	<p>
+	  It is possible to cobble together a function from bits and pieces of code, approaching the problem arbitrarily and forcing the function to work via brute force.
+	  Although this haphazard approach to programming may succeed on smaller, less sophisticated functions, functions with this programming "philosophy" at their core are ultimately more difficult to develop.
+	</p>
+	<p>
+	  In the world of software development, projects often require the coordinated cooperation of many people.
+	  For this reason, it is important to clarify exactly what a program will be expected to do, and what the inputs are, and what it will be expected to return.
+	  Therefore a systematic recipe for writing functions is incredibly valuable.
+	</p>
+	<p>
+	  The design recipe also allows for a divide-and-conquer approach, breaking large problems into smaller ones.
+	  It also requires you to more completely understand and express different aspects of your function.
+	</p>
+	<p>
+	  The steps in the design recipe can be broken down as follows:
+	  <ol>
+	    <li>Purpose</li>
+	    <li>Signature</li>
+	    <li>Examples</li>
+	    <li>Stub</li>
+	    <li>Template</li>
+	    <li>Code</li>
+	  </ol>
+	</p>
 
-<!-- Section 3 -->
+	<!-- SECTION 1.1 -->
 
-<h2 id="counterchange"> Counter-Change </h2>
+	<h3 id="Purpose">Purpose</h3>
 
-<p>
-  For our next challenge, we will use the recipe to write a counter-change function.
-  A counter-change is when you have two images create a 2-by-2 checkerboard pattern with each image at opposite corners.
-</p>
+	<p>
+	  The first step of writing any function is to clarify and express exactly what you intend to the function to do.
+	  That is the concept behind the purpose statement.
+	  At first, you will probably want to jump in and begin coding right away.
+	  What you may find later on, however, is that you do not fully understand the specifics of what your function is supposed to do, or what components you may need to complete it.
+	  Stating the purpose of our function forces us to confront our understanding of the task at hand.
+	  You may also find that putting the problem you're trying to solve into words
+	  automatically deepens your understanding of the problem.
+	  A good purpose statement succinctly explains what the function will accept as arguments, what it will do, and what it will return, if anything.
+	</p>
+	<p>
+	  Let's try writing some good purpose statements.
+	  For simplicity, in these first examples we are going to use numbers.
+	  Later, we will explore how the same process can apply to graphics.
+	  <br>
+	  Here is our challenge:
+	  <code class="block">
+	    Create a function that squares any number.
+	  </code>
+	  A good way to begin writing purpose statements is to follow this basic format:
+	  <code class="block">
+	    ; Purpose : Given ..., returns ...
+	  </code>
+	  What you are <i>given</i> is your input.
+	  What you <i>return</i> is the function's expected output.
+	  <br>
+	  This may seem overly simplified, but knowing these two components of your function from the very beginning can really help you a great deal later on.
+	  <br>
+	  For the purpose statement of this function, we could write the following:
+	  <code class="block">
+	    ; Purpose : Given any number, returns that number raised to the second power.
+	  </code>
+	  Keep in mind that a purpose statement should be fairly short, around 1-2 lines of comments.
+	  If you find yourself needing more than that, it may be a sign that the function you're trying to write could be broken up into smaller functions.
+	  If you cannot clearly and succinctly come up with a purpose statement that fits within two lines, the function you are trying to write can likely be broken down into a few functions of lesser complexity.
+	  <div class="question">
+	    Consider a pre-existing function that you already know.
+	    If you were to write that function, what might the purpose statement be?
+	  </div>
+	  <div class="question">
+	    What about a graphics function, like <code>overlay</code> or <code>rotate</code>?
+	  </div>
+	</p>
 
-<p>
-  As usual, the first step of the recipe is the purpose statement.
-  Remember that the purpose should succinctly describe what the function is going to take as inputs, and what it will return.
-  In this case, our function will take two images as inputs, and will return a single image of the original two images counter-changed.
-  The following purpose statement captures the general idea effectively.
-  <code class="block">
-    ; Purpose : Given two images, return a checkerboard image comprised of those the two image arguments.
-  </code>
-</p>
-<p>
-  Next we create the signature.
-  The signature should capture the purpose in terms of the data types that our function will take as inputs, and the datatype that it will return.
-  In this case, our function will be taking two images, and then returning a single image based on the two input images.
-  <code class="block">
-    ; Signature : Image Image &rarr; Image
-  </code>
-</p>
-<p>
-  We need to create an example that will test our function.
-  Recall that this step allows us to outline the exact specifications of our function, and to define what we want our function to return.
-  The process of creating examples should also serves to provide us with a general outline for how our function will work.
-  This will help us when it comes time to write code.
-  <code class="block">
-    ; Examples :
-    (check-expect (make-counter-change (square 100 100 "red") (square 100 100 "cyan")) <img src="images/counter-change.png" width="50%"/>)
-  </code>
-</p>
-<p>
-  With our tests and examples in place, it is time to write the stub.
-  Recall that the purpose of the stub is simply to get our tests to run, and not to pass.
-  This will assure us that our function header is written correctly.
-  <code class="block">
-    ; Stub :
-    (define (make-counter-change image-1 image-2) "checkerboard")
-  </code>
-</p>
-<p>
-  The next step in the recipe is to construct a template.
-  The template should be a skeleton of what our eventual function will look like.
-  We need to consider what functions we may need to use to get our intended output.
-  Most likely, we will need to stack two rows of images to create the full image.
-  For this we can use the <code>above</code> function.
-  It requires two arguments, which we can fill in later.
-  <code class="block">
-  ; Template :
-  (define (make-counter-change image-1 image-2)
-    (above
-      ...
-      ...
-    )
-  )
-  </code>
-  We could move on to the coding step of the recipe at this point, but let's see if we can make our template slighty more detailed.
-  <br>
-  The above function will stack two rows, but how might we make the rows themselves?
-  Each row needs to be two images next to each other.
-  The <code>beside</code> takes two images and places the second beside the first.
-  Given what our template looks like right now, we can replace the empty arguments with this function.
-  <br>
-  Do you see how this template will stack two rows of images once it is filled out?
-  <code class="block">
-  ; Template :
-  (define (make-counter-change image-1 image-2)
-    (above
-      (beside ... ...)
-      (beside ... ...)
-    )
-  )
-  </code>
-</p>
-<p>
-  Now it is time to code our function.
-  The benefit of using the recipe is that we should have already gone through the process of creating a template, and the only thing left to do is fill it in with the appropriate parameters.
-</p>
-<p>
-  Check out our code below for the <code>make-counter-change</code> function.
-  Did you write it the same way?
-  <code class="block">
-    ; Code :
-    (define (make-counter-change image-1 image-2)
-      (above
-        (beside image-2 image-1)
-        (beside image-1 image-2)
-        )
-      )
-  </code>
-  <a class="try-it" href="src/counter-change.rkt" download>Try It</a>
-</p>
-<div class="question">
-  You can, of course, use this function with any images.
-  <br>
-  Try it with the folowing two images:
-  <img src="images/peach1.png"/>
-  <img src="images/cherry1.png"/>
-</div>
-<div class="question">
-  Challenge : Using these two images, can you alter the function you just made so when it returns the final image, all images are oriented like they are in this <code>check-expect</code>?
-  <br>
-  Hint: use <code>flip-horizontal</code>.
-</div>
-<code class="block">
-  (check-expect (flip-counter-change <img src="images/peach1.png" width="30%"/> <img src="images/cherry1.png" width="30%"/>) <img src="images/counter-cherry-peach.png" width="50%"/>)
-</code>
+	<!-- SECTION 1.2 -->
 
-<!-- Section 4 -->
+	<h3 id="Signature">Signature</h3>
 
-<h2 id="bulls-eye"> Bulls-Eye </h2>
+	<p>
+	  After you have clarified the the purpose of your function, you need to specify the signature.
+	  A signature is like your toolbox.
+	  It clearly states what datatypes our program will be utilizing.
+	  The signature can also serve as a set of instructions for constructing parts of our function.
+	  When writing your signature, ask: what are we working with?
+	  What data am I starting with, and what do I want to get back?
+	  <br>
+	  Let's proceed with our example to get a better idea of what a signature should look like.
+	  <code class="block">
+	    ; Signature : Number &rarr; Number
+	  </code>
+	  Note the arrow seperating our two datatypes.
+	  The presence of the arrow indicates the datatype(s) on the left side are what we expect to input, and the type(s) on the right are what we expect the function to return.
+	  It is another way of saying <code> Given ... &rarr; Returns ... </code>
+	  Note also the capitalization of Number and Number.
+	  Capitalization in the signature denotes a datatype in these notes.
+	  <br>
+	  Our function accepts a number, and is expected to produce a number as well.
+	  Specifying the signature of a pre-existing function can be a way to better understand what that function does.
+	  For example, the signature of the <code>place-image</code> would be:
+	  <code class="block">
+	    ; Signature : Image Number Number Image &rarr; Image
+	  </code>
+	  <div class="question">
+	    What would the signature be for a graphics function that produces a shape, like <code>ellipse</code> or <code> radial-star </code>?
+	  </div>
+	</p>
 
-<p>
-  For our next example, we will create a function that takes two colors as string inputs, and returns a dart-board of concentric circles, with each circle alternating in color.
-  The dart-board should have a radius of 100 pixels, and each concentric circle should have a radius that is 10 pixels less than the previous circle.
-</p>
-<p>
-  As usual, we begin with our purpose.
-  This will help us make sure that we know how our function should behave.
-  <code class="block">
-    ; Purpose : Given two colors, return an image of a bulls-eye comprised of those colors.
-  </code>
-</p>
-<p>
-  Our purpose statement should have hopefully made it clear that our function will need two colors as inputs.
-  Available preset colors are given as <code>strings</code>.
-  For clarity, we can note that the <code>string</code> inputs represent colors.
-  Our function will return an image.
-  <code class="block">
-    ; Signature : String String &rarr; Image, where all strings are colors
-  </code>
-</p>
-<p>
-  Next we create an example to test our function, following the same format as in previous challenges.
-  <code class="block">
-    ; Examples :
-    (check-expect (make-bulls-eye "hotpink" "deepskyblue") <img src="images/bulls-eye.png" width="30%"/>)
-  </code>
-</p>
-<p>
-  With our example written, we are ready to create the stub and check if the examples are able to run.
-  It is in the stub that we will name the the parameters our function will take.
-</p>
-<p>
-  Try running with the stub below.
-  The examples should execute successfully, even though our function will fail.
-  <code class="block">
-    ; Stub :
-    (define (make-bulls-eye color-1 color-2) "bulls-eye")
-  </code>
-</p>
-<p>
-  With the example successfully executing when we run the code, we are ready to create a template of our function.
-</p>
-<p>
-  For our template, we need to consider what functions will be necessary to build the image of a bulls-eye.
-  We need to create many circles, and layer them on top of each other.
-  <br>
-  The <code>circle</code> function will definitely be used.
-  Placing the circles on top of one another could be accomplished using a couple different functions, but in our example we are going to use <code>overlay</code>.
-  Remember that <code>overlay</code> requires at least two images as arguments, and the <code>circle</code> function requires three.
-  <br>
-  Knowing this, we can create the following template:
-  <code class="block">
-    ; Template :
-    (define (make-bulls-eye color-1 color-2)
-      (overlay
-        (circle ... ... ...)
-        (circle ... ... ...)
-        )
-      )
-  </code>
-  We don't need to worry about what the circles will look like yet, or how many we will use.
-  We can take care of that when we code our function, which is next.
-</p>
-<p>
-  Looking at our example, how many circles will be required to make the expected image?
-  <br>
-  Let's add spaces for those, before we fill out the details of each one.
-  <code class="block">
-    ; Code :
-    (define (make-bulls-eye color-1 color-2)
-      (overlay
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        (circle ... ... ...)
-        )
-      )
-  </code>
-  Now we need to specify the arguments for each circle.
-  Looking at our example again, all the circles are solid, so we can specify that first.
-  <code class="block">
-    ; Code :
-    (define (make-bulls-eye color-1 color-2)
-      (overlay
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        (circle ... "solid" ...)
-        )
-      )
-  </code>
-  Recall that the outermost circle will have a radius of 100 pixels, and the other circles will be decreasing by 10 pixels in each iteration.
-  Can we add the color at the same time, since we know each circle will alternate in color?
-  <code class="block">
-    ; Code :
-    (define (make-bulls-eye color-1 color-2)
-      (overlay
-        (circle 10 "solid" color-1)
-        (circle 20 "solid" color-2)
-        (circle 30 "solid" color-1)
-        (circle 40 "solid" color-2)
-        (circle 50 "solid" color-1)
-        (circle 60 "solid" color-2)
-        (circle 70 "solid" color-1)
-        (circle 80 "solid" color-2)
-        (circle 90 "solid" color-1)
-        (circle 100 "solid" color-2)
-        )
-      )
-  </code>
-  <a class="try-it" href="src/bulls-eye.rkt" download>Try It</a>
-</p>
-<div class="question">
-  What image would you expect to see if you replaced the function <code>overlay</code> with <code>beside</code>?
-  How about <code>above</code>?
-</div>
-<div class="question">
-  Challenge : Make a function that produces a bulls-eye that, instead of alternating colors, appears as a gradient.
-  Use this example:
-</div>
-<code class="block">
-  (check-expect (make-bulls-eye-gradient "darkviolet") <img src="images/bulls-eye-tr.png" width="50%"/>)
-</code>
+	<!-- SECTION 1.3 -->
 
-<!-- Section 5 -->
+	<h3 id="Examples">Examples</h3>
 
-<h2 id="pinwheel">Pinwheel</h2>
+	<p>
+	  Testing is a vital component of the function design process.
+	  Creating effective examples of your function allows you to determine whether it is working as anticipated.
+	  Tests also serve the purpose of outlining the exact specifications of the function you plan to write.
+	  By demonstrating how you want your function to handle various inputs, you are defining requirements.
+	  A popular term for this is Test-Driven Development (TDD).
+	  <br>
+	  It is important to write examples prior to coding your function, because you will continually test your program as you add more to the code.
+	  <br>
+	  The function is most commonly used in Racket to create tests is <code>check-expect</code>.
+	  The check-expect function receives the name of your function and test arguments for each datatype you specified in your signature.
+	  It also includes the result you expect from your function, given the inputs provided.
+	  If we were to write the signature for the <code>check-expect</code> function, it might be:
+	  <code class="block">
+	    ; Signature : your-function datatype(s) expected-result &rarr; boolean
+	  </code>
+	  Remember, the number of inputs and the datatypes of the inputs and output should match the signature you wrote for your function.
+	  <br>
+	  Since the <code>check-expect</code> function requires the name of your function, this is our first opportunity to come up with a good name for the function we are designing.
+	  A good practice for function naming is to follow the verb-noun form.
+	  This convention includes a verb to denote the action your function is taking, and a noun to denote what is being acted upon.
+	  This function, for example, might be called square-number.
+	  Squaring is the action we are taking, and a number is what we are squaring.
+	<p/>
+	<p>
+	  Let's see how <code>check-expect</code> applies to our square-number function.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (square-number 3) 9)
+	  </code>
+	  The first argument is the square-number function that we are testing and our test input 3.
+	  The last argument is what the function is expected to return given the input, in this case 9.
+	  <br>
+	  Now, this test alone does not cover all scenarios our function needs to handle.
+	  We need to create additional test cases for all the conditions we expect our function to encounter.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (square-number 3) 9)
+	    (check-expect (square-number 0) 0)
+	    (check-expect (square-number -4) 16)
+	  </code>
+	  This will ensure that all parts of our function works.
+	  As mentioned earlier, <code>check-expect</code> is the function most commonly used to test examples, but there are others.
+	  It is sufficient for the needs of this chapter, and for most functions that will return images.
+	  If you'd like to learn more about other test functions, be sure to check out the documentation regarding <code>check-within</code>, <code>check-random</code>, and <code>check-satisfied</code>.
+	</p>
 
-<p>
-  For the next challenge, we will write a function that takes an image and creates a "pinwheel" of four copies of that image rotated around a corner of the original image.
-</p>
-<p>
-  As usual, the first step in the recipe is to summarize the purpose of our function.
-  Based on the description of the challenge, our function will take one image, and return another image based on the original image.
-  Let's see if we can capture that idea in a single sentence.
-  <code class="block">
-    ; Purpose : Given a shape or image, return a 'pinwheel' comprised of that image.
-  </code>
-</p>
-<p>
-  The signature for this function should reflect that the function will take one image and return another image.
-  Keep in mind that even though the image our function returns will consist of four copies of the original image,
-  it will still be a single image.
-  <code class="block">
-    ; Signature : Image &rarr; Image
-  </code>
-</p>
-<p>
-  Now we must perform the critical step of creating examples to test what our function will return.
-  Let's use a rhombus to test our function, since it will be evident if the individual elements of our pinwheel are not aligned properly if the width and height of our test image is different.
-  <code class="block">
-    ; Examples :
-    (check-expect (make-pinwheel (rhombus 50 80 "solid" "turquoise")) <img src="images/turq-pinwheel.png"/>)
-  </code>
-</p>
-<p>
-  The stub will test that our examples work.
-  Remember that our function will only take a single image as an argument.
-  We will have our stub return a string to guarantee that our tests fail.
-  All we want to verify is that they successfully run.
-  <code class="block">
-    ; Stub :
-    (define (make-pinwheel image) "pinwheel")
-  </code>
-</p>
-<p>
-  We are almost ready to code, but first we need to create the template
-  A properly constructed template should provide a basic outline of our function.
-  <br>
-  The image that we want to produce is similar to an image we produced with an earlier function.
-  Remember how we made the template for <code>make-counter-change</code>?
-  <code class="block">
-  ; Template :
-  (define (make-pinwheel image)
-    (above
-      (beside ... ...)
-      (beside ... ...)
-    )
-  )
-  </code>
-  There are some differences between that function and the one we are building here, and our template should reflect that.
-  If we were to use a rhombus as the input in <code>make-counter-change</code>, each shape will be oriented the same way.
-  What we need to do is rotate each rhombus, which can be accomplished using the <code>rotate</code> function.
-  We also need to rotate the whole image.
-  There are a couple ways we could orient the images properly, but lets start with this template:
-  <code class="block">
-    ; Template :
-    (define (make-pinwheel image)
-      (rotate ...
-        (above
-          (beside
-            (rotate ... ...)
-            (rotate ... ...)
-            )
-          (beside
-            (rotate ... ...)
-            (rotate ... ...)
-            )
-        )
-      )
-    )
-  </code>
-</p>
-<p>
-  Now we can fully code our function.
-  The first argument the <code>rotate</code> function requires is the number of degrees you want the image to be rotated.
-  A positive value will rotate the image to the right, and a negative value will rotate the image to the left.
-  We want our rhombus to be rotated 45 degrees, but in each row, one will be rotated to the left, and one will be rotated to the right.
-  The final image will also be rotated 45 degrees.
-  <code class="block">
-    ; Code :
-    (define (make-pinwheel image)
-      (rotate -45
-          (above
-           (beside
-              (rotate 45 image)
-              (rotate -45 image)
-            )
-           (beside
-              (rotate -45 image)
-              (rotate 45 image)
-            )
-           )
-          )
-  )
-  </code>
-  Before you run your code, can you picture how the resulting image will look?
-  It is helpful to visualize what you expect your function will return.
-  <a class="try-it" href="src/pinwheel.rkt" download>Try It</a>
-</p>
-<p>
-  Let's try something we haven't done before: produce an image, then use our function on that image.
-  <br>
-  Here is how we would produce the image we used for our example:
-  <code class="block">
-    (make-pinwheel (rhombus 50 80 "solid" "turquoise"))
-  </code>
-  We can use this as an argument for the same function, like so:
-  <code class="block">
-    (make-pinwheel (make-pinwheel (rhombus 50 80 "solid" "turquoise")))
-  </code>
-</p>
-<p>
-  Is this the image you created?
-  <img src="images/double-turq-pinwheel.png"/>
-</p>
-<p>
-  We can repeat this process as many times as we want to create an interesting pattern:
-  <img src="images/double-double-turq-pinwheel.png"/>
-</p>
-<div class="question">
-  Challenge : Create a function that produces a pinwheel comprised of four different images, as in this example:
-</div>
-<code class="block">
-  (check-expect (make-rainbow-pinwheel (rhombus 50 80 "solid" "hotpink") (rhombus 50 80 "solid" "gold") (rhombus 50 80 "solid" "springgreen") (rhombus 50 80 "solid" "mediumslateblue")) <img src="images/rainbow-pinwheel.png"/>)
-</code>
-<div class="question">
-  Bonus : What happens when you use this image as an argument in the first pinwheel function? Why does it look like this?
-</div>
-<img src="images/double-rainbow-pinwheel.png"/>
+	<!-- SECTION 1.4 -->
 
-<!-- Section 6 -->
+	<h3 id="Stub">Stub</h3>
 
-<h2 id="business-card"> Business Card </h2>
+	<p>
+	  With our test functions written and our desired return datatypes specified, it's time for the stub.
+	  The stub is like an extremely abbreviated version of what will eventually be our complete function.
+	  Consider it a first draft, the chief purpose of which is to get our examples to execute.
+	  <br>
+	  Most of the stub is written like a full function definition.
+	  Begin with the name of the function you are working on as well as any parameters representing the inputs that the function will take.
+	  Remember, these should match the inputs noted in the signature up above.
+	  <br>
+	  If we can get the test functions to run, even if they fail, we are still closer to our goal than if the test functions failed to run at all.
+	  For this reason, we include some bogus value instead of a full function body, preferably of the same data type as the function's expected output.
+	  We want to enter a bogus value to eliminate the chance that our tests will pass.
+	  <br>
+	  Let's see what a stub would look like for our example:
+	  <code class="block">
+	    ; Stub :
+	    (define (square-number num) -1)
+	  </code>
+	  We know the value -1 will never be an actual result, since the result of <code>square-number</code> will never be negative.
+	  <br>
+	  Run the stub.
+	  <div class="question">
+	    What happens? Is the result what we anticipated?
+	  </div>
+	</p>
 
-<p>
-  For the next challenge, we will be creating a function that produces a business card.
-  The card should have an ID picture, a logo, a name, and a job title.
-  This challenge will let us practice using many of the placement functions we learned about in the graphics chapter here.    <!-- add link -->
-  You can substitute your own picture, logo, and text for the ones we are using.
-</p>
-<p>
-  Here are the images we will be using for our ID and logo respectively:
-  <img src="images/pigeon1.png"/>
-  <img src="images/purpleplanet.png"/>
-  Let's define them so we can use them later.
-  <code class="block">
-    (define pigeon <img src="images/pigeon1.png"/>)
-  </code>
-  <code class="block">
-    (define planet-logo <img src="images/purpleplanet.png"/>)
-  </code>
-</p>
-<p>
-  As usual, the first step of the recipe is the purpose.
-  <code class="block">
-    ; Purpose : Given an identifying image, a logo, a name, and a job, return a business card.
-  </code>
-</p>
-<p>
-  We have quite a few datatypes we will be working with, so lets take stock before we go further:
-  <ul>
-    <li>The identifying image and logo will clearly be <code>images</code>.</li>
-    <li>The name and job will be <code>strings</code>.</li>
-    <li>The complete business card will be an <code>image</code>.</li>
-  </ul>
-</p>
-<p>
-  We can list all of these datatypes in our signature.
-  <code class="block">
-    ; Signature : Image Image String String &rarr; Image
-  </code>
-</p>
-<p>
-  Next we create our example.
-  <code class="block">
-    ; Examples :
-    (check-expect (print-business-card pigeon planet-logo " Dr. Feathers" "Galactic President"))
-  </code>
-</p>
-<p>
-  With our example in place, we can create a stub.
-  <code class="block">
-    ; Stub :
-    (define (business-card id logo name job) 0)
-  </code>
-</p>
-<p>
-  Before we start writing the code for our function, we need to create a template.
-  The design of our business card will have the ID picture on the left side, and the logo toward the upper right.
-  The name and job title will be centered on the card, slightly toward the right.
-  There are a few ways we could align and place the images together, so let's start with something central and work our way out.
-  We can start with the text, which will be in two lines.
-  <code class="block">
-    ; Template :
-    (define (business-card id logo name job)
-      (above
-        (text ... ... ...)
-        (text ... ... ...)
-      )
-    )
-  </code>
-  We know also that the text will need to be placed alongside the ID picture, so we can do that next.
-  <code class="block">
-    ; Template :
-    (define (business-card id logo name job)
-      (beside ...
-        (above
-          (text ... ... ...)
-          (text ... ... ...)
-        )
-      )
-    )
-  </code>
-  The only thing left to add is the logo.
-  Since it requires fairly precise placement, we can use a function like <code>overlay/align/offset</code>, which lets us specify exactly where to put the logo.
-  <code class="block">
-    ; Template :
-    (define (business-card id logo name job)
-      (overlay/align/offset ... ...
-        (beside ...
-          (above
+	<h3 id="Template">Template</h3>
+
+	<p>
+	  The next step in the HtDF recipe is the template.
+	  The template is a basic skeleton of our full function.
+	  We can outline the basic format and components of your function without being concerned about the precise details of how it will work.
+	  The template also functions as a sort of inventory, where we take stock of what datatypes and functions are available to us, and decide which we may want to use to construct our function.
+	  The convention for writing a template is to use ellipses where you have elected to leaves gaps in your code.
+	  There are different ways of thinking about and using a template.
+	  You can start with your parameters and fill in everything else later, or you can begin by specifying what functions you know you will need to use.
+	  Either way, the goal is to create an outline for your function.
+
+	</p>
+	<p>
+	  In the case of our <code>squared</code> function, we know that when squaring a number, you multiply it by itself.
+	  So, we know we will likely need to use <code>*</code>, the multiplication function.
+	  <code>*</code> requires two arguments, but we don't need to be specific yet, so we can just include <code>...</code> where those inputs will go.
+	  <code class="block">
+	    ; Template :
+	    (define (square-number num)
+	    (* ... ...)
+	    )
+	  </code>
+	  At this stage you can also check that your syntax and formatting is correct.
+	  You can run the template and it will tell you if all parentheses are in the right place.
+	  In the next section, we will fill out the gaps in our template.
+	</p>
+
+	<h3 id="Code">Code</h3>
+
+	<p>
+	  At this point, we have worked our way through all the necessary preparations required for our code.
+	  We have succinctly stated the purpose of the function in a clear and understandable way and thought through the input and output datatypes we expect our function to use.
+	  We also outlined exactly what our function should return in a few critical test cases.
+	  Now that we have a basic outline for our function, we can move on to the coding step.
+	</p>
+	<p>
+	  Looking at our template, what arguments should we replace the <code>...</code> spaces with?
+	  <code class="block">
+	    ; Code :
+	    (define (square-number num)
+	    (* num num)
+	    )
+	  </code>
+	</p>
+	<p>
+	  Now we can run our code and see if our function passes the tests we set.
+	  <a class="try-it" href="src/square-number.rkt" download>Try It</a>
+	</p>
+
+
+	<!-- Section 2 -->
+
+	<h2 id="stop-sign"> Stop Sign </h2>
+
+	<p>
+	  Stop signs are ubiquitous, and generally share the same distinctive design regardless of the country they appear in.
+	  A red octogon accompanied by white text is the international standard.
+	  Many countries use the English word "STOP" on their signs, with others electing to use their local language instead.
+	</p>
+	<p>
+	  In this example, we want to write a function that produces a stop sign.
+	  This function will take a text input, and return the image of a stop sign with the text displayed in white letters.
+	  <code class="block">
+	    Create a function that produces the image of a stop sign, with text determined by the user.
+	  </code>
+	  Let's apply the design recipe to this problem.
+	  Recall that for the purpose statement, we want to briefly explain what our function will return, and which inputs it will require.
+	  <code class="block">
+	    ; Purpose : Given a string of text, return the image of a stop sign displaying that text.
+	  </code>
+	  The general idea behind our function is pretty simple.
+	  When given a string of text, the function should return a stop sign with that text on it.
+	  Our requirements for this function are made clear by the purpose statement, so we can write the signature right away.
+	  <code class="block">
+	    ; Signature : String &rarr; Image
+	  </code>
+	  This signature gives us a very basic form of how our function will be used, in addition to stating the input and output type(s) we are expecting to use and produce.
+	</p>
+	<p>
+	  The <code>check-expect</code> function that we use to test our functions requires a specific example of an input value and the return value that would result.
+	  This is not generally problematic when writing functions that contain simple datatypes such as numbers or strings, but can be more difficult when our expected output is an image.
+	  One way to utilize the <code>check-expect</code> function in this context is to create the image our function will produce prior to coding the function itself.
+	  This gives you a finished example that you can then test your function against.
+	  <br>
+	  For detailed information on how to produce images themselves, see our previous chapter. <!-- Link to previous chapter. -->
+	  <br>
+	  As we want to test stop signs in other languages as well, we should create another stop sign with the word "ALTO".
+	  You can find both examples here, if you want to use them in our own testing. <!-- Place TRY IT with code here -->
+	</p>
+	<p>
+	  Now that we have our example images, we can write the tests for our function.
+	  We also want to pick a descriptive name, using the verb-noun naming convention.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (make-stop-sign "STOP") <img src="images/stop-sign.png" width="20%"> )
+	  </code>
+	  The last argument that check-expect takes is the expected result of the function call.
+	  In this case, we can either copy and paste the image itself, or the code used to create the image.
+	  These are ultimately equivalent so the choice is up to you.
+	</p>
+	<p>
+	  Usually, the more test cases we provide, the better.
+	  We've already created a Spanish language stop sign, so let's make a test featuring that image as well.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (make-stop-sign "ALTO") <img src="images/alto-sign.png" width="20%"> )
+	  </code>
+	</p>
+	<p>
+	  Next, we write the stub.
+	  Remember that the stub mimics a full function definition, with a bogus value in place of code.
+	  <code class="block">
+	    ; Stub :
+	    (define (make-stop-sign str) "stop-sign")
+	  </code>
+	  The parameter being used here is <code>str</code>, which indicates that our expected input is a string.
+	</p>
+	<p>
+	  <code class="block">
+	    ; Template :
+	    (define (make-stop-sign str)
+	       (overlay
+                  (text ... ... ...)
+                  (regular-polygon ... ... ... ...)
+               )
+	    )
+	  </code>
+	</p>
+	<p>
+	  <code class="block">
+	    ; Code :
+	    (define (make-stop-sign str)
+	       (overlay
+                  (text str 75 "white")
+                  (regular-polygon 100 8 "solid" "red")
+	       )
+	   )
+	  </code>
+
+	  <a class="try-it" href="src/stop-sign.rkt" download>Try It</a>
+	</p>
+	<div class="question">
+	  Challenge : Now that you know how to create a function that produces a stop sign, can you figure out how to build a similar function that instead produces a yield sign?
+	  <br>
+	  Here is an example you might use when completing the recipe.
+	  Note the expected return datatype, which is the image you want your function to make.
+	</div>
+	<code class="block">
+	  ; Examples :
+	  (check-expect (make-yield-sign "YIELD") <img src="images/yield-sign.png" width="30%"> )
+	</code>
+
+	<!-- Section 3 -->
+
+	<h2 id="counterchange"> Counter-Change </h2>
+
+	<p>
+	  For our next challenge, we will use the recipe to write a counter-change function.
+	  A counter-change is when you have two images create a 2-by-2 checkerboard pattern with each image at opposite corners.
+	</p>
+
+	<p>
+	  As usual, the first step of the recipe is the purpose statement.
+	  Remember that the purpose should succinctly describe what the function is going to take as inputs, and what it will return.
+	  In this case, our function will take two images as inputs, and will return a single image of the original two images counter-changed.
+	  The following purpose statement captures the general idea effectively.
+	  <code class="block">
+	    ; Purpose : Given two images, return a checkerboard image comprised of those the two image arguments.
+	  </code>
+	</p>
+	<p>
+	  Next we create the signature.
+	  The signature should capture the purpose in terms of the data types that our function will take as inputs, and the datatype that it will return.
+	  In this case, our function will be taking two images, and then returning a single image based on the two input images.
+	  <code class="block">
+	    ; Signature : Image Image &rarr; Image
+	  </code>
+	</p>
+	<p>
+	  We need to create an example that will test our function.
+	  Recall that this step allows us to outline the exact specifications of our function, and to define what we want our function to return.
+	  The process of creating examples should also serves to provide us with a general outline for how our function will work.
+	  This will help us when it comes time to write code.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (make-counter-change (square 100 100 "red") (square 100 100 "cyan")) <img src="images/counter-change.png" width="50%"/>)
+	  </code>
+	</p>
+	<p>
+	  With our tests and examples in place, it is time to write the stub.
+	  Recall that the purpose of the stub is simply to get our tests to run, and not to pass.
+	  This will assure us that our function header is written correctly.
+	  <code class="block">
+	    ; Stub :
+	    (define (make-counter-change image-1 image-2) "checkerboard")
+	  </code>
+	</p>
+	<p>
+	  The next step in the recipe is to construct a template.
+	  The template should be a skeleton of what our eventual function will look like.
+	  We need to consider what functions we may need to use to get our intended output.
+	  Most likely, we will need to stack two rows of images to create the full image.
+	  For this we can use the <code>above</code> function.
+	  It requires two arguments, which we can fill in later.
+	  <code class="block">
+	    ; Template :
+	    (define (make-counter-change image-1 image-2)
+	       (above
+	          ...
+	          ...
+	       )
+	    )
+	  </code>
+	  We could move on to the coding step of the recipe at this point, but let's see if we can make our template slighty more detailed.
+	  <br>
+	  The above function will stack two rows, but how might we make the rows themselves?
+	  Each row needs to be two images next to each other.
+	  The <code>beside</code> takes two images and places the second beside the first.
+	  Given what our template looks like right now, we can replace the empty arguments with this function.
+	  <br>
+	  Do you see how this template will stack two rows of images once it is filled out?
+	  <code class="block">
+	    ; Template :
+	    (define (make-counter-change image-1 image-2)
+	       (above
+	          (beside ... ...)
+	          (beside ... ...)
+	       )
+	    )
+	  </code>
+	</p>
+	<p>
+	  Now it is time to code our function.
+	  The benefit of using the recipe is that we should have already gone through the process of creating a template, and the only thing left to do is fill it in with the appropriate parameters.
+	</p>
+	<p>
+	  Check out our code below for the <code>make-counter-change</code> function.
+	  Did you write it the same way?
+	  <code class="block">
+	    ; Code :
+	    (define (make-counter-change image-1 image-2)
+	       (above
+                  (beside image-2 image-1)
+                  (beside image-1 image-2)
+               )
+	    )
+	  </code>
+	  <a class="try-it" href="src/counter-change.rkt" download>Try It</a>
+	</p>
+	<div class="question">
+	  You can, of course, use this function with any images.
+	  <br>
+	  Try it with the folowing two images:
+	  <img src="images/peach1.png"/>
+	  <img src="images/cherry1.png"/>
+	</div>
+	<div class="question">
+	  Challenge : Using these two images, can you alter the function you just made so when it returns the final image, all images are oriented like they are in this <code>check-expect</code>?
+	  <br>
+	  Hint: use <code>flip-horizontal</code>.
+	</div>
+	<code class="block">
+	  (check-expect (flip-counter-change <img src="images/peach1.png" width="30%"/> <img src="images/cherry1.png" width="30%"/>) <img src="images/counter-cherry-peach.png" width="50%"/>)
+	</code>
+
+	<!-- Section 4 -->
+
+	<h2 id="bulls-eye"> Bulls-Eye </h2>
+
+	<p>
+	  For our next example, we will create a function that takes two colors as string inputs, and returns a dart-board of concentric circles, with each circle alternating in color.
+	  The dart-board should have a radius of 100 pixels, and each concentric circle should have a radius that is 10 pixels less than the previous circle.
+	</p>
+	<p>
+	  As usual, we begin with our purpose.
+	  This will help us make sure that we know how our function should behave.
+	  <code class="block">
+	    ; Purpose : Given two colors, return an image of a bulls-eye comprised of those colors.
+	  </code>
+	</p>
+	<p>
+	  Our purpose statement should have hopefully made it clear that our function will need two colors as inputs.
+	  Available preset colors are given as <code>strings</code>.
+	  For clarity, we can note that the <code>string</code> inputs represent colors.
+	  Our function will return an image.
+	  <code class="block">
+	    ; Signature : String String &rarr; Image, where all strings are colors
+	  </code>
+	</p>
+	<p>
+	  Next we create an example to test our function, following the same format as in previous challenges.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (make-bulls-eye "hotpink" "deepskyblue") <img src="images/bulls-eye.png" width="30%"/>)
+	  </code>
+	</p>
+	<p>
+	  With our example written, we are ready to create the stub and check if the examples are able to run.
+	  It is in the stub that we will name the the parameters our function will take.
+	</p>
+	<p>
+	  Try running with the stub below.
+	  The examples should execute successfully, even though our function will fail.
+	  <code class="block">
+	    ; Stub :
+	    (define (make-bulls-eye color-1 color-2) "bulls-eye")
+	  </code>
+	</p>
+	<p>
+	  With the example successfully executing when we run the code, we are ready to create a template of our function.
+	</p>
+	<p>
+	  For our template, we need to consider what functions will be necessary to build the image of a bulls-eye.
+	  We need to create many circles, and layer them on top of each other.
+	  <br>
+	  The <code>circle</code> function will definitely be used.
+	  Placing the circles on top of one another could be accomplished using a couple different functions, but in our example we are going to use <code>overlay</code>.
+	  Remember that <code>overlay</code> requires at least two images as arguments, and the <code>circle</code> function requires three.
+	  <br>
+	  Knowing this, we can create the following template:
+	  <code class="block">
+	    ; Template :
+	    (define (make-bulls-eye color-1 color-2)
+	       (overlay
+               (circle ... ... ...)
+               (circle ... ... ...)
+               )
+	    )
+	  </code>
+	  We don't need to worry about what the circles will look like yet, or how many we will use.
+	  We can take care of that when we code our function, which is next.
+	</p>
+	<p>
+	  Looking at our example, how many circles will be required to make the expected image?
+	  <br>
+	  Let's add spaces for those, before we fill out the details of each one.
+	  <code class="block">
+	    ; Code :
+	    (define (make-bulls-eye color-1 color-2)
+	       (overlay
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+                  (circle ... ... ...)
+               )
+	    )
+	  </code>
+	  Now we need to specify the arguments for each circle.
+	  Looking at our example again, all the circles are solid, so we can specify that first.
+	  <code class="block">
+	    ; Code :
+	    (define (make-bulls-eye color-1 color-2)
+	       (overlay
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+                  (circle ... "solid" ...)
+               )
+	    )
+	  </code>
+	  Recall that the outermost circle will have a radius of 100 pixels, and the other circles will be decreasing by 10 pixels in each iteration.
+	  Can we add the color at the same time, since we know each circle will alternate in color?
+	  <code class="block">
+	    ; Code :
+	    (define (make-bulls-eye color-1 color-2)
+	       (overlay
+                  (circle 10 "solid" color-1)
+                  (circle 20 "solid" color-2)
+                  (circle 30 "solid" color-1)
+                  (circle 40 "solid" color-2)
+                  (circle 50 "solid" color-1)
+                  (circle 60 "solid" color-2)
+                  (circle 70 "solid" color-1)
+                  (circle 80 "solid" color-2)
+                  (circle 90 "solid" color-1)
+                  (circle 100 "solid" color-2)
+               )
+	    )
+	  </code>
+	  <a class="try-it" href="src/bulls-eye.rkt" download>Try It</a>
+	</p>
+	<div class="question">
+	  What image would you expect to see if you replaced the function <code>overlay</code> with <code>beside</code>?
+	  How about <code>above</code>?
+	</div>
+	<div class="question">
+	  Challenge : Make a function that produces a bulls-eye that, instead of alternating colors, appears as a gradient.
+	  Use this example:
+	</div>
+	<code class="block">
+	  (check-expect (make-bulls-eye-gradient "darkviolet") <img src="images/bulls-eye-tr.png" width="50%"/>)
+	</code>
+
+	<!-- Section 5 -->
+
+	<h2 id="pinwheel">Pinwheel</h2>
+
+	<p>
+	  For the next challenge, we will write a function that takes an image and creates a "pinwheel" of four copies of that image rotated around a corner of the original image.
+	</p>
+	<p>
+	  As usual, the first step in the recipe is to summarize the purpose of our function.
+	  Based on the description of the challenge, our function will take one image, and return another image based on the original image.
+	  Let's see if we can capture that idea in a single sentence.
+	  <code class="block">
+	    ; Purpose : Given a shape or image, return a 'pinwheel' comprised of that image.
+	  </code>
+	</p>
+	<p>
+	  The signature for this function should reflect that the function will take one image and return another image.
+	  Keep in mind that even though the image our function returns will consist of four copies of the original image,
+	  it will still be a single image.
+	  <code class="block">
+	    ; Signature : Image &rarr; Image
+	  </code>
+	</p>
+	<p>
+	  Now we must perform the critical step of creating examples to test what our function will return.
+	  Let's use a rhombus to test our function, since it will be evident if the individual elements of our pinwheel are not aligned properly if the width and height of our test image is different.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (make-pinwheel (rhombus 50 80 "solid" "turquoise")) <img src="images/turq-pinwheel.png"/>)
+	  </code>
+	</p>
+	<p>
+	  The stub will test that our examples work.
+	  Remember that our function will only take a single image as an argument.
+	  We will have our stub return a string to guarantee that our tests fail.
+	  All we want to verify is that they successfully run.
+	  <code class="block">
+	    ; Stub :
+	    (define (make-pinwheel image) "pinwheel")
+	  </code>
+	</p>
+	<p>
+	  We are almost ready to code, but first we need to create the template
+	  A properly constructed template should provide a basic outline of our function.
+	  <br>
+	  The image that we want to produce is similar to an image we produced with an earlier function.
+	  Remember how we made the template for <code>make-counter-change</code>?
+	  <code class="block">
+	    ; Template :
+	    (define (make-pinwheel image)
+	       (above
+	          (beside ... ...)
+	          (beside ... ...)
+	       )
+	    )
+	  </code>
+	  There are some differences between that function and the one we are building here, and our template should reflect that.
+	  If we were to use a rhombus as the input in <code>make-counter-change</code>, each shape will be oriented the same way.
+	  What we need to do is rotate each rhombus, which can be accomplished using the <code>rotate</code> function.
+	  We also need to rotate the whole image.
+	  There are a couple ways we could orient the images properly, but lets start with this template:
+	  <code class="block">
+	    ; Template :
+	    (define (make-pinwheel image)
+	       (rotate ...
+                  (above
+                     (beside
+                        (rotate ... ...)
+                        (rotate ... ...)
+                     )
+                     (beside
+                        (rotate ... ...)
+                        (rotate ... ...)
+                     )
+                  )
+	       )
+	    )
+	  </code>
+	</p>
+	<p>
+	  Now we can fully code our function.
+	  The first argument the <code>rotate</code> function requires is the number of degrees you want the image to be rotated.
+	  A positive value will rotate the image to the right, and a negative value will rotate the image to the left.
+	  We want our rhombus to be rotated 45 degrees, but in each row, one will be rotated to the left, and one will be rotated to the right.
+	  The final image will also be rotated 45 degrees.
+	  <code class="block">
+	    ; Code :
+	    (define (make-pinwheel image)
+	       (rotate -45
+                  (above
+                     (beside
+                        (rotate 45 image)
+                        (rotate -45 image)
+                     )
+                     (beside
+                        (rotate -45 image)
+                        (rotate 45 image)
+                     )
+                  )
+               )
+	    )
+	  </code>
+	  Before you run your code, can you picture how the resulting image will look?
+	  It is helpful to visualize what you expect your function will return.
+	  <a class="try-it" href="src/pinwheel.rkt" download>Try It</a>
+	</p>
+	<p>
+	  Let's try something we haven't done before: produce an image, then use our function on that image.
+	  <br>
+	  Here is how we would produce the image we used for our example:
+	  <code class="block">
+	    (make-pinwheel (rhombus 50 80 "solid" "turquoise"))
+	  </code>
+	  We can use this as an argument for the same function, like so:
+	  <code class="block">
+	    (make-pinwheel (make-pinwheel (rhombus 50 80 "solid" "turquoise")))
+	  </code>
+	</p>
+	<p>
+	  Is this the image you created?
+	  <img src="images/double-turq-pinwheel.png"/>
+	</p>
+	<p>
+	  We can repeat this process as many times as we want to create an interesting pattern:
+	  <img src="images/double-double-turq-pinwheel.png"/>
+	</p>
+	<div class="question">
+	  Challenge : Create a function that produces a pinwheel comprised of four different images, as in this example:
+	</div>
+	<code class="block">
+	  (check-expect (make-rainbow-pinwheel (rhombus 50 80 "solid" "hotpink") (rhombus 50 80 "solid" "gold") (rhombus 50 80 "solid" "springgreen") (rhombus 50 80 "solid" "mediumslateblue")) <img src="images/rainbow-pinwheel.png"/>)
+	</code>
+	<div class="question">
+	  Bonus : What happens when you use this image as an argument in the first pinwheel function? Why does it look like this?
+	</div>
+	<img src="images/double-rainbow-pinwheel.png"/>
+
+	<!-- Section 6 -->
+
+	<h2 id="business-card"> Business Card </h2>
+
+	<p>
+	  For the next challenge, we will be creating a function that produces a business card.
+	  The card should have an ID picture, a logo, a name, and a job title.
+	  This challenge will let us practice using many of the placement functions we learned about in the graphics chapter here.    <!-- add link -->
+	  You can substitute your own picture, logo, and text for the ones we are using.
+	</p>
+	<p>
+	  Here are the images we will be using for our ID and logo respectively:
+	  <img src="images/pigeon1.png"/>
+	  <img src="images/purpleplanet.png"/>
+	  Let's define them so we can use them later.
+	  <code class="block">
+	    (define pigeon <img src="images/pigeon1.png"/>)
+	  </code>
+	  <code class="block">
+	    (define planet-logo <img src="images/purpleplanet.png"/>)
+	  </code>
+	</p>
+	<p>
+	  As usual, the first step of the recipe is the purpose.
+	  <code class="block">
+	    ; Purpose : Given an identifying image, a logo, a name, and a job, return a business card.
+	  </code>
+	</p>
+	<p>
+	  We have quite a few datatypes we will be working with, so lets take stock before we go further:
+	  <ul>
+	    <li>The identifying image and logo will clearly be <code>images</code>.</li>
+	    <li>The name and job will be <code>strings</code>.</li>
+	    <li>The complete business card will be an <code>image</code>.</li>
+	  </ul>
+	</p>
+	<p>
+	  We can list all of these datatypes in our signature.
+	  <code class="block">
+	    ; Signature : Image Image String String &rarr; Image
+	  </code>
+	</p>
+	<p>
+	  Next we create our example.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (print-business-card pigeon planet-logo " Dr. Feathers" "Galactic President"))
+	  </code>
+	</p>
+	<p>
+	  With our example in place, we can create a stub.
+	  <code class="block">
+	    ; Stub :
+	    (define (business-card id logo name job) 0)
+	  </code>
+	</p>
+	<p>
+	  Before we start writing the code for our function, we need to create a template.
+	  The design of our business card will have the ID picture on the left side, and the logo toward the upper right.
+	  The name and job title will be centered on the card, slightly toward the right.
+	  There are a few ways we could align and place the images together, so let's start with something central and work our way out.
+	  We can start with the text, which will be in two lines.
+	  <code class="block">
+	    ; Template :
+	    (define (business-card id logo name job)
+	    (above
+            (text ... ... ...)
+            (text ... ... ...)
+	    )
+	    )
+	  </code>
+	  We know also that the text will need to be placed alongside the ID picture, so we can do that next.
+	  <code class="block">
+	    ; Template :
+	    (define (business-card id logo name job)
+	    (beside ...
+            (above
             (text ... ... ...)
             (text ... ... ...)
             )
-          )
-          ... ...
-        )
-      )
-  </code>
-</p>
-<p>
-  Now we can finally code the function we need.
-  Most of the arguments we have used in our function can be changed and experimented with to get a different look.
-  <code class="block">
-    ; Code :
-    (define (business-card id logo name job)
-      (overlay/align/offset "right" "top"
-        logo
-        5 -10
-        (overlay/offset
-          (beside
+	    )
+	    )
+	  </code>
+	  The only thing left to add is the logo.
+	  Since it requires fairly precise placement, we can use a function like <code>overlay/align/offset</code>, which lets us specify exactly where to put the logo.
+	  <code class="block">
+	    ; Template :
+	    (define (business-card id logo name job)
+	    (overlay/align/offset ... ...
+            (beside ...
+            (above
+            (text ... ... ...)
+            (text ... ... ...)
+            )
+            )
+            ... ...
+            )
+	    )
+	  </code>
+	</p>
+	<p>
+	  Now we can finally code the function we need.
+	  Most of the arguments we have used in our function can be changed and experimented with to get a different look.
+	  <code class="block">
+	    ; Code :
+	    (define (business-card id logo name job)
+	    (overlay/align/offset "right" "top"
+            logo
+            5 -10
+            (overlay/offset
+            (beside
             id
             (above
-              (text name 36 "black")
-              (text/font job 24 "dimgray" #f "roman" "italic" "normal" #f)
-              )
+            (text name 36 "black")
+            (text/font job 24 "dimgray" #f "roman" "italic" "normal" #f)
             )
-          40 0
+            )
+            40 0
             (rectangle 500 250 "solid" "whitesmoke")
-          )
-        )
-      )
-  </code>
-  Try changing colors or numbers and see how that effects the look of your final image.
-</p>
-<p>
-  Let's add one last thing to this function.
-  The image we have used would probably look more like an ID picture if it were a rectangle.
-  <br>
-  Recall that the function <code>place-image</code> constrains the image that it returns by the dimensions of the background image that is given.
-  <br>
-  Can you guess how this might help us?
-  <code class="block">
-    ; Code :
-    (define (business-card id logo name job)
-      (overlay/align/offset "right" "top"
-        logo
-        5 -10
-        (overlay/offset
-          (beside
+            )
+            )
+	    )
+	  </code>
+	  Try changing colors or numbers and see how that effects the look of your final image.
+	</p>
+	<p>
+	  Let's add one last thing to this function.
+	  The image we have used would probably look more like an ID picture if it were a rectangle.
+	  <br>
+	  Recall that the function <code>place-image</code> constrains the image that it returns by the dimensions of the background image that is given.
+	  <br>
+	  Can you guess how this might help us?
+	  <code class="block">
+	    ; Code :
+	    (define (business-card id logo name job)
+	    (overlay/align/offset "right" "top"
+            logo
+            5 -10
+            (overlay/offset
+            (beside
             (place-image
-              id
-              115 100
-              (rectangle 175 225 "solid" "white")
+            id
+            115 100
+            (rectangle 175 225 "solid" "white")
             )
             (above
-              (text name 36 "black")
-              (text/font job 24 "dimgray" #f "roman" "italic" "normal" #f)
-              )
+            (text name 36 "black")
+            (text/font job 24 "dimgray" #f "roman" "italic" "normal" #f)
             )
-          40 0
+            )
+            40 0
             (rectangle 500 250 "solid" "whitesmoke")
-          )
-        )
-      )
-  </code>
-  <img src="images/business-card.png"/>
-  <a class="try-it" href="src/business-card.rkt" download>Try It</a>
-</p>
+            )
+            )
+	    )
+	  </code>
+	  <img src="images/business-card.png"/>
+	  <a class="try-it" href="src/business-card.rkt" download>Try It</a>
+	</p>
 
-<!-- Section 7 -->
+	<!-- Section 7 -->
 
-<h2 id="clock-face"> Clock Face </h2>
+	<h2 id="clock-face"> Clock Face </h2>
 
-<p>
-  As our last challenge in this chapter, we will attempt to create a clock face.
-  In our particular implementation, the numbers 1-12 on the clock-face should be oriented relative to the center of the dial, with 12 at the top. This challenge will require us to do more than simply place images a certain way.
-  Though we could write one long function that handles every facet of this challenge, we will instead do our best to divide this challenge into several smaller challenges that we will then handle separately.
-  This approach to programming is called "divide and conquer", and you will recall that it was one of our motivations for using the HtDF recipe to begin with.
-  Large problems are often dealt with much more effectively if they are broken down into several smaller problems.
-</p>
-<p>
-  To begin, let's create the blank clock-face and define it as a constant.
-  <code class="block">
-    (define clock-face
-      (circle 130 "outline" "black")
-    )
-  </code>
-</p>
-<p>
-  Now we have defined the constant <code>clock-face</code>, which returns the image of an outlined circle with a radius of 130 pixels.
-  This is the blank clock face on which we will place our numbers.
-</p>
-<p>
-  Remember, the <code>Number</code> datatype is distinct from the <code>Image</code> datatype.
-  If we would like to have numbers on our clock face, we need to have images of the numbers.
-  We need a function that accepts a number and returns an image of that number.
-</p>
-<p>
-  As with any function, we begin by concisely stating our purpose:
-  <code class="block">
-    ; Purpose : Given a number, return an image of that number.
-  </code>
-</p>
-<p>
-  The signature is specified next.
-  We know our function will accept a number, and we want it to return an image of that number.
-  <code class="block">
-    ; Signature : Number &rarr; Image
-  </code>
-</p>
-<p>
-  Now we will create some examples of how we expect our function to work.
-  We want our function to return an image for any number entered.
-  <code class="block">
-    ; Examples :
-    (check-expect (print-digit-image "12") <img src="images/print-digit-image.png"/>)
-  </code>
-</p>
-<p>
-  With our examples defined, we know what success looks like for our function.
-  The next step in the recipe is to see if we can get the examples to execute.
-  <code class="block">
-    ; Stub :
-    (define (print-digit-image num) 0)
-  </code>
-</p>
-<p>
-  We are almost ready to begin coding our function, but first we need to write our function template.
-  Our final image will consist of text, so we can begin by using the <code>text/font</code> function.
-  Remember that this function is like the <code>text</code> function with additional parameters.
-  <code class="block">
-    ; Template :
-    (define (print-digit-image num)
-      (text/font ... ... ... ... ... ... ... ...)
-    )
-  </code>
-</p>
-<p>
-  Now we can start coding.
-  Our <code>num</code> argument will determine what the <code>text/font</code> function prints.
-  However, <code>text/font</code> can only accept a string, and our argument is a number.
-  We need to convert the number to a string before it can be used by <code>text/font</code>.
-  <code class="block">
-    ; Code :
-      (define (print-digit-image num)
-        (text/font (number->string num) ... ... ... ... ... ... ...)
-      )
-  </code>
-  All we need to do now is fill in the rest of the gaps in our code.
-  <code class="block">
-    ; Code :
-    (define (print-digit-image num)
-      (text/font (number->string num) 30 "black" #f "swiss" "normal" "bold" #f)
-    )
-  </code>
-  <a class="try-it" href="src/print-digit-image.rkt" download>Try It</a>
-</p>
-<p>
-  We now have a function that accepts number, and returns an image of that number.
-  This is a big step, but we're not there yet.
-  We now need to somehow arrange the numbers 1 through 12 around the clock face.
-</p>
-<p>
-  There are many possible ways we could go about this.
-  The method we will use places a number, starting with 12, at the top of the clock face, and then rotates the clock face some amount before placing the next number in the same way.
-  Repeating this process for all 12 numbers should produce a fully-numbered clock face.
-</p>
-<p>
-  As always, we want to break down each larger task into smaller steps whenever possible.
-  Let's start with the simpler task of placing an image on the top of the clock face, and then rotating it the appropriate amount.
-</p>
-<p>
-  At this point, we can write the purpose of our next function.
-  <code class="block">
-    ; Purpose : Given a number and an image of a clock face, return an image of the number overlayed on the clock face, both rotated some degrees.
-  </code>
-</p>
-<p>
-  The following signature should reflect the datatypes that our function will accept and return, based on the purpose statement.
-  <code class="block">
-    ; Signature : Number Image &rarr; Image
-  </code>
-</p>
-<p>
-  Now let's come up with some examples.
-  Something to keep in mind is that our function returns an image of a clock face with a number on it.
-  This new image could now be used as the face input for the function when we want to place the number 2.
-  Can you see how this might be used to fill up our clock face with all the numbers?
-  <code class="block">
-    ; Examples :
-    (check-expect (place-and-rotate 12 clock-face) <img src="images/place-and-rotate.png"/>)
-  </code>
-</p>
-<p>
-  Let's see if we can get our test to run.
-  Make sure the arguments match the signature.
-  <code class="block">
-    ; Stub :
-    (define (place-and-rotate face) 0)
-  </code>
-</p>
-<p>
-  For the template, we will gather the tools that we have at our disposal.
-  To start, we know that we will want to overlay the number we input on the face.
-  However, the <code>overlay</code> function simply centers one image "on top of" another.
-  We would like to place the number on the clock face, but at the top of the face in the vertical direction and in the center in the horizontal direction.
-  Fortunately, the <code>overlay/align/offset</code> allows us to specify where we want to place the foreground image relative to the background image.
-  Looking at our purpose statement, we will probably also want to use <code>rotate</code> to rotate the resultant image.
-  <code class="block">
-    ; Template :
-    (define (place-and-rotate num face)
-      (rotate ...
-        (overlay/align/offset ... ... ... ... ... ...)
-      )
-    )
-  </code>
-</p>
-<p>
-  At this point, we're ready to code our function.
-  The first thing to figure out is how much we would like to rotate the clock face, once the number is placed.
-  The <code>rotate</code> function accepts a number of degrees by which to rotate the given image.
-  A circle has 360 degrees.
-  We would like to place 12 numbers at approximately equal intervals, so the clock face should rotate +30 degrees between the placement of each number.
-  <code class="block">
-    ; Code :
-    (define (place-and-rotate num face)
-      (rotate 30
-        (overlay/align/offset ... ... ... ... ... ...)
-      )
-    )
-  </code>
-  Next we can add the required arguments for <code>overlay/align/offset</code>.
-  One of the arguments we need is the image of a number, to place upon the clock face.
-  We can utilize our previous function in order to create that image.
- </p>
-  <code class="block">
-    ; Code :
-    (define (place-and-rotate num face)
-      (rotate 30
-        (overlay/align/offset
+	<p>
+	  As our last challenge in this chapter, we will attempt to create a clock face.
+	  In our particular implementation, the numbers 1-12 on the clock-face should be oriented relative to the center of the dial, with 12 at the top. This challenge will require us to do more than simply place images a certain way.
+	  Though we could write one long function that handles every facet of this challenge, we will instead do our best to divide this challenge into several smaller challenges that we will then handle separately.
+	  This approach to programming is called "divide and conquer", and you will recall that it was one of our motivations for using the HtDF recipe to begin with.
+	  Large problems are often dealt with much more effectively if they are broken down into several smaller problems.
+	</p>
+	<p>
+	  To begin, let's create the blank clock-face and define it as a constant.
+	  <code class="block">
+	    (define clock-face
+	    (circle 130 "outline" "black")
+	    )
+	  </code>
+	</p>
+	<p>
+	  Now we have defined the constant <code>clock-face</code>, which returns the image of an outlined circle with a radius of 130 pixels.
+	  This is the blank clock face on which we will place our numbers.
+	</p>
+	<p>
+	  Remember, the <code>Number</code> datatype is distinct from the <code>Image</code> datatype.
+	  If we would like to have numbers on our clock face, we need to have images of the numbers.
+	  We need a function that accepts a number and returns an image of that number.
+	</p>
+	<p>
+	  As with any function, we begin by concisely stating our purpose:
+	  <code class="block">
+	    ; Purpose : Given a number, return an image of that number.
+	  </code>
+	</p>
+	<p>
+	  The signature is specified next.
+	  We know our function will accept a number, and we want it to return an image of that number.
+	  <code class="block">
+	    ; Signature : Number &rarr; Image
+	  </code>
+	</p>
+	<p>
+	  Now we will create some examples of how we expect our function to work.
+	  We want our function to return an image for any number entered.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (print-digit-image "12") <img src="images/print-digit-image.png"/>)
+	  </code>
+	</p>
+	<p>
+	  With our examples defined, we know what success looks like for our function.
+	  The next step in the recipe is to see if we can get the examples to execute.
+	  <code class="block">
+	    ; Stub :
+	    (define (print-digit-image num) 0)
+	  </code>
+	</p>
+	<p>
+	  We are almost ready to begin coding our function, but first we need to write our function template.
+	  Our final image will consist of text, so we can begin by using the <code>text/font</code> function.
+	  Remember that this function is like the <code>text</code> function with additional parameters.
+	  <code class="block">
+	    ; Template :
+	    (define (print-digit-image num)
+	    (text/font ... ... ... ... ... ... ... ...)
+	    )
+	  </code>
+	</p>
+	<p>
+	  Now we can start coding.
+	  Our <code>num</code> argument will determine what the <code>text/font</code> function prints.
+	  However, <code>text/font</code> can only accept a string, and our argument is a number.
+	  We need to convert the number to a string before it can be used by <code>text/font</code>.
+	  <code class="block">
+	    ; Code :
+	    (define (print-digit-image num)
+            (text/font (number->string num) ... ... ... ... ... ... ...)
+	    )
+	  </code>
+	  All we need to do now is fill in the rest of the gaps in our code.
+	  <code class="block">
+	    ; Code :
+	    (define (print-digit-image num)
+	    (text/font (number->string num) 30 "black" #f "swiss" "normal" "bold" #f)
+	    )
+	  </code>
+	  <a class="try-it" href="src/print-digit-image.rkt" download>Try It</a>
+	</p>
+	<p>
+	  We now have a function that accepts number, and returns an image of that number.
+	  This is a big step, but we're not there yet.
+	  We now need to somehow arrange the numbers 1 through 12 around the clock face.
+	</p>
+	<p>
+	  There are many possible ways we could go about this.
+	  The method we will use places a number, starting with 12, at the top of the clock face, and then rotates the clock face some amount before placing the next number in the same way.
+	  Repeating this process for all 12 numbers should produce a fully-numbered clock face.
+	</p>
+	<p>
+	  As always, we want to break down each larger task into smaller steps whenever possible.
+	  Let's start with the simpler task of placing an image on the top of the clock face, and then rotating it the appropriate amount.
+	</p>
+	<p>
+	  At this point, we can write the purpose of our next function.
+	  <code class="block">
+	    ; Purpose : Given a number and an image of a clock face, return an image of the number overlayed on the clock face, both rotated some degrees.
+	  </code>
+	</p>
+	<p>
+	  The following signature should reflect the datatypes that our function will accept and return, based on the purpose statement.
+	  <code class="block">
+	    ; Signature : Number Image &rarr; Image
+	  </code>
+	</p>
+	<p>
+	  Now let's come up with some examples.
+	  Something to keep in mind is that our function returns an image of a clock face with a number on it.
+	  This new image could now be used as the face input for the function when we want to place the number 2.
+	  Can you see how this might be used to fill up our clock face with all the numbers?
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (place-and-rotate 12 clock-face) <img src="images/place-and-rotate.png"/>)
+	  </code>
+	</p>
+	<p>
+	  Let's see if we can get our test to run.
+	  Make sure the arguments match the signature.
+	  <code class="block">
+	    ; Stub :
+	    (define (place-and-rotate face) 0)
+	  </code>
+	</p>
+	<p>
+	  For the template, we will gather the tools that we have at our disposal.
+	  To start, we know that we will want to overlay the number we input on the face.
+	  However, the <code>overlay</code> function simply centers one image "on top of" another.
+	  We would like to place the number on the clock face, but at the top of the face in the vertical direction and in the center in the horizontal direction.
+	  Fortunately, the <code>overlay/align/offset</code> allows us to specify where we want to place the foreground image relative to the background image.
+	  Looking at our purpose statement, we will probably also want to use <code>rotate</code> to rotate the resultant image.
+	  <code class="block">
+	    ; Template :
+	    (define (place-and-rotate num face)
+	    (rotate ...
+            (overlay/align/offset ... ... ... ... ... ...)
+	    )
+	    )
+	  </code>
+	</p>
+	<p>
+	  At this point, we're ready to code our function.
+	  The first thing to figure out is how much we would like to rotate the clock face, once the number is placed.
+	  The <code>rotate</code> function accepts a number of degrees by which to rotate the given image.
+	  A circle has 360 degrees.
+	  We would like to place 12 numbers at approximately equal intervals, so the clock face should rotate +30 degrees between the placement of each number.
+	  <code class="block">
+	    ; Code :
+	    (define (place-and-rotate num face)
+	    (rotate 30
+            (overlay/align/offset ... ... ... ... ... ...)
+	    )
+	    )
+	  </code>
+	  Next we can add the required arguments for <code>overlay/align/offset</code>.
+	  One of the arguments we need is the image of a number, to place upon the clock face.
+	  We can utilize our previous function in order to create that image.
+	</p>
+	<code class="block">
+	  ; Code :
+	  (define (place-and-rotate num face)
+	  (rotate 30
+          (overlay/align/offset
           "middle" "top"
           (print-digit-image num)
           0 -10
           face
-        )
-      )
-    )
-  </code>
-  Note that <code>0</code> and <code>-10</code> denote the direction and amount the first image is offset from the background.
-  We want our image centered, but slightly away from the edge of the background image.
-  <a class="try-it" href="src/place-and-rotate.rkt" download>Try It</a>
-</p>
-<p>
-  At this point, we have a function that takes a number and converts it into an <code>Image</code>.
-  We also have a function that takes a number and a clock face, places the number on the top of the clock face, and returns the clock face rotated +30 degrees to make room for the next number.
-</p>
-<p>
-  Now we just need a function that places each number 1 through 12 and returns an <code>Image</code> of the fully-numbered clock face.
-  We have already seen how, after we place the number 12 on the clock face, we can feed the new clock face directly into our function again to place the number 1.
-  Our new function will place each number in a similar way.
-</p>
-<p>
-  You may recall that there is a certain equivalence between images and functions that return an <code>Image</code>.
-  If a function takes an <code>Image</code> as an argument, we can cut and paste the actual image graphic into the code, or we can input a function that returns an <code>Image</code>.
-  We'll see how this will prove to be very useful.
-</p>
-<p>
-  The purpose of our last function will be to populate a clock face with numbers.
-  <code class="block">
-    ; Purpose : Given the image of a clock face, return an image of the numbers 1-12 placed on the clock face.
-  </code>
-</p>
-<p>
-  The only argument we need is the image of the clock face.
-  You might be tempted to think that we need to include a list of the numbers we want on the clock face.
-  But we already know which numbers we want (1-12).
-  There really is no additional input that we need to include besides the clock face itself.
-</p>
-<p>
-  The signature reflects this.
-  <code class="block">
-    ; Signature : Image &rarr; Image
-  </code>
-</p>
-<p>
-  Now we can implement our examples.
-  <code class="block">
-    ; Examples :
-    (check-expect (place-all-numbers clock-face) <img src="images/place-all-numbers.png"/>)
-  </code>
-
-<p>
-  Let's get our examples to run with the stub.
-  <code class="block">
-    ; Stub :
-    (define (place-all-numbers face) 0)
-  </code>
-</p>
-<p>
-  Now, as we build our template, we know that the primary function we will need to use is the <code>place-and-rotate</code> that we created above.
-  <code class="block">
-    ; Template :
-    (define (place-all-numbers face)
-      (place-and-rotate ... ...)
-    )
-  </code>
-</p>
-<p>
-  Since the <code>place-and-rotate</code> function rotates the face in the counter-clockwise direction, it will be best to start with the number 12, which is located at the very top.
-  By the time we reach the final number, the first number should have rotated to its correct position.
-  <code class="block">
-    ; Code :
-    (define (place-all-numbers face)
-        (place-and-rotate 12 face)
-    )
-  </code>
-</p>
-<p>
-  The key to this function is using the image that <code>place-and-rotate</code> produces as an argument in another iteration of the same function.
-  We can call <code>place-and-rotate</code> again with the number 1 and the original <code>place-and-rotate</code> as an argument.
-  <code class="block">
-    ; Code :
-    (define (place-all-numbers face)
-      (place-and-rotate 1
-        (place-and-rotate 12 face)
-      )
-    )
-  </code>
-</p>
-<p>
-  This function now produces the following image:
-  <img src="images/clock-face-gray-1-2.png"/>
-</p>
-<p>
-  Following this pattern, we can now populate the whole clock-face with the numbers 1-12.
-  <code class="block">
-    ; Code :
-    (define (place-all-numbers face)
-      (place-and-rotate 11
-        (place-and-rotate 10
-          (place-and-rotate 9
-            (place-and-rotate 8
-              (place-and-rotate 7
-                (place-and-rotate 6
-                  (place-and-rotate 5
-                    (place-and-rotate 4
-                      (place-and-rotate 3
-                        (place-and-rotate 2
-                          (place-and-rotate 1
-                            (place-and-rotate 12 face)
-                          )
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
           )
-        )
-      )
-    )
-  </code>
-</p>
-<p>
-  If we run <code>(place-all-numbers clock-face)</code>, we get the following result:
-  <img src="images/place-all-numbers.png"/>
-  At this point, our function produces a complete and correct clock-face populated with the numbers 1-12.
-  Congratulations!
-  <a class="try-it" href="src/place-all-numbers.rkt" download>Try It</a>
-  </p>
+	  )
+	  )
+	</code>
+	<p>
+	Note that <code>0</code> and <code>-10</code> denote the direction and amount the first image is offset from the background.
+	We want our image centered, but slightly away from the edge of the background image.
+	<a class="try-it" href="src/place-and-rotate.rkt" download>Try It</a>
+	</p>
+	<p>
+	  At this point, we have a function that takes a number and converts it into an <code>Image</code>.
+	  We also have a function that takes a number and a clock face, places the number on the top of the clock face, and returns the clock face rotated +30 degrees to make room for the next number.
+	</p>
+	<p>
+	  Now we just need a function that places each number 1 through 12 and returns an <code>Image</code> of the fully-numbered clock face.
+	  We have already seen how, after we place the number 12 on the clock face, we can feed the new clock face directly into our function again to place the number 1.
+	  Our new function will place each number in a similar way.
+	</p>
+	<p>
+	  You may recall that there is a certain equivalence between images and functions that return an <code>Image</code>.
+	  If a function takes an <code>Image</code> as an argument, we can cut and paste the actual image graphic into the code, or we can input a function that returns an <code>Image</code>.
+	  We'll see how this will prove to be very useful.
+	</p>
+	<p>
+	  The purpose of our last function will be to populate a clock face with numbers.
+	  <code class="block">
+	    ; Purpose : Given the image of a clock face, return an image of the numbers 1-12 placed on the clock face.
+	  </code>
+	</p>
+	<p>
+	  The only argument we need is the image of the clock face.
+	  You might be tempted to think that we need to include a list of the numbers we want on the clock face.
+	  But we already know which numbers we want (1-12).
+	  There really is no additional input that we need to include besides the clock face itself.
+	</p>
+	<p>
+	  The signature reflects this.
+	  <code class="block">
+	    ; Signature : Image &rarr; Image
+	  </code>
+	</p>
+	<p>
+	  Now we can implement our examples.
+	  <code class="block">
+	    ; Examples :
+	    (check-expect (place-all-numbers clock-face) <img src="images/place-all-numbers.png"/>)
+	  </code>
 
-<!-- Challenges -->
-<h2>Additional Challenges</h2>
+	<p>
+	  Let's get our examples to run with the stub.
+	  <code class="block">
+	    ; Stub :
+	    (define (place-all-numbers face) 0)
+	  </code>
+	</p>
+	<p>
+	  Now, as we build our template, we know that the primary function we will need to use is the <code>place-and-rotate</code> that we created above.
+	  <code class="block">
+	    ; Template :
+	    (define (place-all-numbers face)
+	    (place-and-rotate ... ...)
+	    )
+	  </code>
+	</p>
+	<p>
+	  Since the <code>place-and-rotate</code> function rotates the face in the counter-clockwise direction, it will be best to start with the number 12, which is located at the very top.
+	  By the time we reach the final number, the first number should have rotated to its correct position.
+	  <code class="block">
+	    ; Code :
+	    (define (place-all-numbers face)
+            (place-and-rotate 12 face)
+	    )
+	  </code>
+	</p>
+	<p>
+	  The key to this function is using the image that <code>place-and-rotate</code> produces as an argument in another iteration of the same function.
+	  We can call <code>place-and-rotate</code> again with the number 1 and the original <code>place-and-rotate</code> as an argument.
+	  <code class="block">
+	    ; Code :
+	    (define (place-all-numbers face)
+	       (place-and-rotate 1
+                  (place-and-rotate 12 face)
+	       )
+	    )
+	  </code>
+	</p>
+	<p>
+	  This function now produces the following image:
+	  <img src="images/clock-face-gray-1-2.png"/>
+	</p>
+	<p>
+	  Following this pattern, we can now populate the whole clock-face with the numbers 1-12.
+	  <code class="block">
+	    ; Code :
+	    (define (place-all-numbers face)
+	       (place-and-rotate 11
+                  (place-and-rotate 10
+                     (place-and-rotate 9
+                        (place-and-rotate 8
+                           (place-and-rotate 7
+                              (place-and-rotate 6
+                                 (place-and-rotate 5
+                                    (place-and-rotate 4
+                                       (place-and-rotate 3
+                                          (place-and-rotate 2
+                                             (place-and-rotate 1
+                                                (place-and-rotate 12 face)
+                                             )
+                                          )
+                                       )
+                                    )
+                                 )
+                              )
+                           )
+                        )
+                     )
+                  )
+	       )
+	    )
+	  </code>
+	</p>
+	<p>
+	  If we run <code>(place-all-numbers clock-face)</code>, we get the following result:
+	  <img src="images/place-all-numbers.png"/>
+	  At this point, our function produces a complete and correct clock-face populated with the numbers 1-12.
+	  Congratulations!
+	  <a class="try-it" href="src/place-all-numbers.rkt" download>Try It</a>
+	</p>
 
-<h3>Adding Hands to the Clock-Face</h3>
-<p>
-  Now that we have a clock-face populated with numbers, try adding hands to the clock-face.
-  Once you successfully add hands, write a function that takes the time as an hour and a minute and returns a clock-face with the hands in the positions corresponding to the specified time.
-</p>
-<h3>Sierpinski Triangle</h3>
-<p>
-  A Sierpinski triangle is a type of fractal image comprised of a repreating pattern of triangles.
-  Here is an example:
-  <img src="images/serpinsky.png" width="60%"/>
-  Can you create a function that produces a Sierpinski triangle?
-  <br>
-  Hint: first create a function that produces this:
-  <img src="images/ser.png"/>
-</p>
-<h3>Color Wheel</h3>
-<p>
-  Create a function that takes three colors and produces an image of overlapping circles, like so:
-  <img src="images/cmy.png"/>
-  <img src="images/rgb.png"/>
-  Hint: make use of the alpha parameter to create transparent circles.
-</p>
+	<!-- Challenges -->
+	<h2>Additional Challenges</h2>
 
-<!-- Footer -->
+	<h3>Digital Clock</h3>
+	<p>
+	  Create a function that returns a digital 24 hour clock image, given a time. For 18.5 it should show 18:30.
+	</p>
 
-<div class="footer">
-  <h4>Copywright Notice</h6>
-  <p>MIT License
-    <br/><br/>
-    Copyright (c) 2018 Mesa-Racketeers
-    <br/><br/>
-    <i>
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    <br/><br/>
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    <br/><br/>
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    </i>
-  </p>
-  <p>
-    <i>
-      All images sourced from
-      <a href="https://www.freepngs.com/">freepngs.com</a>
-    </i>
-  </p>
-</div>
+	<h3>Adding Hands to the Clock-Face</h3>
+	<p>
+	  Now that we have a clock-face populated with numbers, try adding hands to the clock-face.
+	  Once you successfully add hands, write a function that takes the time as an hour and a minute and returns a clock-face with the hands in the positions corresponding to the specified time.
+	  If given the time 2.5, the small hand should point to two, and the little hand should point to 6.
+	</p>
+	
+	<h3>Sierpinski Triangle</h3>
+	<p>
+	  A Sierpinski triangle is a type of fractal image comprised of a repreating pattern of triangles.
+	  Here is an example:
+	  <img src="images/serpinsky.png" width="60%"/>
+	  Can you create a function that produces a Sierpinski triangle?
+	  <br>
+	  Hint: first create a function that produces this:
+	  <img src="images/ser.png"/>
+	</p>
+	<h3>Color Wheel</h3>
+	<p>
+	  Create a function that takes three colors and produces an image of overlapping circles, like so:
+	  <img src="images/cmy.png"/>
+	  <img src="images/rgb.png"/>
+	  Hint: make use of the alpha parameter to create transparent circles.
+	</p>
 
-</body>
+	<!-- Footer -->
+
+	<div class="footer">
+	  <p>
+	    <i>
+	      All images sourced from
+	      <a href="https://www.freepngs.com/">freepngs.com</a>
+	    </i>
+	  </p>
+	</div>
+	
+  </body>
 </html>
